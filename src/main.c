@@ -31,12 +31,12 @@ int	keyboard(int	keycode, t_data *data)
 
 int	mouse(int keycode, int x, int y, t_data *data)
 {
-	printf("keycode: %d (x:%d,y:%d)\n", keycode, x, y);
 	if (keycode == 4)
 		data->sttgs.zoom *= 2.0;
 	if (keycode == 5)
 		data->sttgs.zoom /= 2.0;
 	create(data, mandelbrot);
+	printf("keycode: %d p(x:%d,y:%d) n(x: %Lf, y:%Lf) zoom: %Lf\n", keycode, x, y, data->n.real, data->n.imag, data->sttgs.zoom);
 	return (0);
 }
 
