@@ -34,8 +34,8 @@ typedef struct s_sttgs {
 typedef struct s_n {
 	int		px_x;
 	int		px_y;
-	long double	rl;
-	long double	ig;
+	long double	real;
+	long double	imag;
 	long double	tmp;
 }	t_n;
 
@@ -61,13 +61,14 @@ typedef struct s_data {
 int		set_coords(t_data *data);
 void	color(int itr, t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void    settings(t_data *data);
 
 //  Sets Functions
-int		mandelbrot(t_data *data, double i_rl, double i_ig, int itr);
-void	pix_iter(t_data *data, int \
-(*set)(t_data *data, double i_rl, double i_ig, int itr));
+int		mandelbrot(t_data *data, double i_real, double i_imag, int itr);
+void	create(t_data *data, int \
+(*set)(t_data *data, double i_real, double i_imag, int itr));
 
 //	Debbug
-int	circle(t_data *data, double i_rl, double i_ig, int itr);
+int	circle(t_data *data, double i_real, double i_imag, int itr);
 
 #endif
