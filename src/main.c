@@ -42,7 +42,7 @@ int	mouse(int keycode, int x, int y, t_data *data)
 
 int	main(void)
 {
-	t_data	data;
+	static t_data	data;
 
 	data.img.mlx = mlx_init();
 	data.img.win = mlx_new_window(data.img.mlx, WIDTH, HEIGHT, "Mandelbrot");
@@ -52,6 +52,7 @@ int	main(void)
 	&data.img.line_len, &data.img.endian);
 
 	settings(&data);
+	
 	// create(&data, circle);
 	create(&data, mandelbrot);
 

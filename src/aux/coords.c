@@ -15,9 +15,9 @@
 //38 pixels in a cm
 int	set_coords(t_data *data)
 {
-	data->n.real = (data->n.px_x - WIDTH / 2.0) \
+	data->n.real = (data->n.px_x - data->sttgs.x_cntr) \
 	/ data->sttgs.zoom - data->sttgs.x_offset;
-	data->n.imag = (HEIGHT / 2.0 - data->n.px_y) \
+	data->n.imag = (data->sttgs.y_cntr - data->n.px_y) \
 	/ data->sttgs.zoom - data->sttgs.y_offset;
 	return (0);
 }

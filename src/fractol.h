@@ -25,7 +25,9 @@
 # define CM 86
 
 typedef struct s_sttgs {
-	int	mx_itr;
+	int			mx_itr;
+	int			x_cntr;
+	int			y_cntr;
 	long double	zoom;
 	long double x_offset;
 	long double y_offset;
