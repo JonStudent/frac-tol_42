@@ -14,7 +14,6 @@
 
 int	keyboard(int	keycode, t_data *data)
 {
-	printf("keyboard: %d %d\n", keycode, 'd');
 	if (keycode == 'd')
 		data->sttgs.x_offset -= 34.4 / data->sttgs.zoom;
 	if (keycode == 'a')
@@ -23,42 +22,44 @@ int	keyboard(int	keycode, t_data *data)
 		data->sttgs.y_offset -= 34.4 / data->sttgs.zoom;
 	if (keycode == 's')
 		data->sttgs.y_offset += 34.4 / data->sttgs.zoom;
-	if (keycode == 65307)
+	if (keycode == ESC_K)
 		exit(0);
-	create(data, mandelbrot);
+	create(data);
 	return (0);
 }
 
 int	mouse(int keycode, int x, int y, t_data *data)
 {
+	t_cpx old_pos;
+
+	old_pos = set_coords(data, x, y);
+
 	if (keycode == 4)
 		data->sttgs.zoom *= 2.0;
 	if (keycode == 5)
 		data->sttgs.zoom /= 2.0;
-	create(data, mandelbrot);
-	printf("keycode: %d p(x:%d,y:%d) n(x: %Lf, y:%Lf) zoom: %Lf\n", keycode, x, y, data->n.real, data->n.imag, data->sttgs.zoom);
+		
+	set_coords(data, x, y);
+	data->sttgs.x_offset = data->n.cpx.real - old_pos.real;
+	data->sttgs.y_offset = data->n.cpx.imag - old_pos.imag;
+
+	printf("keycode: %d p(x:%d,y:%d) n(x: %Lf, y:%Lf) zoom: %ld\n", keycode, x, y, data->n.cpx.real, data->n.cpx.imag, data->sttgs.zoom);
+	create(data);
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	static t_data	data;
 
-	data.img.mlx = mlx_init();
-	data.img.win = mlx_new_window(data.img.mlx, WIDTH, HEIGHT, "Mandelbrot");
+	if (argc < 2)
+		return (0);
 	
-	data.img.img = mlx_new_image(data.img.mlx, WIDTH, HEIGHT);
-	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, \
-	&data.img.line_len, &data.img.endian);
-
-	settings(&data);
-	
-	// create(&data, circle);
-	create(&data, mandelbrot);
+	data.set = settings(&data, argv[1]);
+	create(&data);
 
 	// mlx_hook(data.img.win, 2, 1L<<0, keyboard, &data);
 	mlx_key_hook(data.img.win, keyboard, &data);
-
 	mlx_mouse_hook(data.img.win, mouse, &data);
 
 	mlx_loop(data.img.mlx);

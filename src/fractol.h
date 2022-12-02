@@ -23,52 +23,59 @@
 
 //Pixels in one Centimeter
 # define CM 86
+# define ESC_K 65307
 
 typedef struct s_sttgs {
 	int			mx_itr;
 	int			x_cntr;
 	int			y_cntr;
-	long double	zoom;
+	long int	zoom;
 	long double x_offset;
 	long double y_offset;
 }	t_sttgs;
 
-typedef struct s_n {
-	int		px_x;
-	int		px_y;
+typedef struct s_cpx {
 	long double	real;
 	long double	imag;
+}	t_cpx;
+
+typedef struct s_n {
+	int			px_x;
+	int			px_y;
+	t_cpx		cpx;
 	long double	tmp;
 }	t_n;
 
 typedef struct s_img {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_len;
-	int		lenght;
-	int		endian;
+	int			bits_per_pixel;
+	int			line_len;
+	int			lenght;
+	int			endian;
+	char		*addr;
+	void		*mlx;
+	void		*win;
+	void		*img;
 }	t_img;
 
 //Main  struct
-typedef struct s_data {
-	t_sttgs	sttgs;
-	t_img	img;
+typedef struct s_data t_data;
+
+struct s_data {
 	t_n		n;
-}				t_data;
+	t_img	img;
+	t_sttgs	sttgs;
+	int		(*set)(t_data *data, t_cpx cpx, int itr);
+};
 
 //  AUX Functions
-int		set_coords(t_data *data);
+t_cpx		set_coords(t_data *data, int x, int y);
 void	color(int itr, t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void    settings(t_data *data);
+void    *settings(t_data *data, char *set);
 
 //  Sets Functions
-int		mandelbrot(t_data *data, double i_real, double i_imag, int itr);
-void	create(t_data *data, int \
-(*set)(t_data *data, double i_real, double i_imag, int itr));
+int		mandelbrot(t_data *data, t_cpx cpx, int itr);
+void	create(t_data *data);
 
 //	Debbug
 int	circle(t_data *data, double i_real, double i_imag, int itr);
