@@ -23,12 +23,12 @@ int	mandelbrot(t_data *data, t_cpx cpx, int itr)
 	return (mandelbrot(data, cpx, itr));
 }	
 
-int	circle(t_data *data, double i_real, double i_imag, int itr)
+int	circle(t_data *data, t_cpx cpx, int itr)
 {
-	(void)i_imag;
-	(void)i_real;
+	(void)cpx.imag;
+	(void)cpx.real;
 	if (pow(data->n.cpx.real, 2.0) + pow(data->n.cpx.imag, 2.0) <= 4)
-		itr = data->sttgs.mx_itr;
+		itr = data->sttgs.mx_itr - 1;
 	return (itr);
 }
 			// if(sqrt(pow(data->n.cpx.real, 2.0) + pow(data->n.cpx.imag, 2.0)) <= 4.0)

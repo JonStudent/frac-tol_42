@@ -15,10 +15,10 @@
 //38 pixels in a cm
 t_cpx	set_coords(t_data *data, int x, int y)
 {
-	data->n.cpx.real = (x - data->sttgs.x_cntr - data->sttgs.x_offset) \
-	/ (double)data->sttgs.zoom ;
-	data->n.cpx.imag = (data->sttgs.y_cntr - y - data->sttgs.y_offset) \
-	/ (double)data->sttgs.zoom ;
+	data->n.cpx.real = (x - data->sttgs.x_cntr) \
+	/ (double)data->sttgs.zoom  - data->sttgs.x_offset;
+	data->n.cpx.imag = (data->sttgs.y_cntr - y) \
+	/ (double)data->sttgs.zoom  - data->sttgs.y_offset;
 	return (data->n.cpx);
 }
 

@@ -78,6 +78,6 @@ int		mandelbrot(t_data *data, t_cpx cpx, int itr);
 void	create(t_data *data);
 
 //	Debbug
-int	circle(t_data *data, double i_real, double i_imag, int itr);
+int	circle(t_data *data, t_cpx cpx, int itr);
 
 #endif

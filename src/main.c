@@ -30,20 +30,22 @@ int	keyboard(int	keycode, t_data *data)
 
 int	mouse(int keycode, int x, int y, t_data *data)
 {
+
 	t_cpx old_pos;
 
 	old_pos = set_coords(data, x, y);
+	printf("keycode: %d p(x:%d,y:%d) n(x: %Lf, y:%Lf) zoom: %ld\n", keycode, x, y, data->n.cpx.real, data->n.cpx.imag, data->sttgs.zoom);
 
 	if (keycode == 4)
 		data->sttgs.zoom *= 2.0;
-	if (keycode == 5)
+	if (keycode == 5 && data->sttgs.zoom > 1)
 		data->sttgs.zoom /= 2.0;
 		
 	set_coords(data, x, y);
-	data->sttgs.x_offset = data->n.cpx.real - old_pos.real;
-	data->sttgs.y_offset = data->n.cpx.imag - old_pos.imag;
+	data->sttgs.x_offset += data->n.cpx.real - old_pos.real;
+	data->sttgs.y_offset += data->n.cpx.imag - old_pos.imag;
 
-	printf("keycode: %d p(x:%d,y:%d) n(x: %Lf, y:%Lf) zoom: %ld\n", keycode, x, y, data->n.cpx.real, data->n.cpx.imag, data->sttgs.zoom);
+	printf("x_offset = %Lf (real %Lf - old %Lf)\n", data->sttgs.x_offset, data->n.cpx.real, old_pos.real);
 	create(data);
 	return (0);
 }
