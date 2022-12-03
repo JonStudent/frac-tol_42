@@ -1,22 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 18:52:38 by jbasilio          #+#    #+#             */
-/*   Updated: 2022/11/28 18:52:40 by jbasilio         ###   ########.fr       */
+/*   Created: 2022/10/06 16:16:42 by jbasilio          #+#    #+#             */
+/*   Updated: 2022/10/06 20:47:39 by jbasilio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-void	color(int itr, t_data *data)
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
+typedef struct s_fd
 {
-	itr = itr * 255 / data->sttgs.mx_itr;
-	if (itr == 255)
-		itr = 0;
-	itr = itr << 10 | itr << 3 | itr;
-	my_mlx_pixel_put(data, data->px.x, data->px.y, itr);
-}
+	char	*rt_bf;
+	char	*tp_bf;
+	char	rd_bf[BUFFER_SIZE + 1];
+	int		rt_i;
+	int		rd_i;
+	int		tp_i;
+	int		rd;
+	int		f;
+	int		out;
+}	t_fd;
+
+char	*get_next_line(int fd);
+char	*filler(t_fd *the_fd, int fd);
+#endif

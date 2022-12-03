@@ -1,7 +1,8 @@
 
 NAME = fractol
 
-SRC = src/main.c src/aux/mlx.c src/aux/coords.c src/aux/settings.c src/sets/mandelbrot.c src/aux/color.c
+SRC = src/main.c src/aux/mlx.c src/aux/coords.c src/aux/settings.c \
+	  src/sets/mandelbrot.c src/aux/color.c src/aux/input.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -13,25 +14,40 @@ LIB = ar -rcs $(NAME)
 
 REMOVE = rm -f
 
-MLX_LIB_DIR = mlx_linux/
+LIBFT_DIR = libft
 
-MLX_INCLUDE = -Imlx_linux
+MLX_LIB_DIR = mlx_linux
 
-MLX_FLAGS = -L$(MLX_LIB_DIR) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+INCLUDE = -I$(MLX_LIB_DIR) -I$(LIBFT_DIR)
+
+LIBFT_FLGS = -L$(LIBFT_DIR) -lft
+
+MLX_FLAGS = -L$(MLX_LIB_DIR) -lmlx_Linux
+
+FLAGS = $(LIBFT_FLGS) $(MLX_FLAGS) -L/usr/lib -lXext -lX11 -lm -lz
+
+GRN = \e[1;32m
+
+RST = \e[m
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C $(MLX_LIB_DIR) > /dev/null 2>&1
-	@$(CC) $(^) $(MLX_FLAGS) -o $(@)
+	@printf '%s$(GRN)' "Config Mlx_Lib... "
+	@make -s -C $(MLX_LIB_DIR) > /dev/null 2>&1
+	@printf '%s\n$(RST)%s$(GRN)' "Done" "Compiling Libft... "
+	@make -s -C $(LIBFT_DIR)
+	@printf '%s\n$(RST)%s$(GRN)%s$(RST)\n' "Done" "Compiling Frac-tol... " "All Done"
+	@$(CC) $(^) $(FLAGS) -o $(@)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) $(MLX_INCLUDE) -O3 -c $(^) -o $(@)
+	@$(CC) $(CFLAGS) $(INCLUDE) -O3 -c $(^) -o $(@)
 
 bonus: all
 
 clean:
-	@$(REMOVE) $(OBJ)
+	@make clean -s -C libft
+	@$(REMOVE) $(OBJ) libft/libft.a
 
 fclean: clean
 	@$(REMOVE) $(NAME)

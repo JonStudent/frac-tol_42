@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbasilio <jbasilio@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 18:52:38 by jbasilio          #+#    #+#             */
-/*   Updated: 2022/11/28 18:52:40 by jbasilio         ###   ########.fr       */
+/*   Created: 2022/03/26 16:39:00 by jbasilio          #+#    #+#             */
+/*   Updated: 2022/03/29 18:12:44 by jbasilio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+/*
+			DESCRIPTION:
+	Returns the (int)size of the Linked List Adress Parameter 'lst'.
+*/
 
-void	color(int itr, t_data *data)
+#include "libft.h"
+
+int	ft_lstsize(t_list *lst)
 {
-	itr = itr * 255 / data->sttgs.mx_itr;
-	if (itr == 255)
-		itr = 0;
-	itr = itr << 10 | itr << 3 | itr;
-	my_mlx_pixel_put(data, data->px.x, data->px.y, itr);
+	size_t	lstsize;
+
+	lstsize = 0;
+	while (lst && ++lstsize)
+		lst = lst->next;
+	return (lstsize);
 }

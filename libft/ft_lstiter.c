@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbasilio <jbasilio@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 18:52:38 by jbasilio          #+#    #+#             */
-/*   Updated: 2022/11/28 18:52:40 by jbasilio         ###   ########.fr       */
+/*   Created: 2022/03/26 18:01:10 by jbasilio          #+#    #+#             */
+/*   Updated: 2022/03/30 14:12:57 by jbasilio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+/*
+			DESCRIPTON:
+	Iterates Linked List Parameter and aplies the function Parameter 'f'.
+*/
 
-void	color(int itr, t_data *data)
+#include "libft.h"
+
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	itr = itr * 255 / data->sttgs.mx_itr;
-	if (itr == 255)
-		itr = 0;
-	itr = itr << 10 | itr << 3 | itr;
-	my_mlx_pixel_put(data, data->px.x, data->px.y, itr);
+	while (lst && f)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}		
 }

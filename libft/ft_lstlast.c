@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbasilio <jbasilio@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 18:52:38 by jbasilio          #+#    #+#             */
-/*   Updated: 2022/11/28 18:52:40 by jbasilio         ###   ########.fr       */
+/*   Created: 2022/03/26 16:46:07 by jbasilio          #+#    #+#             */
+/*   Updated: 2022/03/29 17:09:34 by jbasilio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+/*
+			DESCRIPTION:
 
-void	color(int itr, t_data *data)
+	Returns the adress to the last node of the Parameter List 'lst'.
+*/
+
+#include "libft.h"
+
+t_list	*ft_lstlast(t_list *lst)
 {
-	itr = itr * 255 / data->sttgs.mx_itr;
-	if (itr == 255)
-		itr = 0;
-	itr = itr << 10 | itr << 3 | itr;
-	my_mlx_pixel_put(data, data->px.x, data->px.y, itr);
+	while (lst && lst->next)
+		lst = lst->next;
+	return (lst);
 }

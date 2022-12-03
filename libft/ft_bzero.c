@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbasilio <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 18:52:38 by jbasilio          #+#    #+#             */
-/*   Updated: 2022/11/28 18:52:40 by jbasilio         ###   ########.fr       */
+/*   Created: 2022/03/03 17:04:36 by jbasilio          #+#    #+#             */
+/*   Updated: 2022/03/29 16:39:22 by jbasilio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+/*
+					DESCRIPTION:
+	The ft_bzero function sets n bytes of a buffer to 0.
+	PARAMETERS:	void pointer.
+		NO_RETURN
+*/
 
-void	color(int itr, t_data *data)
+#include "libft.h"
+
+void	ft_bzero(void *s, size_t n)
 {
-	itr = itr * 255 / data->sttgs.mx_itr;
-	if (itr == 255)
-		itr = 0;
-	itr = itr << 10 | itr << 3 | itr;
-	my_mlx_pixel_put(data, data->px.x, data->px.y, itr);
+	ft_memset(s, 0, n);
 }

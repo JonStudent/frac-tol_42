@@ -9,13 +9,13 @@ void    *settings(t_data *data, char *set)
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel, \
 	&data->img.line_len, &data->img.endian);
 
-    data->sttgs.mx_itr = 200;
-	data->sttgs.x_cntr = WIDTH / 2;
-	data->sttgs.y_cntr = HEIGHT / 2;
+    data->sttgs.mx_itr = 80;
+	data->sttgs.mid_win.x = WIDTH / 2;
+	data->sttgs.mid_win.y = HEIGHT / 2;
 	data->sttgs.zoom = CM * (HEIGHT / 200); // 86 * 4 = 344
 	if (*set == 'm')
 	{	
-		data->sttgs.x_offset = 0;
+		data->sttgs.offset.real = 0;
 		return (mandelbrot);
 	}
 	return (circle);

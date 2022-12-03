@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbasilio <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 18:52:38 by jbasilio          #+#    #+#             */
-/*   Updated: 2022/11/28 18:52:40 by jbasilio         ###   ########.fr       */
+/*   Created: 2022/03/26 06:26:23 by jbasilio          #+#    #+#             */
+/*   Updated: 2022/03/29 18:35:55 by jbasilio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+/*
+			DESCRIPTION:
+	Writes the (char) Adress 's' to (int) FILE DESCRIPTOR Parameter 'fd'.
+*/
 
-void	color(int itr, t_data *data)
+#include "libft.h"
+
+void	ft_putstr_fd(char *s, int fd)
 {
-	itr = itr * 255 / data->sttgs.mx_itr;
-	if (itr == 255)
-		itr = 0;
-	itr = itr << 10 | itr << 3 | itr;
-	my_mlx_pixel_put(data, data->px.x, data->px.y, itr);
+	while (s && *s)
+		ft_putchar_fd(*s++, fd);
 }
