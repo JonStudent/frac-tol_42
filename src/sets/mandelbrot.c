@@ -12,7 +12,7 @@
 
 #include "../fractol.h"
 
-int	mandelbrot(t_data *data, t_cx cx, int itr)
+double	mandelbrot(t_data *data, t_cx cx, int itr)
 {
 	if (pow(data->cx.real, 2.0) + pow(data->cx.imag, 2.0) >= 4 \
 	|| ++itr == data->sttgs.mx_itr)
@@ -23,7 +23,7 @@ int	mandelbrot(t_data *data, t_cx cx, int itr)
 	return (mandelbrot(data, cx, itr));
 }	
 
-int	circle(t_data *data, t_cx cx, int itr)
+double	circle(t_data *data, t_cx cx, int itr)
 {
 	(void)cx.imag;
 	(void)cx.real;

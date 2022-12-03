@@ -12,8 +12,8 @@
 
 #include "../fractol.h"
 
-void	color(int itr, t_data *data)
+void	color(double itr, t_data *data)
 {
-	itr = 0x00FFFFFF - (0x00FFFFFF * itr / data->sttgs.mx_itr);
-	my_mlx_pixel_put(data, data->px.x, data->px.y, itr);
+	itr = 0x00FFFFFF - (itr / data->sttgs.mx_itr * 0x00FFFFFF);
+	my_mlx_pixel_put(data, data->px.x, data->px.y, (double)itr);
 }

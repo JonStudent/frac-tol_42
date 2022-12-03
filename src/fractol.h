@@ -26,7 +26,7 @@
 # define CM 86
 # define ESC_K 65307
 # define PLUS_K 65451
-# define MINUS_K 65453
+# define MINUS_K 65421
 
 typedef struct s_cx {
 	long double	real;
@@ -66,12 +66,12 @@ struct s_data {
 	t_cx	tmp;
 	t_img	img;
 	t_sttgs	sttgs;
-	int		(*set)(t_data *data, t_cx cx, int itr);
+	double		(*set)(t_data *data, t_cx cx, int itr);
 };
 
 //  AUX Functions
 t_cx		set_coords(t_data *data, int x, int y);
-void	color(int itr, t_data *data);
+void	color(double itr, t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void    settings(t_data *data, char *set);
 int	keyboard(int	key, t_data *data);
@@ -79,10 +79,10 @@ int	mouse(int key, int x, int y, t_data *data);
 void	init_mlx(t_data *data);
 
 //  Sets Functions
-int		mandelbrot(t_data *data, t_cx cx, int itr);
+double		mandelbrot(t_data *data, t_cx cx, int itr);
 int	create(t_data *data);
 
 //	Debbug
-int	circle(t_data *data, t_cx cx, int itr);
+double	circle(t_data *data, t_cx cx, int itr);
 
 #endif
