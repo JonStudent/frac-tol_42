@@ -1,35 +1,40 @@
 #include "../fractol.h"
 
-int	keyboard(int	keycode, t_data *data)
+int	keyboard(int key, t_data *data)
 {
-	if (keycode == 'd')
+	if (key == 'd')
 		data->sttgs.offset.real -= 34.4 / data->sttgs.zoom;
-	if (keycode == 'a')
+	else if (key == 'a')
 		data->sttgs.offset.real += 34.4 / data->sttgs.zoom;
-	if (keycode == 'w')
+	else if (key == 'w')
 		data->sttgs.offset.imag -= 34.4 / data->sttgs.zoom;
-	if (keycode == 's')
+	else if (key == 's')
 		data->sttgs.offset.imag += 34.4 / data->sttgs.zoom;
-	if (keycode == ESC_K)
+	else if (key == PLUS_K)
+		data->sttgs.mx_itr += 10;
+	else if (key == MINUS_K && data->sttgs.mx_itr > 0)
+		data->sttgs.mx_itr -= 10;
+	else if (key == 'r')
+		settings(data, NULL);
+	else if (key == ESC_K)
 		exit(0);
-	create(data);
-	return (0);
+	ft_printf("%d\n", key);
+	return (create(data));
 }
 
-int	mouse(int keycode, int x, int y, t_data *data)
+int	mouse(int key, int x, int y, t_data *data)
 {
 	data->tmp = set_coords(data, x, y);
-
-	if (keycode == 4)
+	if (key == 4)
 		data->sttgs.zoom *= 2.0;
-	if (keycode == 5 && data->sttgs.zoom > 1)
+	else if (key == 5 && data->sttgs.zoom > 1)
 		data->sttgs.zoom /= 2.0;
-		
+	else 
+		return (0);
 	set_coords(data, x, y);
 	data->sttgs.offset.real += data->cx.real - data->tmp.real;
 	data->sttgs.offset.imag += data->cx.imag - data->tmp.imag;
 
 	printf("x_offset = %Lf (real %Lf - old %Lf)\n", data->sttgs.offset.real, data->cx.real, data->tmp.real);
-	create(data);
-	return (0);
+	return (create(data));
 }

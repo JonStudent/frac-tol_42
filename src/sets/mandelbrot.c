@@ -31,7 +31,3 @@ int	circle(t_data *data, t_cx cx, int itr)
 		itr = data->sttgs.mx_itr - 1;
 	return (itr);
 }
-			// if(sqrt(pow(data->n.cx.real, 2.0) + pow(data->n.cx.imag, 2.0)) <= 4.0)
-			// 	my_mlx_pixel_put(data, data->n.px_x, data->n.px_y, 0x00FF0000);
-			// if (!data->n.cx.real || !data->n.cx.imag)
-			// 	my_mlx_pixel_put(data, data->n.px_x, data->n.px_y, 0x00FFFFFF);

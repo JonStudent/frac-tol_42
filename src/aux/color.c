@@ -14,9 +14,6 @@
 
 void	color(int itr, t_data *data)
 {
-	itr = itr * 255 / data->sttgs.mx_itr;
-	if (itr == 255)
-		itr = 0;
-	itr = itr << 10 | itr << 3 | itr;
+	itr = 0x00FFFFFF - (0x00FFFFFF * itr / data->sttgs.mx_itr);
 	my_mlx_pixel_put(data, data->px.x, data->px.y, itr);
 }

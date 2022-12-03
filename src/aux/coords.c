@@ -22,7 +22,7 @@ t_cx	set_coords(t_data *data, int x, int y)
 	return (data->cx);
 }
 
-void	create(t_data *data)
+int	create(t_data *data)
 {
 	data->px.y = -1;
 	while (++data->px.y < HEIGHT)
@@ -32,4 +32,5 @@ void	create(t_data *data)
 			color(data->set(data, set_coords(data, data->px.x, data->px.y), 0), data);
 	}
 	mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
+	return (0);
 }

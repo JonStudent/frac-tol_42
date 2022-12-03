@@ -18,10 +18,9 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (0);
-	
-	data.set = settings(&data, argv[1]);
+	settings(&data, argv[1]);
 	create(&data);
-
+	
 	// mlx_hook(data.img.win, 2, 1L<<0, keyboard, &data);
 	mlx_key_hook(data.img.win, keyboard, &data);
 	mlx_mouse_hook(data.img.win, mouse, &data);
