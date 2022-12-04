@@ -26,7 +26,9 @@
 # define CM 86
 # define ESC_K 65307
 # define PLUS_K 65451
-# define MINUS_K 65421
+# define MINUS_K 65453
+# define N0_K 65438
+# define N1_K 65436
 
 typedef struct s_cx {
 	long double	real;
@@ -40,6 +42,7 @@ typedef struct s_px {
 }	t_px;
 
 typedef struct s_sttgs {
+	int		clr;
 	int			mx_itr;
 	long int	zoom;
 	t_cx		offset;

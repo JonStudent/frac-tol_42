@@ -16,9 +16,9 @@
 t_cx	set_coords(t_data *data, int x, int y)
 {
 	data->cx.real = (x - data->sttgs.mid_win.x) \
-	/ (double)data->sttgs.zoom  - data->sttgs.offset.real;
+	/ (double)data->sttgs.zoom - data->sttgs.offset.real;
 	data->cx.imag = (data->sttgs.mid_win.y - y) \
-	/ (double)data->sttgs.zoom  - data->sttgs.offset.imag;
+	/ (double)data->sttgs.zoom - data->sttgs.offset.imag;
 	return (data->cx);
 }
 

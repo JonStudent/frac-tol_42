@@ -8,6 +8,7 @@ void    settings(t_data *data, char *set)
 		data->set = circle;
 	else if (set)
 		return ;
+	data->sttgs.clr = 0x00FFFFFF;
     data->sttgs.mx_itr = 80;
 	data->sttgs.mid_win.x = WIDTH / 2;
 	data->sttgs.mid_win.y = HEIGHT / 2;

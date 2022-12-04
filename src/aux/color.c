@@ -14,6 +14,8 @@
 
 void	color(double itr, t_data *data)
 {
-	itr = 0x00FFFFFF - (itr / data->sttgs.mx_itr * 0x00FFFFFF);
-	my_mlx_pixel_put(data, data->px.x, data->px.y, (double)itr);
+	itr = data->sttgs.clr - (itr / data->sttgs.mx_itr * data->sttgs.clr);
+	if (data->sttgs.clr == 255)
+		itr = (int)itr << 16 | (int)itr << 8 | (int)itr;
+	my_mlx_pixel_put(data, data->px.x, data->px.y, itr);
 }

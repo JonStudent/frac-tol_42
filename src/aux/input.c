@@ -14,11 +14,15 @@ int	keyboard(int key, t_data *data)
 		data->sttgs.mx_itr += 10;
 	else if (key == MINUS_K && data->sttgs.mx_itr > 10)
 		data->sttgs.mx_itr -= 10;
+	else if (key == N0_K)
+		data->sttgs.clr = 255;
+	else if (key == N1_K)
+		data->sttgs.clr = 0x00FFFFFF;
 	else if (key == 'r')
 		settings(data, NULL);
 	else if (key == ESC_K)
 		exit(0);
-	ft_printf("iter: %d", data->sttgs.mx_itr);
+	ft_printf("max_iter: %d\n", data->sttgs.mx_itr);
 	return (create(data));
 }
 
@@ -26,9 +30,9 @@ int	mouse(int key, int x, int y, t_data *data)
 {
 	data->tmp = set_coords(data, x, y);
 	if (key == 4)
-		data->sttgs.zoom *= 2.0;
+		data->sttgs.zoom *= 1.5;
 	else if (key == 5 && data->sttgs.zoom > 1)
-		data->sttgs.zoom /= 2.0;
+		data->sttgs.zoom /= 1.5;
 	else 
 		return (0);
 	set_coords(data, x, y);
