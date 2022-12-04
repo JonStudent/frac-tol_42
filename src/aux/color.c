@@ -14,14 +14,14 @@
 
 void	color(double itr, t_data *data)
 {
+	itr /= data->sttgs.mx_itr;
+	if (data->sttgs.opt >> 1 & 1 && itr < 1)
+		itr *= (data->sttgs.mx_itr / (double)data->sttgs.ini_mx_itr);
+
 	if (!data->sttgs.clr)
 		data->sttgs.clr = 255;
 	if (data->sttgs.clr == 1)
 		data->sttgs.clr = 0x00FFFFFF;
-	
-	itr /= data->sttgs.mx_itr;
-	if (data->sttgs.opt >> 1 & 1 && itr < 1)
-		itr *= (data->sttgs.mx_itr / (double)data->sttgs.ini_mx_itr);
 	itr *= data->sttgs.clr;
 	
 	if (data->sttgs.opt & 1)
