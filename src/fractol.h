@@ -42,8 +42,10 @@ typedef struct s_px {
 }	t_px;
 
 typedef struct s_sttgs {
-	int		clr;
+	int			clr;
+	int			opt;
 	int			mx_itr;
+	int			ini_mx_itr;
 	long int	zoom;
 	t_cx		offset;
 	t_px		mid_win;

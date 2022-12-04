@@ -10,16 +10,20 @@ int	keyboard(int key, t_data *data)
 		data->sttgs.offset.imag -= 34.4 / data->sttgs.zoom;
 	else if (key == 's')
 		data->sttgs.offset.imag += 34.4 / data->sttgs.zoom;
+	else if (key == 'r')
+		settings(data, NULL);
+	else if (key == 'i')
+		data->sttgs.opt ^= 1; 
+	else if (key == 'l')
+		data->sttgs.opt ^= 1 << 1; 
 	else if (key == PLUS_K)
 		data->sttgs.mx_itr += 10;
 	else if (key == MINUS_K && data->sttgs.mx_itr > 10)
 		data->sttgs.mx_itr -= 10;
 	else if (key == N0_K)
-		data->sttgs.clr = 255;
+		data->sttgs.clr = 0;
 	else if (key == N1_K)
-		data->sttgs.clr = 0x00FFFFFF;
-	else if (key == 'r')
-		settings(data, NULL);
+		data->sttgs.clr = 1;
 	else if (key == ESC_K)
 		exit(0);
 	ft_printf("max_iter: %d\n", data->sttgs.mx_itr);
