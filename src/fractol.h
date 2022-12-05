@@ -20,7 +20,7 @@
 # include <stdlib.h>
 
 # define WIDTH 1600
-# define HEIGHT 600
+# define HEIGHT 1000
 
 //Pixels in one Centimeter
 # define CM 86
@@ -29,6 +29,7 @@
 # define MINUS_K 65453
 # define N0_K 65438
 # define N1_K 65436
+# define N2_K 65433
 
 typedef struct s_cx {
 	long double	real;
@@ -44,6 +45,7 @@ typedef struct s_px {
 typedef struct s_sttgs {
 	int			clr;
 	int			opt;
+	int			palette[10];
 	int			mx_itr;
 	int			ini_mx_itr;
 	long int	zoom;
