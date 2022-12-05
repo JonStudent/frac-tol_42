@@ -10,7 +10,6 @@ void    settings(t_data *data, char *set)
 		return ;
 	data->sttgs.clr = 1;
     data->sttgs.mx_itr = 80;
-    data->sttgs.ini_mx_itr = data->sttgs.mx_itr;
 	data->sttgs.mid_win.x = WIDTH / 2;
 	data->sttgs.mid_win.y = HEIGHT / 2;
 	data->sttgs.zoom = CM * (HEIGHT / 200); // 86 * 4 = 344

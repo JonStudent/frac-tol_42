@@ -15,7 +15,10 @@ int	keyboard(int key, t_data *data)
 	else if (key == 'i')
 		data->sttgs.opt ^= 1; 
 	else if (key == 'l')
+	{
+		data->sttgs.ini_mx_itr = data->sttgs.mx_itr;
 		data->sttgs.opt ^= 1 << 1; 
+	}
 	else if (key == PLUS_K)
 		data->sttgs.mx_itr += 10;
 	else if (key == MINUS_K && data->sttgs.mx_itr > 10)
