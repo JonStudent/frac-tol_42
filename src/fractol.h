@@ -69,6 +69,7 @@ typedef struct s_data t_data;
 
 struct s_data {
 	t_cx	cx;
+	t_cx	i_cx;
 	t_px	px;
 	t_cx	tmp;
 	t_img	img;
@@ -77,17 +78,18 @@ struct s_data {
 };
 
 //  AUX Functions
-t_cx		set_coords(t_data *data, int x, int y);
+t_cx	set_coords(t_data *data, int x, int y);
 void	color(double itr, t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void    settings(t_data *data, char *set);
-int	keyboard(int	key, t_data *data);
-int	mouse(int key, int x, int y, t_data *data);
+int		keyboard(int	key, t_data *data);
+int		mouse(int key, int x, int y, t_data *data);
 void	init_mlx(t_data *data);
 
 //  Sets Functions
 double		mandelbrot(t_data *data, t_cx cx, int itr);
-int	create(t_data *data);
+double		julia(t_data *data, t_cx cx, int itr);
+int			create(t_data *data);
 
 //	Debbug
 double	circle(t_data *data, t_cx cx, int itr);

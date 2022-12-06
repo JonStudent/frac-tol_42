@@ -12,13 +12,14 @@
 
 #include "../fractol.h"
 
-//38 pixels in a cm
 t_cx	set_coords(t_data *data, int x, int y)
 {
 	data->cx.real = (x - data->sttgs.mid_win.x) \
 	/ (double)data->sttgs.zoom - data->sttgs.offset.real;
 	data->cx.imag = (data->sttgs.mid_win.y - y) \
 	/ (double)data->sttgs.zoom - data->sttgs.offset.imag;
+	if (data->set == julia)
+		return (data->i_cx);
 	return (data->cx);
 }
 

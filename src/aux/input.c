@@ -37,17 +37,21 @@ int	keyboard(int key, t_data *data)
 
 int	mouse(int key, int x, int y, t_data *data)
 {
-	data->tmp = set_coords(data, x, y);
+	set_coords(data, x, y);
+	data->tmp.real = data->cx.real;
+	data->tmp.imag = data->cx.imag;
 	if (key == 4)
 		data->sttgs.zoom *= 1.5;
 	else if (key == 5 && data->sttgs.zoom > 1)
 		data->sttgs.zoom /= 1.5;
-	else 
-		return (0);
 	set_coords(data, x, y);
 	data->sttgs.offset.real += data->cx.real - data->tmp.real;
 	data->sttgs.offset.imag += data->cx.imag - data->tmp.imag;
-
+	if (key == 1)
+	{
+		data->i_cx.real = data->cx.real;
+		data->i_cx.imag = data->cx.imag;
+	}
 	printf("zoom: %ld\n", data->sttgs.zoom / CM);
 	return (create(data));
 }

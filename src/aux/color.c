@@ -27,7 +27,7 @@ void	color(double itr, t_data *data)
 	
 	itr *= data->sttgs.clr;
 	
-	if (data->sttgs.opt >> 7 & 1)
+	if (!(data->sttgs.opt >> 7 & 1))
 		itr = data->sttgs.clr - itr;
 	
 	if (data->sttgs.clr == 255)
