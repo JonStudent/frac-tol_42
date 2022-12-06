@@ -12,25 +12,25 @@
 
 #include "../fractol.h"
 
-t_cx	set_coords(t_data *data, int x, int y)
+t_cx	coords(t_data *data, int x, int y)
 {
 	data->cx.real = (x - data->sttgs.mid_win.x) \
 	/ (double)data->sttgs.zoom - data->sttgs.offset.real;
 	data->cx.imag = (data->sttgs.mid_win.y - y) \
 	/ (double)data->sttgs.zoom - data->sttgs.offset.imag;
-	if (data->set == julia)
+	if (data->set_flag == 'j')
 		return (data->i_cx);
 	return (data->cx);
 }
 
-int	create(t_data *data)
+int	px_iter(t_data *data)
 {
 	data->px.y = -1;
 	while (++data->px.y < HEIGHT)
 	{
 		data->px.x = -1;
 		while (++data->px.x < WIDTH)
-			color(data->set(data, set_coords(data, data->px.x, data->px.y), 0), data);
+			color(data->set(data, coords(data, data->px.x, data->px.y), 0), data);
 	}
 	mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
 	return (0);

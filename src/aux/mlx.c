@@ -19,6 +19,9 @@ void	init_mlx(t_data *data)
 	data->img.img = mlx_new_image(data->img.mlx, WIDTH, HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel, \
 	&data->img.line_len, &data->img.endian);
+
+	mlx_key_hook(data->img.win, keyboard, &data);
+	mlx_mouse_hook(data->img.win, mouse, &data);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)

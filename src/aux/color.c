@@ -15,25 +15,22 @@
 void	color(double itr, t_data *data)
 {
 	itr /= data->sttgs.mx_itr;
-	if (data->sttgs.opt >> 8 & 1 && itr < 1)
-		itr *= data->sttgs.mx_itr / (double)data->sttgs.ini_mx_itr;
 
-	if (!data->sttgs.clr)
-		data->sttgs.clr = 255;
-	else if (data->sttgs.clr == 1)
-		data->sttgs.clr = 0x00FFFFFF;
-	else if (data->sttgs.clr == 2)
-		data->sttgs.clr = 9;
+	if (!data->sttgs.pltt)
+		data->sttgs.pltt = 255;
+	else if (data->sttgs.pltt == 1)
+		data->sttgs.pltt = 0x00FFFFFF;
+	else if (data->sttgs.pltt == 2)
+		data->sttgs.pltt = 18;
+
+	itr *= data->sttgs.pltt;
 	
-	itr *= data->sttgs.clr;
+	if (data->sttgs.opt >> 7 & 1)
+		itr = data->sttgs.pltt - itr;
 	
-	if (!(data->sttgs.opt >> 7 & 1))
-		itr = data->sttgs.clr - itr;
-	
-	if (data->sttgs.clr == 255)
+	if (data->sttgs.pltt == 255)
 		itr = (int)itr << 16 | (int)itr << 8 | (int)itr;
-	else if (data->sttgs.clr == 9)
+	else if (data->sttgs.pltt == 18)
 		itr = data->sttgs.palette[(int)itr];
-	
 	my_mlx_pixel_put(data, data->px.x, data->px.y, itr);
 }

@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 		return (0);
 	settings(&data, argv[1]);
-	create(&data);
+	px_iter(&data);
 	
 	// mlx_hook(data.img.win, 2, 1L<<0, keyboard, &data);
 	mlx_key_hook(data.img.win, keyboard, &data);

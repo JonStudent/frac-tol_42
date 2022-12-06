@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   julia_mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../fractol.h"
 
-double	mandelbrot(t_data *data, t_cx cx, int itr)
+double	julia_mandelbrot(t_data *data, t_cx cx, int itr)
 {
 	if (pow(data->cx.real, 2.0) + pow(data->cx.imag, 2.0) >= 4 \
 	|| ++itr == data->sttgs.mx_itr)
@@ -20,7 +20,7 @@ double	mandelbrot(t_data *data, t_cx cx, int itr)
 	data->cx.tmp = pow(data->cx.real, 2.0) - pow(data->cx.imag, 2.0) + cx.real;
 	data->cx.imag = 2.0 * data->cx.real * data->cx.imag + cx.imag;
 	data->cx.real = data->cx.tmp;
-	return (mandelbrot(data, cx, itr));
+	return (julia_mandelbrot(data, cx, itr));
 }	
 
 double	circle(t_data *data, t_cx cx, int itr)
