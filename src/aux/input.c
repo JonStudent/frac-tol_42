@@ -2,15 +2,17 @@
 
 static void	zoom(t_data *data, int key, int x, int y)
 {
-	data->tmp.real = data->cx.real;
-	data->tmp.imag = data->cx.imag;
+	t_cx	tmp;
+
+	tmp.real = data->cx.real;
+	tmp.imag = data->cx.imag;
 	if (key == 4)
 		data->sttgs.zoom *= 2;
 	else if (key == 5 && data->sttgs.zoom > 1)
 		data->sttgs.zoom /= 2;
 	coords(data, x, y);
-	data->sttgs.offset.real += data->cx.real - data->tmp.real;
-	data->sttgs.offset.imag += data->cx.imag - data->tmp.imag;
+	data->sttgs.offset.real += data->cx.real - tmp.real;
+	data->sttgs.offset.imag += data->cx.imag - tmp.imag;
 }
 
 static int	keyboard_plus(int key, t_data *data)
@@ -61,7 +63,7 @@ int	mouse(int key, int x, int y, t_data *data)
 	if (key == 4 || key == 5)
 		zoom(data, key, x, y);
 	else if (key == 1)
-		data->i_cx = data->cx;
+		data->cx_j = data->cx;
 	printf("zoom: %ld\n", data->sttgs.zoom / CM);
 	return (px_iter(data));
 }

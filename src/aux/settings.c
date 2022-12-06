@@ -32,13 +32,13 @@ void    settings(t_data *data, char *set)
 	data->sttgs.zoom = CM * (HEIGHT / 200); // 86 * 4 = 344
 	data->sttgs.offset.real = 0;
 	data->sttgs.offset.imag = 0;
-	data->i_cx.real = 0;
-	data->i_cx.imag = -0.78;
+	data->cx_j.real = 0;
+	data->cx_j.imag = -0.78;
 	if (set && (*set == 'm' || *set == 'j'))
 		data->set = julia_mandelbrot;
 	else if (!set)
 		return ;
-	data->set_flag = *set;
+	data->sttgs.set_flag = *set;
 	init_mlx(data);
 	palette(data);
 }

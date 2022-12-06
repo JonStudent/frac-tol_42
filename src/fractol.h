@@ -41,7 +41,6 @@
 typedef struct s_cx {
 	long double	real;
 	long double	imag;
-	long double tmp;
 }	t_cx;
 
 typedef struct s_px {
@@ -50,6 +49,7 @@ typedef struct s_px {
 }	t_px;
 
 typedef struct s_sttgs {
+	char		set_flag;
 	int			pltt;
 	int			opt;
 	int			palette[19];
@@ -61,27 +61,29 @@ typedef struct s_sttgs {
 }	t_sttgs;
 
 typedef struct s_img {
-	int			bits_per_pixel;
-	int			line_len;
-	int			lenght;
-	int			endian;
+	void		*img;
 	char		*addr;
+	int			lenght;
+	int			line_len;
+	int			bits_per_pixel;
+	int			endian;
+}	t_img;
+
+typedef struct s_mlx {
 	void		*mlx;
 	void		*win;
-	void		*img;
-}	t_img;
+	t_img		img;
+}	t_mlx;
 
 //Main  struct
 typedef struct s_data t_data;
 
 struct s_data {
-	t_cx	cx;
-	t_px	px;
-	t_cx	i_cx;
-	t_cx	tmp;
-	t_img	img;
+	t_mlx	mlx;
 	t_sttgs	sttgs;
-	char	set_flag;
+	t_cx	cx;
+	t_cx	cx_j;
+	t_px	px;
 	double		(*set)(t_data *data, t_cx cx, int itr);
 };
 

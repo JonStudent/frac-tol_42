@@ -18,8 +18,8 @@ t_cx	coords(t_data *data, int x, int y)
 	/ (double)data->sttgs.zoom - data->sttgs.offset.real;
 	data->cx.imag = (data->sttgs.mid_win.y - y) \
 	/ (double)data->sttgs.zoom - data->sttgs.offset.imag;
-	if (data->set_flag == 'j')
-		return (data->i_cx);
+	if (data->sttgs.set_flag == 'j')
+		return (data->cx_j);
 	return (data->cx);
 }
 
@@ -32,6 +32,6 @@ int	px_iter(t_data *data)
 		while (++data->px.x < WIDTH)
 			color(data->set(data, coords(data, data->px.x, data->px.y), 0), data);
 	}
-	mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
+	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img.img, 0, 0);
 	return (0);
 }

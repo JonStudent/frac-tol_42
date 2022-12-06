@@ -22,8 +22,8 @@ int	main(int argc, char **argv)
 	px_iter(&data);
 	
 	// mlx_hook(data.img.win, 2, 1L<<0, keyboard, &data);
-	mlx_key_hook(data.img.win, keyboard, &data);
-	mlx_mouse_hook(data.img.win, mouse, &data);
+	mlx_key_hook(data.mlx.win, keyboard, &data);
+	mlx_mouse_hook(data.mlx.win, mouse, &data);
 
-	mlx_loop(data.img.mlx);
+	mlx_loop(data.mlx.mlx);
 }

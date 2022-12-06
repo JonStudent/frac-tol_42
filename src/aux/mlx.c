@@ -14,21 +14,21 @@
 
 void	init_mlx(t_data *data)
 {
-	data->img.mlx = mlx_init();
-	data->img.win = mlx_new_window(data->img.mlx, WIDTH, HEIGHT, "Fract-ol");
-	data->img.img = mlx_new_image(data->img.mlx, WIDTH, HEIGHT);
-	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel, \
-	&data->img.line_len, &data->img.endian);
+	data->mlx.mlx = mlx_init(); 
+	data->mlx.win = mlx_new_window(data->mlx.mlx, WIDTH, HEIGHT, "Fract-ol");
+	data->mlx.img.img = mlx_new_image(data->mlx.mlx, WIDTH, HEIGHT);
+	data->mlx.img.addr = mlx_get_data_addr(data->mlx.img.img, &data->mlx.img.bits_per_pixel, \
+	&data->mlx.img.line_len, &data->mlx.img.endian);
 
-	mlx_key_hook(data->img.win, keyboard, &data);
-	mlx_mouse_hook(data->img.win, mouse, &data);
+	mlx_key_hook(data->mlx.win, keyboard, &data);
+	mlx_mouse_hook(data->mlx.win, mouse, &data);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->img.addr + \
-	(y * data->img.line_len + x * (data->img.bits_per_pixel / 8));
+	dst = data->mlx.img.addr + \
+	(y * data->mlx.img.line_len + x * (data->mlx.img.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
