@@ -24,12 +24,3 @@ double	julia_mandelbrot(t_data *data, t_cx cx, int itr)
 	data->cx.real = tmp;
 	return (julia_mandelbrot(data, cx, itr));
 }
-
-double	circle(t_data *data, t_cx cx, int itr)
-{
-	(void)cx.imag;
-	(void)cx.real;
-	if (pow(data->cx.real, 2.0) + pow(data->cx.imag, 2.0) <= 4)
-		itr = data->sttgs.mx_itr - 1;
-	return (itr);
-}

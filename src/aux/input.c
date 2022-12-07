@@ -61,6 +61,6 @@ int	mouse(int key, int x, int y, t_data *data)
 		zoom(data, key, x, y);
 	else if (key == 1)
 		data->cx_j = data->cx;
-	printf("zoom: %ld\n", data->sttgs.zoom / CM);
+	printf("zoom: %ld\n", data->sttgs.zoom / PP_CM);
 	return (px_iter(data));
 }

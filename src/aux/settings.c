@@ -63,7 +63,7 @@ static void	get_param(t_data *data)
 void	settings(t_data *data, int argc, char **argv)
 {
 	data->sttgs.mx_itr = 80;
-	data->sttgs.zoom = CM * (data->sttgs.win_size.y / 200.0);
+	data->sttgs.zoom = PP_CM * (data->sttgs.win_size.y / 200.0);
 	data->sttgs.offset.real = 0.5;
 	data->sttgs.offset.imag = 0;
 	if (!argc)
@@ -72,6 +72,8 @@ void	settings(t_data *data, int argc, char **argv)
 	data->arg.argv = argv;
 	if (*argv[1] == 'm' || *argv[1] == 'j')
 		data->set = julia_mandelbrot;
+	else if (*argv[1] == 'b')
+		data->set = burning_ship;
 	data->sttgs.set_flag = *argv[1];
 	data->sttgs.win_size.x = WIDTH;
 	data->sttgs.win_size.y = HEIGHT;
@@ -81,7 +83,7 @@ void	settings(t_data *data, int argc, char **argv)
 		get_param(data);
 	data->sttgs.mid_win.x = data->sttgs.win_size.x / 2;
 	data->sttgs.mid_win.y = data->sttgs.win_size.y / 2;
-	data->sttgs.zoom = CM * (data->sttgs.win_size.y / 200.0);
+	data->sttgs.zoom = PP_CM * (data->sttgs.win_size.y / 200.0);
 	printf("zoom: %ld\n", data->sttgs.zoom);
 	init_mlx(data);
 	palette(data);

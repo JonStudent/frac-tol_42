@@ -22,8 +22,7 @@
 # define WIDTH 1600
 # define HEIGHT 600
 
-//Pixels in one Centimeter
-# define CM 86
+# define PP_CM 86
 
 # define RIGHT_K 65363
 # define LEFT_K 65361
@@ -103,10 +102,11 @@ int		keyboard(int	key, t_data *data);
 int		mouse(int key, int x, int y, t_data *data);
 void	init_mlx(t_data *data);
 long double	atod(const char *s);
+int			px_iter(t_data *data);
 
 //  Sets Functions
 double		julia_mandelbrot(t_data *data, t_cx cx, int itr);
-int			px_iter(t_data *data);
+double		burning_ship(t_data *data, t_cx cx, int itr);
 
 //	Debbug
 double	circle(t_data *data, t_cx cx, int itr);
