@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// Missing one set
+// I could add one more set...
+
 // error handling
 // window manegamnt
+// help colors
 
 #include "fractol.h"
 

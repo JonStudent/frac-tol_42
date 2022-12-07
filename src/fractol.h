@@ -39,8 +39,8 @@
 # define N2_K 65433
 
 typedef struct s_cx {
-	long double	real;
-	long double	imag;
+	double	real;
+	double	imag;
 }	t_cx;
 
 typedef struct s_px {

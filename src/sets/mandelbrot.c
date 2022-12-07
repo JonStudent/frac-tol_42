@@ -23,7 +23,7 @@ double	julia_mandelbrot(t_data *data, t_cx cx, int itr)
 	data->cx.imag = 2.0 * data->cx.real * data->cx.imag + cx.imag;
 	data->cx.real = tmp;
 	return (julia_mandelbrot(data, cx, itr));
-}	
+}
 
 double	circle(t_data *data, t_cx cx, int itr)
 {
