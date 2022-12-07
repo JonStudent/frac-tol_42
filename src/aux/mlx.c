@@ -14,7 +14,7 @@
 
 void	new_mlx_win(t_data *data, t_img *img)
 {	
-	img->img = mlx_new_image(data->mlx.mlx, WIDTH, HEIGHT);
+	img->img = mlx_new_image(data->mlx.mlx, data->sttgs.win_size.x, data->sttgs.win_size.y);
 	img->addr = mlx_get_data_addr(img->img, \
 	&img->bits_per_pixel, &img->line_len, &img->endian);
 }
@@ -22,7 +22,7 @@ void	new_mlx_win(t_data *data, t_img *img)
 void	init_mlx(t_data *data)
 {
 	data->mlx.mlx = mlx_init();
-	data->mlx.win = mlx_new_window(data->mlx.mlx, WIDTH, HEIGHT, "Fract-ol");
+	data->mlx.win = mlx_new_window(data->mlx.mlx, data->sttgs.win_size.x, data->sttgs.win_size.y, "Fract-ol");
 	new_mlx_win(data, &data->mlx.img);
 	mlx_key_hook(data->mlx.win, keyboard, &data);
 	mlx_mouse_hook(data->mlx.win, mouse, &data);

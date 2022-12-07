@@ -29,11 +29,8 @@ static int	keyboard_plus(int key, t_data *data)
 		data->sttgs.pltt = 2;
 	else if (key == 'i')
 		data->sttgs.opt ^= 1 << 7;
-	else if (key == 'l')
-	{
-		data->sttgs.ini_mx_itr = data->sttgs.mx_itr;
-		data->sttgs.opt ^= 1 << 8;
-	}
+	else
+		return (0);
 	ft_printf("max_iter: %d, key: %d\n", data->sttgs.mx_itr, key);
 	return (px_iter(data));
 }
@@ -51,7 +48,7 @@ int	keyboard(int key, t_data *data)
 	else if (key == 's' || key == DOWN_K)
 		data->sttgs.offset.imag += 34.4 / data->sttgs.zoom;
 	else if (key == 'r')
-		settings(data, NULL);
+		settings(data, 0, NULL);
 	else
 		return (keyboard_plus(key, data));
 	return (px_iter(data));

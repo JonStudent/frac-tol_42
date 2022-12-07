@@ -10,6 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// Missing one set
+// error handling
+// window manegamnt
+
 #include "fractol.h"
 
 int	main(int argc, char **argv)
@@ -18,7 +22,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (0);
-	settings(&data, argv[1]);
+	settings(&data, argc, argv);
 	px_iter(&data);
 	
 	// mlx_hook(data.img.win, 2, 1L<<0, keyboard, &data);

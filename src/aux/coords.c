@@ -26,10 +26,10 @@ t_cx	coords(t_data *data, int x, int y)
 int	px_iter(t_data *data)
 {
 	data->px.y = -1;
-	while (++data->px.y < HEIGHT)
+	while (++data->px.y < data->sttgs.win_size.y)
 	{
 		data->px.x = -1;
-		while (++data->px.x < WIDTH)
+		while (++data->px.x < data->sttgs.win_size.x)
 			color(data->set(data, coords(data, data->px.x, data->px.y), 0), data);
 	}
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img.img, 0, 0);

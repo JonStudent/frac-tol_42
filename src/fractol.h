@@ -20,7 +20,7 @@
 # include <stdlib.h>
 
 # define WIDTH 1600
-# define HEIGHT 1000
+# define HEIGHT 600
 
 //Pixels in one Centimeter
 # define CM 86
@@ -58,6 +58,7 @@ typedef struct s_sttgs {
 	long int	zoom;
 	t_cx		offset;
 	t_px		mid_win;
+	t_px		win_size;
 }	t_sttgs;
 
 typedef struct s_img {
@@ -75,6 +76,11 @@ typedef struct s_mlx {
 	t_img		img;
 }	t_mlx;
 
+typedef struct s_arg {
+	int		argc;
+	char	**argv;
+}	t_arg;
+
 //Main  struct
 typedef struct s_data t_data;
 
@@ -84,6 +90,7 @@ struct s_data {
 	t_cx	cx;
 	t_cx	cx_j;
 	t_px	px;
+	t_arg	arg;
 	double		(*set)(t_data *data, t_cx cx, int itr);
 };
 
@@ -91,10 +98,11 @@ struct s_data {
 t_cx	coords(t_data *data, int x, int y);
 void	color(double itr, t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void    settings(t_data *data, char *set);
+void    settings(t_data *data, int argc, char **argv);
 int		keyboard(int	key, t_data *data);
 int		mouse(int key, int x, int y, t_data *data);
 void	init_mlx(t_data *data);
+long double	atod(const char *s);
 
 //  Sets Functions
 double		julia_mandelbrot(t_data *data, t_cx cx, int itr);
