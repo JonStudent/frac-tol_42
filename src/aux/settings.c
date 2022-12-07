@@ -45,7 +45,6 @@ long double	atod(const char *s)
 }
 static void	get_param(t_data *data)
 {
-	printf("argc: %d\n", data->arg.argc);
 	data->cx_j.real = atod(data->arg.argv[2]);
 	data->cx_j.imag = atod(data->arg.argv[3]);
 	while (data->arg.argc-- > 2)
@@ -64,7 +63,7 @@ static void	get_param(t_data *data)
 void	settings(t_data *data, int argc, char **argv)
 {
 	data->sttgs.mx_itr = 80;
-	data->sttgs.zoom = CM * (data->sttgs.win_size.y / 200);
+	data->sttgs.zoom = CM * (data->sttgs.win_size.y / 200.0);
 	data->sttgs.offset.real = 0.5;
 	data->sttgs.offset.imag = 0;
 	if (!argc)
@@ -82,7 +81,8 @@ void	settings(t_data *data, int argc, char **argv)
 		get_param(data);
 	data->sttgs.mid_win.x = data->sttgs.win_size.x / 2;
 	data->sttgs.mid_win.y = data->sttgs.win_size.y / 2;
-	data->sttgs.zoom = CM * (data->sttgs.win_size.y / 200);
+	data->sttgs.zoom = CM * (data->sttgs.win_size.y / 200.0);
+	printf("zoom: %ld\n", data->sttgs.zoom);
 	init_mlx(data);
 	palette(data);
 }
