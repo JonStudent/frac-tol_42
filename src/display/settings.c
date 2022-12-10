@@ -18,31 +18,33 @@ void	*get_param(t_data *data, int i, int argc, char **argv)
 		if (argv[i][1] == 'w')
 			data->sttgs.win_size = pxl(atod(argv[i + 1]), atod(argv[i + 2]));
 		else if (argv[i][1] == 'i')
-			data->sttgs.init_mx_itr = atod(argv[i + 1]);
+			data->sttgs.init.itr = atod(argv[i + 1]);
+		else if (argv[i][1] == 'o' && i + 2 < argc)
+			data->sttgs.init.offset = cmplx(atod(argv[i + 1]), atod(argv[i + 2]));
 	}
 	if (++i < argc)
 		get_param(data, i, argc, argv);
 	return (data->set);
 }
 
-void	win_default(t_sttgs *sttgs, char force)
+void	win_default(t_sttgs *sttgs)
 {
-	if (!sttgs->init_mx_itr)
-		sttgs->init_mx_itr = 80;
-	sttgs->mx_itr = sttgs->init_mx_itr;
-	if (force || !sttgs->offset.real)
-		sttgs->offset.real = 0.5;
+	if (!sttgs->init.itr)
+		sttgs->init.itr = 80;
+	sttgs->live.itr = sttgs->init.itr;
+	if (!sttgs->init.zoom)
+		sttgs->init.zoom = PP_CM * (sttgs->win_size.y / 200.0);
+	sttgs->live.zoom = sttgs->init.zoom;
 	if (!sttgs->win_size.x || !sttgs->win_size.y)
 		sttgs->win_size = pxl(WIDTH, HEIGHT);
 	sttgs->mid_win = pxl(sttgs->win_size.x / 2, sttgs->win_size.y / 2);
-	if (force || !sttgs->zoom)
-		sttgs->zoom = PP_CM * (sttgs->win_size.y / 200.0);
+	sttgs->live.offset = sttgs->init.offset;
 }
 
 void	settings(t_data *data)
 {
 	if (!data->mlx)
 		data->mlx = mlx_init();
-	win_default(&data->sttgs, 0);
+	win_default(&data->sttgs);
 	init_win(data);
 }

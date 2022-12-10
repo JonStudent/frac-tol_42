@@ -3,9 +3,9 @@
 static int	keyboard_plus(int key, t_data *data)
 {
 	if (key == PLUS_K)
-		data->sttgs.mx_itr += 5;
-	else if (key == MINUS_K && data->sttgs.mx_itr > 5)
-		data->sttgs.mx_itr -= 5;
+		data->sttgs.live.itr += 5;
+	else if (key == MINUS_K && data->sttgs.live.itr > 5)
+		data->sttgs.live.itr -= 5;
 	else if (key == N0_K)
 		data->sttgs.opt |= (char)0;
 	else if (key == N1_K)
@@ -14,9 +14,13 @@ static int	keyboard_plus(int key, t_data *data)
 		data->sttgs.opt |= (char)2;
 	else if (key == 'i')
 		data->sttgs.opt ^= 1 << 8;
+	else if (key == 'p')
+		data->sttgs.opt ^= 1 << 9;
+	else if (key == 's')
+		data->sttgs.opt ^= 1 << 10;
 	else
 		return (0);
-	ft_printf("max_iter: %d, key: %d\n", data->sttgs.mx_itr, key);
+	ft_printf("max_iter: %d, key: %d\n", data->sttgs.live.itr, key);
 	return (px_iter(data));
 }
 
@@ -24,16 +28,20 @@ int	keyboard(int key, t_data *data)
 {
 	if (key == ESC_K)
 		exit(0);
-	else if (key == 'd' || key == RIGHT_K)
-		data->sttgs.offset.real -= 34.4 / data->sttgs.zoom;
-	else if (key == 'a' || key == LEFT_K)
-		data->sttgs.offset.real += 34.4 / data->sttgs.zoom;
-	else if (key == 'w' || key == UP_K)
-		data->sttgs.offset.imag -= 34.4 / data->sttgs.zoom;
-	else if (key == 's' || key == DOWN_K)
-		data->sttgs.offset.imag += 34.4 / data->sttgs.zoom;
+	else if (key == RIGHT_K)
+		data->sttgs.live.offset.real -= OFFSET * data->sttgs.init.zoom \
+		/ data->sttgs.live.zoom;
+	else if (key == LEFT_K)
+		data->sttgs.live.offset.real += OFFSET * data->sttgs.init.zoom \
+		/ data->sttgs.live.zoom;
+	else if (key == UP_K)
+		data->sttgs.live.offset.imag -= OFFSET * data->sttgs.init.zoom \
+		/ data->sttgs.live.zoom;
+	else if (key == DOWN_K)
+		data->sttgs.live.offset.imag += OFFSET * data->sttgs.init.zoom \
+		/ data->sttgs.live.zoom;
 	else if (key == 'r')
-		win_default(&data->sttgs, 1);
+		win_default(&data->sttgs);
 	else
 		return (keyboard_plus(key, data));
 	return (px_iter(data));
@@ -46,6 +54,6 @@ int	mouse(int key, int x, int y, t_data *data)
 		zoom(data, key, pxl(x, y));
 	else if (key == 1)
 		data->n.cx_j = data->n.cx;
-	printf("zoom: %ld\n", data->sttgs.zoom / PP_CM);
+	printf("zoom: %ld\n", data->sttgs.live.zoom / PP_CM);
 	return (px_iter(data));
 }

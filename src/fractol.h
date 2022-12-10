@@ -23,6 +23,7 @@
 # define HEIGHT 600
 
 # define PP_CM 86
+# define OFFSET 0.5 
 
 # define RIGHT_K 65363
 # define LEFT_K 65361
@@ -53,12 +54,16 @@ typedef struct s_n {
 	t_px	px;
 }	t_n;
 
+typedef struct s_vol {
+	long int	zoom;
+	int			itr;
+	t_cx		offset;
+}	t_vol;
+
 typedef struct s_sttgs {
 	int			opt;
-	long int	zoom;
-	int			mx_itr;
-	int			init_mx_itr;
-	t_cx		offset;
+	t_vol		init;
+	t_vol		live;
 	t_px		mid_win;
 	t_px		win_size;
 }	t_sttgs;
@@ -92,7 +97,7 @@ double	burning_ship(t_data *data, t_cx cx, int itr);
 //  Window Management
 void	init_win(t_data *data);
 void	settings(t_data *data);
-void	win_default(t_sttgs *sttgs, char force);
+void	win_default(t_sttgs *sttgs);
 void	my_mlx_pixel_put(t_data *data, t_px px, int color);
 
 //  Coords and color

@@ -12,16 +12,22 @@
 
 #include "../fractol.h"
 
+static void	black_white(t_data *data, double itr)
+{
+	itr *= 255;
+	itr = (int)itr << 16 | (int)itr << 8 | (int)itr;
+	my_mlx_pixel_put(data, data->n.px, itr);
+}
+
 void	color(double itr, t_data *data)
 {
-	itr /= data->sttgs.mx_itr;
-	data->sttgs.opt |= (unsigned char)255;
-	itr *= data->sttgs.opt;
-	
+	itr /= data->sttgs.live.itr;
+	if (data->sttgs.opt >> 9 & 1)
+		itr = pow(itr, 2);
+	if (data->sttgs.opt >> 10 & 1)
+		itr = sqrt(itr);
 	if (data->sttgs.opt >> 8 & 1)
-		itr = data->sttgs.opt - itr;
-	
-	if ((unsigned char)data->sttgs.opt == 255)
-		itr = (int)itr << 16 | (int)itr << 8 | (int)itr;
-	my_mlx_pixel_put(data, data->n.px, itr);
+		itr = 1 - itr;
+	if (!(char)data->sttgs.opt)
+		black_white(data, itr);	
 }
