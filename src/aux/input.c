@@ -29,17 +29,13 @@ int	keyboard(int key, t_data *data)
 	if (key == ESC_K)
 		exit(0);
 	else if (key == RIGHT_K)
-		data->sttgs.live.offset.real -= OFFSET * data->sttgs.init.zoom \
-		/ data->sttgs.live.zoom;
+		data->sttgs.live.offset.real -= OFFSET * data->sttgs.live.zoom;
 	else if (key == LEFT_K)
-		data->sttgs.live.offset.real += OFFSET * data->sttgs.init.zoom \
-		/ data->sttgs.live.zoom;
+		data->sttgs.live.offset.real += OFFSET * data->sttgs.live.zoom;
 	else if (key == UP_K)
-		data->sttgs.live.offset.imag -= OFFSET * data->sttgs.init.zoom \
-		/ data->sttgs.live.zoom;
+		data->sttgs.live.offset.imag -= OFFSET * data->sttgs.live.zoom;
 	else if (key == DOWN_K)
-		data->sttgs.live.offset.imag += OFFSET * data->sttgs.init.zoom \
-		/ data->sttgs.live.zoom;
+		data->sttgs.live.offset.imag += OFFSET * data->sttgs.live.zoom;
 	else if (key == 'r')
 		win_default(&data->sttgs);
 	else
