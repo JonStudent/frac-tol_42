@@ -110,7 +110,7 @@ void	zoom(t_data *data, int key, t_px px);
 long double	atod(const char *s);
 int			keyboard(int	key, t_data *data);
 int			mouse(int key, int x, int y, t_data *data);
-void		*get_param(t_data *data, int i, int argc, char **argv);
+void		*get_param(t_data *data, int i, int c, char **v);
 
 // Number
 t_px		pxl(int a, int b);
