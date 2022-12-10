@@ -12,27 +12,23 @@
 
 #include "../fractol.h"
 
-void	new_mlx_win(t_data *data, t_img *img)
-{	
-	img->img = mlx_new_image(data->mlx.mlx, data->sttgs.win_size.x, data->sttgs.win_size.y);
-	img->addr = mlx_get_data_addr(img->img, \
-	&img->bits_per_pixel, &img->line_len, &img->endian);
-}
-
-void	init_mlx(t_data *data)
-{
-	data->mlx.mlx = mlx_init();
-	data->mlx.win = mlx_new_window(data->mlx.mlx, data->sttgs.win_size.x, data->sttgs.win_size.y, "Fract-ol");
-	new_mlx_win(data, &data->mlx.img);
-	mlx_key_hook(data->mlx.win, keyboard, &data);
-	mlx_mouse_hook(data->mlx.win, mouse, &data);
-}
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_data *data, t_px px, int color)
 {
 	char	*dst;
 
-	dst = data->mlx.img.addr + \
-	(y * data->mlx.img.line_len + x * (data->mlx.img.bits_per_pixel / 8));
+	dst = data->img.addr + \
+	(px.y * data->img.line_len + px.x * (data->img.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
+}
+
+void	init_win(t_data *data)
+{
+	data->win = mlx_new_window(data->mlx, data->sttgs.win_size.x, \
+	data->sttgs.win_size.y, "Fract-ol");
+	data->img.img = mlx_new_image(data->mlx, data->sttgs.win_size.x, \
+	data->sttgs.win_size.y);
+	data->img.addr = mlx_get_data_addr(data->img.img, \
+	&data->img.bits_per_pixel, &data->img.line_len, &data->img.endian);
+	mlx_key_hook(data->win, keyboard, &data);
+	mlx_mouse_hook(data->win, mouse, &data);
 }

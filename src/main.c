@@ -21,15 +21,13 @@
 int	main(int argc, char **argv)
 {
 	static t_data	data;
+	static t_data	data2;
 
-	if (argc < 2)
-		return (0);
-	settings(&data, argc, argv);
+	if (argc < 2 || !get_param(&data, 1, argc, argv))
+	settings(&data);
 	px_iter(&data);
 	
 	// mlx_hook(data.img.win, 2, 1L<<0, keyboard, &data);
-	mlx_key_hook(data.mlx.win, keyboard, &data);
-	mlx_mouse_hook(data.mlx.win, mouse, &data);
 
-	mlx_loop(data.mlx.mlx);
+	mlx_loop(data.mlx);
 }

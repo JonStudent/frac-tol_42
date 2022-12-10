@@ -47,14 +47,16 @@ typedef struct s_px {
 	int		x;
 }	t_px;
 
+typedef struct s_n {
+	t_cx	cx_j;
+	t_cx	cx;
+	t_px	px;
+}	t_n;
+
 typedef struct s_sttgs {
-	char		set_flag;
-	int			pltt;
 	int			opt;
-	int			palette[19];
-	int			mx_itr;
-	int			ini_mx_itr;
 	long int	zoom;
+	int			mx_itr;
 	t_cx		offset;
 	t_px		mid_win;
 	t_px		win_size;
@@ -69,46 +71,42 @@ typedef struct s_img {
 	int			endian;
 }	t_img;
 
-typedef struct s_mlx {
-	void		*mlx;
-	void		*win;
-	t_img		img;
-}	t_mlx;
-
-typedef struct s_arg {
-	int		argc;
-	char	**argv;
-}	t_arg;
-
 //Main  struct
 typedef struct s_data t_data;
 
 struct s_data {
-	t_mlx	mlx;
+	void	*mlx;
+	void	*win;
+	t_n		n;
+	t_img	img;
 	t_sttgs	sttgs;
-	t_cx	cx;
-	t_cx	cx_j;
-	t_px	px;
-	t_arg	arg;
-	double		(*set)(t_data *data, t_cx cx, int itr);
+	double	(*set)(t_data *data, t_cx cx, int itr);
 };
 
-//  AUX Functions
-t_cx	coords(t_data *data, int x, int y);
+// Sets
+double	julia(t_data *data, t_cx cx, int itr);
+double	mandelbrot(t_data *data, t_cx cx, int itr);
+double	burning_ship(t_data *data, t_cx cx, int itr);
+
+//  Window Management
+void	init_win(t_data *data);
+void	settings(t_data *data);
+void	win_default(t_sttgs *sttgs);
+void	my_mlx_pixel_put(t_data *data, t_px px, int color);
+
+//  Coords and color
+int		px_iter(t_data *data);
+t_cx	coords(t_data *data, t_px px);
 void	color(double itr, t_data *data);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void    settings(t_data *data, int argc, char **argv);
-int		keyboard(int	key, t_data *data);
-int		mouse(int key, int x, int y, t_data *data);
-void	init_mlx(t_data *data);
+void	zoom(t_data *data, int key, t_px px);
+
+// Input Handling
 long double	atod(const char *s);
-int			px_iter(t_data *data);
+int			keyboard(int	key, t_data *data);
+int			mouse(int key, int x, int y, t_data *data);
+char		get_param(t_data *data, int i, int argc, char **argv);
 
-//  Sets Functions
-double		julia_mandelbrot(t_data *data, t_cx cx, int itr);
-double		burning_ship(t_data *data, t_cx cx, int itr);
-
-//	Debbug
-double	circle(t_data *data, t_cx cx, int itr);
-
+// Calculus
+t_px	pxl(int a, int b);
+t_cx	cmplx(double a, double b);
 #endif

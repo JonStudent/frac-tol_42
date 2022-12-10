@@ -15,22 +15,13 @@
 void	color(double itr, t_data *data)
 {
 	itr /= data->sttgs.mx_itr;
-
-	if (!data->sttgs.pltt)
-		data->sttgs.pltt = 255;
-	else if (data->sttgs.pltt == 1)
-		data->sttgs.pltt = 0x00FFFFFF;
-	else if (data->sttgs.pltt == 2)
-		data->sttgs.pltt = 18;
-
-	itr *= data->sttgs.pltt;
+	data->sttgs.opt |= (char)255;
+	itr *= data->sttgs.opt;
 	
-	if (data->sttgs.opt >> 7 & 1)
-		itr = data->sttgs.pltt - itr;
+	if (data->sttgs.opt >> 8 & 1)
+		itr = data->sttgs.opt - itr;
 	
-	if (data->sttgs.pltt == 255)
+	if ((char)data->sttgs.opt == 255)
 		itr = (int)itr << 16 | (int)itr << 8 | (int)itr;
-	else if (data->sttgs.pltt == 18)
-		itr = data->sttgs.palette[(int)itr];
-	my_mlx_pixel_put(data, data->px.x, data->px.y, itr);
+	my_mlx_pixel_put(data, data->n.px, itr);
 }

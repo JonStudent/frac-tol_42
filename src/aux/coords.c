@@ -12,26 +12,40 @@
 
 #include "../fractol.h"
 
-t_cx	coords(t_data *data, int x, int y)
+void	zoom(t_data *data, int key, t_px px)
 {
-	data->cx.real = (x - data->sttgs.mid_win.x) \
-	/ (double)data->sttgs.zoom - data->sttgs.offset.real;
-	data->cx.imag = (data->sttgs.mid_win.y - y) \
-	/ (double)data->sttgs.zoom - data->sttgs.offset.imag;
-	if (data->sttgs.set_flag == 'j')
-		return (data->cx_j);
-	return (data->cx);
+	t_cx	tmp;
+
+	tmp = cmplx(data->n.cx.real, data->n.cx.imag);
+	if (key == 4)
+		data->sttgs.zoom *= 2;
+	else if (key == 5 && data->sttgs.zoom > 1)
+		data->sttgs.zoom /= 2;
+	coords(data, px);
+	data->sttgs.offset.real += data->n.cx.real - tmp.real;
+	data->sttgs.offset.imag += data->n.cx.imag - tmp.imag;
+}
+
+t_cx	coords(t_data *data, t_px px)
+{
+	data->n.cx = cmplx((px.x - data->sttgs.mid_win.x) 
+	/ (double)data->sttgs.zoom - data->sttgs.offset.real, \
+	(data->sttgs.mid_win.y - px.y) \
+	/ (double)data->sttgs.zoom - data->sttgs.offset.imag);
+	if (data->set == julia)
+		return (data->n.cx_j);
+	return (data->n.cx);
 }
 
 int	px_iter(t_data *data)
 {
-	data->px.y = -1;
-	while (++data->px.y < data->sttgs.win_size.y)
+	data->n.px.y = -1;
+	while (++data->n.px.y < data->sttgs.win_size.y)
 	{
-		data->px.x = -1;
-		while (++data->px.x < data->sttgs.win_size.x)
-			color(data->set(data, coords(data, data->px.x, data->px.y), 0), data);
+		data->n.px.x = -1;
+		while (++data->n.px.x < data->sttgs.win_size.x)
+			color(data->set(data, coords(data, data->n.px), 0), data);
 	}
-	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img.img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	return (0);
 }
