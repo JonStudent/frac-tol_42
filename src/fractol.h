@@ -39,8 +39,8 @@
 # define N2_K 65433
 
 typedef struct s_cx {
-	double	real;
-	double	imag;
+	long double	real;
+	long double	imag;
 }	t_cx;
 
 typedef struct s_px {
@@ -86,13 +86,13 @@ struct s_data {
 	t_n		n;
 	t_img	img;
 	t_sttgs	sttgs;
-	double	(*set)(t_data *data, t_cx cx, int itr);
+	long double	(*set)(t_data *data, t_cx cx, int itr);
 };
 
 // Sets
-double	julia(t_data *data, t_cx cx, int itr);
-double	mandelbrot(t_data *data, t_cx cx, int itr);
-double	burning_ship(t_data *data, t_cx cx, int itr);
+long double	julia(t_data *data, t_cx cx, int itr);
+long double	mandelbrot(t_data *data, t_cx cx, int itr);
+long double	burning_ship(t_data *data, t_cx cx, int itr);
 
 //  Window Management
 void	init_win(t_data *data);
@@ -103,7 +103,7 @@ void	my_mlx_pixel_put(t_data *data, t_px px, int color);
 //  Coords and color
 int		px_iter(t_data *data);
 t_cx	coords(t_data *data, t_px px);
-void	color(double itr, t_data *data);
+void	color(long double itr, t_data *data);
 void	zoom(t_data *data, int key, t_px px);
 
 // Input Handling
@@ -112,7 +112,9 @@ int			keyboard(int	key, t_data *data);
 int			mouse(int key, int x, int y, t_data *data);
 void		*get_param(t_data *data, int i, int argc, char **argv);
 
-// Calculus
-t_px	pxl(int a, int b);
-t_cx	cmplx(double a, double b);
+// Number
+t_px		pxl(int a, int b);
+t_cx		cmplx(long double a, long double b);
+long double	ldabs(long double a);
+
 #endif

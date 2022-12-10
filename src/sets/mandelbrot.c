@@ -1,6 +1,6 @@
 #include "../fractol.h"
 
-double	mandelbrot(t_data *data, t_cx cx, int itr)
+long double	mandelbrot(t_data *data, t_cx cx, int itr)
 {
 	long double	tmp;
 

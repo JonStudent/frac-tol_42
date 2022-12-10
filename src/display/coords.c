@@ -22,18 +22,16 @@ void	zoom(t_data *data, int key, t_px px)
 	else if (key == 5 && data->sttgs.live.zoom > 1)
 		data->sttgs.live.zoom /= 2;
 	coords(data, px);
-	data->sttgs.live.offset.real += (data->n.cx.real - tmp.real) \
-	* data->sttgs.live.zoom;
-	data->sttgs.live.offset.imag += (data->n.cx.imag - tmp.imag) \
-	* data->sttgs.live.zoom;
+	data->sttgs.live.offset.real += data->n.cx.real - tmp.real;
+	data->sttgs.live.offset.imag += data->n.cx.imag - tmp.imag;
 }
 
 t_cx	coords(t_data *data, t_px px)
 {
-	data->n.cx = cmplx((px.x - data->sttgs.mid_win.x \
-	- data->sttgs.live.offset.real) / (double)data->sttgs.live.zoom, \
-	(data->sttgs.mid_win.y - px.y - data->sttgs.live.offset.imag) \
-	/ (double)data->sttgs.live.zoom);
+	data->n.cx = cmplx((px.x - data->sttgs.mid_win.x) \
+	/ (long double)data->sttgs.live.zoom - data->sttgs.live.offset.real, \
+	(data->sttgs.mid_win.y - px.y) \
+	/ (long double)data->sttgs.live.zoom - data->sttgs.live.offset.imag);
 	if (data->set == julia)
 		return (data->n.cx_j);
 	return (data->n.cx);

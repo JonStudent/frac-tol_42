@@ -1,6 +1,6 @@
 #include "../fractol.h"
 
-double	julia(t_data *data, t_cx cx, int itr)
+long double	julia(t_data *data, t_cx cx, int itr)
 {
 	long double	tmp;
 

@@ -1,6 +1,6 @@
 #include "../fractol.h"
 
-t_cx    cmplx(double a, double b)
+t_cx    cmplx(long double a, long double b)
 {
     t_cx    c;
 
@@ -16,6 +16,13 @@ t_px    pxl(int a, int b)
     p.x = a;
     p.y = b;
     return (p);
+}
+
+long double	ldabs(long double a)
+{
+	if (a < 0)
+		return (-a);
+	return (a);
 }
 
 long double	atod(const char *s)
