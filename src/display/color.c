@@ -15,13 +15,13 @@
 void	color(double itr, t_data *data)
 {
 	itr /= data->sttgs.mx_itr;
-	data->sttgs.opt |= (char)255;
+	data->sttgs.opt |= (unsigned char)255;
 	itr *= data->sttgs.opt;
 	
 	if (data->sttgs.opt >> 8 & 1)
 		itr = data->sttgs.opt - itr;
 	
-	if ((char)data->sttgs.opt == 255)
+	if ((unsigned char)data->sttgs.opt == 255)
 		itr = (int)itr << 16 | (int)itr << 8 | (int)itr;
 	my_mlx_pixel_put(data, data->n.px, itr);
 }

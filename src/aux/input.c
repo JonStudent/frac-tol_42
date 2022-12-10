@@ -1,48 +1,5 @@
 #include "../fractol.h"
 
-long double	atod(const char *s)
-{
-	long double	i;
-	long double	n;
-
-	i = 1.0;
-	n = 0.0;
-	while ((*s >= 9 && *s <= 13) || *s == 32)
-		s++;
-	if (*s == '-' && s++)
-		i = -1;
-	while (*s >= '0' && *s <= '9')
-		n = (n * 10) + i * (*s++ - '0');
-	while (*s++ == '.' || (*s >= '0' && *s <= '9'))
-	{
-		i *= 0.1;
-		n += i * (*s - '0');
-	}
-	return (n);
-}
-
-char	get_param(t_data *data, int i, int argc, char **argv)
-{
-	if (argv[i][0] == 'j')
-	{
-		if (argv[i][0] == 'j' && i + 2 < argc)
-			data->n.cx_j = cmplx(atod(argv[i + 1]), atod(argv[i + 2]));
-		data->set = julia;
-	}
-	else if (argv[i][0] == 'm')
-		data->set = julia;
-	else if (argv[i][0] == 'b')
-		data->set = burning_ship;
-	else if (argv[i][0] == '-')
-	{
-		if (argv[i][1] == 'w')
-			data->sttgs.win_size = pxl(atod(argv[i + 1]), atod(argv[i + 2]));
-	}
-	if (++i < argc)
-		get_param(data, i, argc, argv);
-	return (data->set);
-}
-
 static int	keyboard_plus(int key, t_data *data)
 {
 	if (key == PLUS_K)
@@ -76,7 +33,7 @@ int	keyboard(int key, t_data *data)
 	else if (key == 's' || key == DOWN_K)
 		data->sttgs.offset.imag += 34.4 / data->sttgs.zoom;
 	else if (key == 'r')
-		win_default(&data->sttgs);
+		win_default(&data->sttgs, 1);
 	else
 		return (keyboard_plus(key, data));
 	return (px_iter(data));

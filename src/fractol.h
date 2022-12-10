@@ -57,6 +57,7 @@ typedef struct s_sttgs {
 	int			opt;
 	long int	zoom;
 	int			mx_itr;
+	int			init_mx_itr;
 	t_cx		offset;
 	t_px		mid_win;
 	t_px		win_size;
@@ -91,7 +92,7 @@ double	burning_ship(t_data *data, t_cx cx, int itr);
 //  Window Management
 void	init_win(t_data *data);
 void	settings(t_data *data);
-void	win_default(t_sttgs *sttgs);
+void	win_default(t_sttgs *sttgs, char force);
 void	my_mlx_pixel_put(t_data *data, t_px px, int color);
 
 //  Coords and color
@@ -104,7 +105,7 @@ void	zoom(t_data *data, int key, t_px px);
 long double	atod(const char *s);
 int			keyboard(int	key, t_data *data);
 int			mouse(int key, int x, int y, t_data *data);
-char		get_param(t_data *data, int i, int argc, char **argv);
+void		*get_param(t_data *data, int i, int argc, char **argv);
 
 // Calculus
 t_px	pxl(int a, int b);

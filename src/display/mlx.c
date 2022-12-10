@@ -29,6 +29,6 @@ void	init_win(t_data *data)
 	data->sttgs.win_size.y);
 	data->img.addr = mlx_get_data_addr(data->img.img, \
 	&data->img.bits_per_pixel, &data->img.line_len, &data->img.endian);
-	mlx_key_hook(data->win, keyboard, &data);
-	mlx_mouse_hook(data->win, mouse, &data);
+	mlx_key_hook(data->win, keyboard, data);
+	mlx_mouse_hook(data->win, mouse, data);
 }
