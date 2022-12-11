@@ -21,11 +21,13 @@ void	zoom(t_data *data, int key, t_px px)
 		data->sttgs.live.zoom *= 2;
 	else if (key == 5 && data->sttgs.live.zoom > 1)
 		data->sttgs.live.zoom /= 2;
+	if (key == 4 && data->sttgs.opt >> 11 & 1)
+		data->sttgs.live.itr += data->sttgs.init.itr / 10;
+	else if (key == 5 && data->sttgs.opt >> 11 & 1)
+		data->sttgs.live.itr -= data->sttgs.init.itr / 10;
 	coords(data, px);
 	data->sttgs.live.offset.real -= data->n.cx.real - tmp.real;
 	data->sttgs.live.offset.imag -= data->n.cx.imag - tmp.imag;
-	if (!(data->sttgs.opt >> 11 & 1))
-		data->sttgs.live.itr += sqrt(data->sttgs.init.zoom / (double)data->sttgs.live.zoom);
 }
 
 t_cx	coords(t_data *data, t_px px)

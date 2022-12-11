@@ -62,7 +62,6 @@ typedef struct s_vol {
 
 typedef struct s_sttgs {
 	int		opt;
-	double	percent;
 	t_vol	init;
 	t_vol	live;
 	t_px	mid_win;
