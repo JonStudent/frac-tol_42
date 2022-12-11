@@ -41,7 +41,6 @@ void	win_default(t_sttgs *sttgs)
 	sttgs->live.zoom = sttgs->init.zoom;
 	sttgs->live.offset = sttgs->init.offset;
 	sttgs->mid_win = pxl(sttgs->win_size.x / 2, sttgs->win_size.y / 2);
-	sttgs->percent = OFFSET * sttgs->init.zoom;
 }
 
 void	settings(t_data *data)
