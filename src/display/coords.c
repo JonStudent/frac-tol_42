@@ -16,6 +16,7 @@ void	zoom(t_data *data, int key, t_px px)
 {
 	t_cx	tmp;
 
+	coords(data, px);
 	tmp = cmplx(data->n.cx.real, data->n.cx.imag);
 	if (key == 4)
 		data->sttgs.live.zoom *= 2;

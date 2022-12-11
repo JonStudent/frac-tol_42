@@ -62,6 +62,7 @@ typedef struct s_vol {
 
 typedef struct s_sttgs {
 	int		opt;
+	int		clr;
 	t_vol	init;
 	t_vol	live;
 	t_px	mid_win;
@@ -86,13 +87,13 @@ struct s_data {
 	t_n		n;
 	t_img	img;
 	t_sttgs	sttgs;
-	long double	(*set)(t_data *data, t_cx cx, int itr);
+	double	(*set)(t_data *data, t_cx cx, int itr);
 };
 
 // Sets
-long double	julia(t_data *data, t_cx cx, int itr);
-long double	mandelbrot(t_data *data, t_cx cx, int itr);
-long double	burning_ship(t_data *data, t_cx cx, int itr);
+double	julia(t_data *data, t_cx cx, int itr);
+double	mandelbrot(t_data *data, t_cx cx, int itr);
+double	burning_ship(t_data *data, t_cx cx, int itr);
 
 //  Window Management
 void	init_win(t_data *data);
@@ -103,9 +104,9 @@ void	my_mlx_pixel_put(t_data *data, t_px px, int color);
 //  Coords and color
 int		px_iter(t_data *data);
 t_cx	coords(t_data *data, t_px px);
-void	color(long double itr, t_data *data);
+void	color(double itr, t_data *data);
 void	zoom(t_data *data, int key, t_px px);
-
+int	hsv2rgb(double h, double s, double v);
 // Input Handling
 long double	atod(const char *s);
 int			keyboard(int	key, t_data *data);

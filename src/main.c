@@ -27,7 +27,10 @@ int	main(int argc, char **argv)
 	settings(&data);
 	px_iter(&data);
 	
+	// double	a = 125;
+	// int b = hsv2rgb(a, 0.1, 1);
+	// printf("hsv: %f\nR: %d\nG: %d\nB: %d\n", a, b >> 16 & 255, b >> 8 & 255, b & 255);
+	
 	// mlx_hook(data.img.win, 2, 1L<<0, keyboard, &data);
-
 	mlx_loop(data.mlx);
 }

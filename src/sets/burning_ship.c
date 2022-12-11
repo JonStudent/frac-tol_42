@@ -1,6 +1,6 @@
 #include "../fractol.h"
 
-long double	burning_ship(t_data *data, t_cx cx, int itr)
+double	burning_ship(t_data *data, t_cx cx, int itr)
 {
 	long double	tmp;
 
