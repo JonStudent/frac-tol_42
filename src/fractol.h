@@ -55,17 +55,18 @@ typedef struct s_n {
 }	t_n;
 
 typedef struct s_vol {
-	long int	zoom;
-	int			itr;
-	t_cx		offset;
+	long	zoom;
+	double	itr;
+	t_cx	offset;
 }	t_vol;
 
 typedef struct s_sttgs {
-	int			opt;
-	t_vol		init;
-	t_vol		live;
-	t_px		mid_win;
-	t_px		win_size;
+	int		opt;
+	double	percent;
+	t_vol	init;
+	t_vol	live;
+	t_px	mid_win;
+	t_px	win_size;
 }	t_sttgs;
 
 typedef struct s_img {

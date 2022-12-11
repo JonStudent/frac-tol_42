@@ -22,7 +22,7 @@ void	*get_param(t_data *data, int i, int c, char **v)
 		else if (v[i][1] == 'w' && i + 2 < c)
 			data->sttgs.win_size = pxl(atod(v[i + 1]), atod(v[i + 2]));
 		else if (v[i][1] == 'c' && i + 2 < c)
-			data->sttgs.init.offset = cmplx(-atod(v[i + 1]), -atod(v[i + 2]));
+			data->sttgs.init.offset = cmplx(atod(v[i + 1]), atod(v[i + 2]));
 	}
 	if (++i < c)
 		get_param(data, i, c, v);
@@ -37,11 +37,11 @@ void	win_default(t_sttgs *sttgs)
 	if (!sttgs->win_size.x || !sttgs->win_size.y)
 		sttgs->win_size = pxl(WIDTH, HEIGHT);
 	if (!sttgs->init.zoom)
-		sttgs->init.zoom = PP_CM;
+		sttgs->init.zoom = PP_CM * (sttgs->win_size.x / 350.0);
 	sttgs->live.zoom = sttgs->init.zoom;
+	sttgs->live.offset = sttgs->init.offset;
 	sttgs->mid_win = pxl(sttgs->win_size.x / 2, sttgs->win_size.y / 2);
-	sttgs->live.offset.real = sttgs->init.offset.real;
-	sttgs->live.offset.imag = sttgs->init.offset.imag;
+	sttgs->percent = OFFSET * sttgs->init.zoom;
 }
 
 void	settings(t_data *data)
