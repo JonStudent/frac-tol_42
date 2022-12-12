@@ -25,8 +25,8 @@ void	*get_param(t_data *data, int i, int c, char **v)
 			data->init.offset = cmplx(atod(v[i + 1]), atod(v[i + 2]));
 		else if (v[i][1] == 'c' && i + 2 < c)
 		{
-			data->clr.bgn = atod(v[i + 1]);
-			data->clr.end = atod(v[i + 2]);
+			data->init.hsv = atod(v[i + 1]);
+			data->head.hsv = atod(v[i + 2]);
 		}
 	}
 	if (++i < c)
@@ -42,11 +42,11 @@ void	win_default(t_data *data)
 		data->win_size = pxl(WIDTH, HEIGHT);
 	if (!data->init.zoom)
 		data->init.zoom = PP_CM * (data->win_size.y / 350.0);
-	if (!data->clr.end)
-		data->clr.end = 359.99;
-	data->live.itr = data->init.itr;
-	data->live.zoom = data->init.zoom;
-	data->live.offset = data->init.offset;
+	if (!data->head.hsv)
+		data->head.hsv = 359.99;
+	data->head.itr = data->init.itr;
+	data->head.zoom = data->init.zoom;
+	data->head.offset = data->init.offset;
 	data->mid_win = pxl(data->win_size.x / 2, data->win_size.y / 2);
 }
 

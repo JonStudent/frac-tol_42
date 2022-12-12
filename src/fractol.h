@@ -47,24 +47,19 @@ typedef struct s_px {
 }	t_px;
 
 typedef struct s_vol {
+	double	hsv;
+	long	itr;
 	long	zoom;
-	double	itr;
 	t_cx	offset;
 }	t_vol;
 
-typedef struct s_clr {
-	int		clr;
-	double	bgn;
-	double	end;
-}	t_clr;
-
 typedef struct s_img {
-	void		*img;
-	char		*addr;
-	int			lenght;
-	int			line_len;
-	int			bits_per_pixel;
-	int			endian;
+	void	*img;
+	char	*addr;
+	int		lenght;
+	int		line_len;
+	int		bits_per_pixel;
+	int		endian;
 }	t_img;
 
 //Main  struct
@@ -73,23 +68,23 @@ typedef struct s_data t_data;
 struct s_data {
 	void	*mlx;
 	void	*win;
-	int		opt;
-	t_cx	cx_j;
+	int		clr;
+	char	opt;
 	t_cx	cx;
 	t_px	px;
+	t_cx	cx_j;
 	t_px	mid_win;
 	t_px	win_size;
-	t_clr	clr;
 	t_img	img;
 	t_vol	init;
-	t_vol	live;
-	double	(*set)(t_data *data, t_cx cx, int itr);
+	t_vol	head;
+	double	(*set)(t_data *data, t_cx cx, long itr);
 };
 
 // Sets
-double	julia(t_data *data, t_cx cx, int itr);
-double	mandelbrot(t_data *data, t_cx cx, int itr);
-double	burning_ship(t_data *data, t_cx cx, int itr);
+double	julia(t_data *data, t_cx cx, long itr);
+double	mandelbrot(t_data *data, t_cx cx, long itr);
+double	burning_ship(t_data *data, t_cx cx, long itr);
 
 //  Window Management
 void	init_win(t_data *data);

@@ -12,7 +12,7 @@
 
 #include "../fractol.h"
 
-int	hsv2rgb(double h, double s, double v)
+static long	hsv2rgb(double h, double s, double v)
 {
 	double c;
 	double m;
@@ -20,7 +20,8 @@ int	hsv2rgb(double h, double s, double v)
 
 	c = 255 * v;
 	m = c * (1 - s);
-
+	if (h == 360)
+		h = 0;
 	z =  (c - m) * (1 - ldabs(d_mod(h / 60, 2) - 1));
 	if (0 <= h && h < 60)
 		return ((int)c << 16 | (int)(z + m) << 8 | (int)m);
@@ -37,37 +38,34 @@ int	hsv2rgb(double h, double s, double v)
 	return (0);
 }
 
-static void	black_white(t_data *data, long double itr)
+static void	black_white(t_data *data, double itr)
 {
 	itr *= 255;
 	itr = (int)itr << 16 | (int)itr << 8 | (int)itr;
 	img_pixel(data, data->px, itr);
 }
 
-void	full_hsv(t_data *data, double itr)
+static void	hsv_scale(t_data *data, double itr)
 {	
 	int	rgb;
 
-	rgb = hsv2rgb(data->clr.bgn + itr * (data->clr.end - data->clr.bgn), 1, 1);
-	if (data->opt >> 8 & 1 && !itr) 
-		img_pixel(data, data->px, 0x00FFFFFF);
-	else if (!(data->opt >> 8 & 1) && (int)itr)
-		img_pixel(data, data->px, 0);
-	else
-		img_pixel(data, data->px, rgb);
+	rgb = hsv2rgb(data->init.hsv + itr * data->head.hsv, 1, 1);
+	if ((data->opt & 1 && !itr) || (!(data->opt & 1) && (int)itr))
+		rgb = 0;
+	img_pixel(data, data->px, rgb);
 }
 
 void	color(double itr, t_data *data)
 {
-	itr /= data->live.itr;
-	if (data->opt >> 9 & 1)
+	itr /= data->head.itr;
+	if (data->opt >> 1 & 1)
 		itr = pow(itr, 2);
-	if (data->opt >> 10 & 1)
+	if (data->opt >> 2 & 1)
 		itr = sqrt(itr);
-	if (data->opt >> 8 & 1)
+	if (data->opt & 1)
 		itr = 1 - itr;
-	if (!data->clr.clr || data->clr.clr == N1_K)
-		full_hsv(data, itr);
-	if (data->clr.clr == N0_K)
+	if (!data->clr || data->clr == N1_K)
+		hsv_scale(data, itr);
+	if (data->clr == N0_K)
 		black_white(data, itr);
 }

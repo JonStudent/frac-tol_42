@@ -18,24 +18,24 @@ void	zoom(t_data *data, int key, t_px px)
 
 	tmp = cmplx(data->cx.real, data->cx.imag);
 	if (key == 4)
-		data->live.zoom *= 2;
-	else if (key == 5 && data->live.zoom > 1)
-		data->live.zoom /= 2;
-	if (key == 4 && data->opt >> 11 & 1)
-		data->live.itr += data->init.itr / 10;
-	else if (key == 5 && data->opt >> 11 & 1)
-		data->live.itr -= data->init.itr / 10;
+		data->head.zoom *= 2;
+	else if (key == 5 && data->head.zoom > 1)
+		data->head.zoom /= 2;
+	if (key == 4 && data->opt >> 3 & 1)
+		data->head.itr += data->init.itr / 10;
+	else if (key == 5 && data->opt >> 3 & 1)
+		data->head.itr -= data->init.itr / 10;
 	coords(data, px);
-	data->live.offset.real -= data->cx.real - tmp.real;
-	data->live.offset.imag -= data->cx.imag - tmp.imag;
+	data->head.offset.real -= data->cx.real - tmp.real;
+	data->head.offset.imag -= data->cx.imag - tmp.imag;
 }
 
 t_cx	coords(t_data *data, t_px px)
 {
 	data->cx = cmplx((px.x - data->mid_win.x) \
-	/ (long double)data->live.zoom + data->live.offset.real, \
+	/ (long double)data->head.zoom + data->head.offset.real, \
 	(data->mid_win.y - px.y) \
-	/ (long double)data->live.zoom + data->live.offset.imag);
+	/ (long double)data->head.zoom + data->head.offset.imag);
 	if (data->set == julia)
 		return (data->cx_j);
 	return (data->cx);
