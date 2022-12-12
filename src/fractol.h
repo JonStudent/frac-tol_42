@@ -19,7 +19,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-# define WIDTH 1600
+# define WIDTH 600
 # define HEIGHT 600
 
 # define PP_CM 86
@@ -66,6 +66,7 @@ typedef struct s_img {
 typedef struct s_data t_data;
 
 struct s_data {
+	t_data	*next_data;
 	void	*mlx;
 	void	*win;
 	int		clr;

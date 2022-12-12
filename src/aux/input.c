@@ -12,6 +12,8 @@ static int	keyboard_plus(int key, t_data *data)
 		data->opt ^= 1 << 3; 
 	else if (key == 'r')
 		win_default(data);
+	else if (key == 'j')
+		settings(data->next_data);
 	else
 		return (0);
 	return (px_iter(data));
@@ -41,7 +43,6 @@ int	keyboard(int key, t_data *data)
 		data->clr = key;
 	else
 		return (keyboard_plus(key, data));
-	ft_printf("max_iter: %d, key: %d\n", data->head.itr, key);
 	return (px_iter(data));
 }
 
@@ -50,8 +51,10 @@ int	mouse(int key, int x, int y, t_data *data)
 	coords(data, pxl(x, y));
 	if (key == 4 || key == 5)
 		zoom(data, key, pxl(x, y));
-	else if (key == 1)
+	else if (key == 1 && data->next_data)
+		data->next_data->cx_j = data->cx;
+	if (key == 1)
 		data->cx_j = data->cx;
-	printf("zoom: %ld iter: %ld\n", data->head.zoom / PP_CM, data->head.itr);
+	printf("coords: [%Lf %Lf]	zoom: %ld iter: %ld\n", data->cx.real, data->cx.imag, data->head.zoom / PP_CM, data->head.itr);
 	return (px_iter(data));
 }

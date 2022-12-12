@@ -51,5 +51,7 @@ int	px_iter(t_data *data)
 			color(data->set(data, coords(data, data->px), 0), data);
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
+	if (data->next_data && data->next_data->win)
+		px_iter(data->next_data);
 	return (0);
 }
