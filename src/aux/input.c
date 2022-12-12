@@ -12,12 +12,12 @@
 
 #include "../fractol.h"
 
-void	*get_param(t_data *frtl, int i, int c, char **v)
+void	*get_param(t_frtl *frtl, int i, int c, char **v)
 {
 	if (v[i][0] == 'j' || v[i][0] == 'J')
 		frtl->set = julia;
 	if ((v[i][0] == 'j' || v[i][0] == 'J') && i + 2 < c)
-		frtl->cx_j = cmplx(atod(v[i + 1]), atod(v[i + 2]));
+		frtl->init.cx_j = cmplx(atod(v[i + 1]), atod(v[i + 2]));
 	else if (v[i][0] == 'm' || v[i][0] == 'M')
 		frtl->set = mandelbrot;
 	else if (v[i][0] == 'b' || v[i][0] == 'B')
@@ -27,9 +27,9 @@ void	*get_param(t_data *frtl, int i, int c, char **v)
 	else if (v[i][0] == '-' && (v[i][1] == 'z' && i + 1 < c))
 		frtl->init.zoom = atod(v[i + 1]) * PP_CM;
 	else if (v[i][0] == '-' && (v[i][1] == 'c' && i + 2 < c))
-		frtl->hsv = cmplx(atod(v[i + 1]), atod(v[i + 2]));
+		frtl->img.hsv = cmplx(atod(v[i + 1]), atod(v[i + 2]));
 	else if (v[i][0] == '-' && (v[i][1] == 'w' && i + 2 < c))
-		frtl->win_size = pxl(atod(v[i + 1]), atod(v[i + 2]));
+		frtl->img.win_size = pxl(atod(v[i + 1]), atod(v[i + 2]));
 	else if (v[i][0] == '-' && (v[i][1] == 'o' && i + 2 < c))
 		frtl->init.offset = cmplx(atod(v[i + 1]), atod(v[i + 2]));
 	if (++i < c)
@@ -37,20 +37,20 @@ void	*get_param(t_data *frtl, int i, int c, char **v)
 	return (frtl->set);
 }
 
-static int	keyboard_plus(int key, t_data *frtl)
+static int	keyboard_plus(int key, t_frtl *frtl)
 {
 	if (key == 'i')
-		frtl->opt ^= 1;
+		frtl->img.opt ^= 1;
 	else if (key == 'p')
-		frtl->opt ^= 1 << 1;
+		frtl->img.opt ^= 1 << 1;
 	else if (key == 's')
-		frtl->opt ^= 1 << 2;
+		frtl->img.opt ^= 1 << 2;
 	else if (key == 'a')
-		frtl->opt ^= 1 << 3;
+		frtl->img.opt ^= 1 << 3;
 	else if (key == 'r')
 		default_win(frtl);
 	else if (key == 'j' && frtl->child && !frtl->child->win)
-		settings(frtl->child, frtl->mlx, frtl->set);
+		settings(frtl->child, frtl->mlx, frtl);
 	else if (key == 'j' && frtl->child)
 		win_close(frtl->child);
 	else if (key == 'j')
@@ -60,43 +60,43 @@ static int	keyboard_plus(int key, t_data *frtl)
 	return (px_iter(frtl));
 }
 
-int	keyboard(int key, t_data *frtl)
+int	keyboard(int key, t_frtl *frtl)
 {
 	if (key == ESC_K)
 		handle_error(frtl, NULL);
 	else if (key == RIGHT_K)
-		frtl->head.offset.real += OFFSET * frtl->init.zoom \
-		/ frtl->head.zoom;
+		frtl->curr.offset.real += OFFSET * frtl->init.zoom \
+		/ frtl->curr.zoom;
 	else if (key == LEFT_K)
-		frtl->head.offset.real -= OFFSET * frtl->init.zoom \
-		/ frtl->head.zoom;
+		frtl->curr.offset.real -= OFFSET * frtl->init.zoom \
+		/ frtl->curr.zoom;
 	else if (key == UP_K)
-		frtl->head.offset.imag += OFFSET * frtl->init.zoom \
-		/ frtl->head.zoom;
+		frtl->curr.offset.imag += OFFSET * frtl->init.zoom \
+		/ frtl->curr.zoom;
 	else if (key == DOWN_K)
-		frtl->head.offset.imag -= OFFSET * frtl->init.zoom \
-		/ frtl->head.zoom;
+		frtl->curr.offset.imag -= OFFSET * frtl->init.zoom \
+		/ frtl->curr.zoom;
 	else if (key == PLUS_K)
-		frtl->head.itr += 20;
-	else if (key == MINUS_K && frtl->head.itr > 20)
-		frtl->head.itr -= 20;
+		frtl->curr.itr += 20;
+	else if (key == MINUS_K && frtl->curr.itr > 20)
+		frtl->curr.itr -= 20;
 	else if (key == N0_K || key == N1_K || key == N2_K)
-		frtl->clr = key;
+		frtl->img.clr = key;
 	else
 		return (keyboard_plus(key, frtl));
 	return (px_iter(frtl));
 }
 
-int	mouse(int key, int x, int y, t_data *frtl)
+int	mouse(int key, int x, int y, t_frtl *frtl)
 {
 	coords(frtl, pxl(x, y));
 	if (key == 4 || key == 5)
 		zoom(frtl, key, pxl(x, y));
 	else if (key == 1)
-		frtl->cx_j = frtl->cx;
+		frtl->curr.cx_j = frtl->cx;
 	if (key == 1 && frtl->child)
-		frtl->child->cx_j = frtl->cx;
+		frtl->child->curr.cx_j = frtl->cx;
 	ft_printf("coords: [%Lf %Lf]	zoom: %ld iter: %ld\n", \
-	frtl->cx.real, frtl->cx.imag, frtl->head.zoom / PP_CM, frtl->head.itr);
+	frtl->cx.real, frtl->cx.imag, frtl->curr.zoom / PP_CM, frtl->curr.itr);
 	return (px_iter(frtl));
 }

@@ -12,7 +12,7 @@
 
 #include "../fractol.h"
 
-void	img_pixel(t_data *frtl, t_px px, int color)
+void	pixel_to_img(t_frtl *frtl, t_px px, int color)
 {
 	char	*dst;
 
@@ -21,16 +21,16 @@ void	img_pixel(t_data *frtl, t_px px, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	init_win(t_data *frtl)
+void	init_win(t_frtl *frtl)
 {
-	frtl->win = mlx_new_window(frtl->mlx, frtl->win_size.x, \
-	frtl->win_size.y, frtl->title);
+	frtl->win = mlx_new_window(frtl->mlx, frtl->img.win_size.x, \
+	frtl->img.win_size.y, frtl->title);
 	if (!frtl->win)
-		handle_error(frtl, "mlx didn't create window--");
-	frtl->img.img = mlx_new_image(frtl->mlx, frtl->win_size.x, \
-	frtl->win_size.y);
+		handle_error(frtl, "Mlx didn't create window--");
+	frtl->img.img = mlx_new_image(frtl->mlx, frtl->img.win_size.x, \
+	frtl->img.win_size.y);
 	if (!frtl->img.img)
-		handle_error(frtl, "mlx didn't create image--");
+		handle_error(frtl, "Mlx didn't create image--");
 	frtl->img.addr = mlx_get_data_addr(frtl->img.img, \
 	&frtl->img.bits_per_pixel, &frtl->img.line_len, &frtl->img.endian);
 	mlx_key_hook(frtl->win, keyboard, frtl);
