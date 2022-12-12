@@ -24,8 +24,10 @@ int	main(int argc, char **argv)
 		handle_error(&frtl, NULL);
 	frtl.child = &child;
 	child.parent = &frtl;
-	px_iter(settings(&frtl, mlx_init(), frtl.set));
 	
+	px_iter(settings(&frtl, mlx_init(), frtl.set));
+	// handle_error(&frtl, NULL);
+
 	// mlx_hook(frtl.img.win, 2, 1L<<0, keyboard, &frtl);
 	mlx_loop(frtl.mlx);
 }

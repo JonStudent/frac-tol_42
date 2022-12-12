@@ -59,7 +59,7 @@ static int	keyboard_plus(int key, t_data *frtl)
 int	keyboard(int key, t_data *frtl)
 {
 	if (key == ESC_K)
-		exit(0);
+		handle_error(frtl, NULL);
 	else if (key == RIGHT_K)
 		frtl->head.offset.real += OFFSET * frtl->init.zoom \
 		/ frtl->head.zoom;
