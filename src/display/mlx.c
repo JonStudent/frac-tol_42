@@ -23,10 +23,10 @@ void	img_pixel(t_data *data, t_px px, int color)
 
 void	init_win(t_data *data)
 {
-	data->win = mlx_new_window(data->mlx, data->sttgs.win_size.x, \
-	data->sttgs.win_size.y, "Fract-ol");
-	data->img.img = mlx_new_image(data->mlx, data->sttgs.win_size.x, \
-	data->sttgs.win_size.y);
+	data->win = mlx_new_window(data->mlx, data->win_size.x, \
+	data->win_size.y, "Fract-ol");
+	data->img.img = mlx_new_image(data->mlx, data->win_size.x, \
+	data->win_size.y);
 	data->img.addr = mlx_get_data_addr(data->img.img, \
 	&data->img.bits_per_pixel, &data->img.line_len, &data->img.endian);
 	mlx_key_hook(data->win, keyboard, data);

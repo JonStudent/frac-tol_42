@@ -6,7 +6,7 @@ void	*get_param(t_data *data, int i, int c, char **v)
 	if (v[i][0] == 'j')
 	{
 		if (i + 2 < c)
-			data->n.cx_j = cmplx(atod(v[i + 1]), atod(v[i + 2]));
+			data->cx_j = cmplx(atod(v[i + 1]), atod(v[i + 2]));
 		data->set = julia;
 	}
 	else if (v[i][0] == 'm')
@@ -16,42 +16,44 @@ void	*get_param(t_data *data, int i, int c, char **v)
 	else if (v[i][0] == '-')
 	{
 		if (v[i][1] == 'z' && i + 1 < c)
-			data->sttgs.init.zoom = atod(v[i + 1]) * PP_CM;
+			data->init.zoom = atod(v[i + 1]) * PP_CM;
 		else if (v[i][1] == 'i' && i + 1 < c)
-			data->sttgs.init.itr = atod(v[i + 1]);
+			data->init.itr = atod(v[i + 1]);
 		else if (v[i][1] == 'w' && i + 2 < c)
-			data->sttgs.win_size = pxl(atod(v[i + 1]), atod(v[i + 2]));
+			data->win_size = pxl(atod(v[i + 1]), atod(v[i + 2]));
 		else if (v[i][1] == 'o' && i + 2 < c)
-			data->sttgs.init.offset = cmplx(atod(v[i + 1]), atod(v[i + 2]));
+			data->init.offset = cmplx(atod(v[i + 1]), atod(v[i + 2]));
 		else if (v[i][1] == 'c' && i + 2 < c)
-			data->sttgs.rng = cmplx(atod(v[i + 1]), atod(v[i + 2]));
+		{
+			data->clr.bgn = atod(v[i + 1]);
+			data->clr.end = atod(v[i + 2]);
+		}
 	}
 	if (++i < c)
 		get_param(data, i, c, v);
 	return (data->set);
 }
 
-void	win_default(t_sttgs *sttgs)
+void	win_default(t_data *data)
 {
-	if (!sttgs->init.itr)
-		sttgs->init.itr = 80;
-	if (!sttgs->win_size.x || !sttgs->win_size.y)
-		sttgs->win_size = pxl(WIDTH, HEIGHT);
-	if (!sttgs->init.zoom)
-		sttgs->init.zoom = PP_CM * (sttgs->win_size.x / 350.0);
-	if (!sttgs->rng.imag)
-		sttgs->rng.imag = 359.99;
-	sttgs->rng.imag = sttgs->rng.imag - sttgs->rng.real;
-	sttgs->live.itr = sttgs->init.itr;
-	sttgs->live.zoom = sttgs->init.zoom;
-	sttgs->live.offset = sttgs->init.offset;
-	sttgs->mid_win = pxl(sttgs->win_size.x / 2, sttgs->win_size.y / 2);
+	if (!data->init.itr)
+		data->init.itr = 64;
+	if (!data->win_size.x || !data->win_size.y)
+		data->win_size = pxl(WIDTH, HEIGHT);
+	if (!data->init.zoom)
+		data->init.zoom = PP_CM * (data->win_size.y / 350.0);
+	if (!data->clr.end)
+		data->clr.end = 359.99;
+	data->live.itr = data->init.itr;
+	data->live.zoom = data->init.zoom;
+	data->live.offset = data->init.offset;
+	data->mid_win = pxl(data->win_size.x / 2, data->win_size.y / 2);
 }
 
 void	settings(t_data *data)
 {
 	if (!data->mlx)
 		data->mlx = mlx_init();
-	win_default(&data->sttgs);
+	win_default(data);
 	init_win(data);
 }

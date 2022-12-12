@@ -29,11 +29,9 @@
 # define LEFT_K 65361
 # define UP_K 65362
 # define DOWN_K 65364
-
 # define ESC_K 65307
 # define PLUS_K 65451
 # define MINUS_K 65453
-
 # define N0_K 65438
 # define N1_K 65436
 # define N2_K 65433
@@ -44,15 +42,9 @@ typedef struct s_cx {
 }	t_cx;
 
 typedef struct s_px {
-	int		y;
-	int		x;
+	int	y;
+	int	x;
 }	t_px;
-
-typedef struct s_n {
-	t_cx	cx_j;
-	t_cx	cx;
-	t_px	px;
-}	t_n;
 
 typedef struct s_vol {
 	long	zoom;
@@ -60,15 +52,11 @@ typedef struct s_vol {
 	t_cx	offset;
 }	t_vol;
 
-typedef struct s_sttgs {
-	int		opt;
+typedef struct s_clr {
 	int		clr;
-	t_cx	rng;
-	t_vol	init;
-	t_vol	live;
-	t_px	mid_win;
-	t_px	win_size;
-}	t_sttgs;
+	double	bgn;
+	double	end;
+}	t_clr;
 
 typedef struct s_img {
 	void		*img;
@@ -85,9 +73,16 @@ typedef struct s_data t_data;
 struct s_data {
 	void	*mlx;
 	void	*win;
-	t_n		n;
+	int		opt;
+	t_cx	cx_j;
+	t_cx	cx;
+	t_px	px;
+	t_px	mid_win;
+	t_px	win_size;
+	t_clr	clr;
 	t_img	img;
-	t_sttgs	sttgs;
+	t_vol	init;
+	t_vol	live;
 	double	(*set)(t_data *data, t_cx cx, int itr);
 };
 
@@ -99,7 +94,7 @@ double	burning_ship(t_data *data, t_cx cx, int itr);
 //  Window Management
 void	init_win(t_data *data);
 void	settings(t_data *data);
-void	win_default(t_sttgs *sttgs);
+void	win_default(t_data *data);
 void	img_pixel(t_data *data, t_px px, int color);
 
 //  Coords and color

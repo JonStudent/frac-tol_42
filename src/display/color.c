@@ -41,29 +41,33 @@ static void	black_white(t_data *data, long double itr)
 {
 	itr *= 255;
 	itr = (int)itr << 16 | (int)itr << 8 | (int)itr;
-	img_pixel(data, data->n.px, itr);
+	img_pixel(data, data->px, itr);
 }
 
-void	full_hsv(t_data *data, double itr, double init, double spec)
-{
-	if (((data->sttgs.opt >> 8 & 1 && !itr) \
-	|| (!(data->sttgs.opt >> 8 & 1) && (int)itr))) 
-		img_pixel(data, data->n.px, 0);
+void	full_hsv(t_data *data, double itr)
+{	
+	int	rgb;
+
+	rgb = hsv2rgb(data->clr.bgn + itr * (data->clr.end - data->clr.bgn), 1, 1);
+	if (data->opt >> 8 & 1 && !itr) 
+		img_pixel(data, data->px, 0x00FFFFFF);
+	else if (!(data->opt >> 8 & 1) && (int)itr)
+		img_pixel(data, data->px, 0);
 	else
-		img_pixel(data, data->n.px, hsv2rgb(init + (itr * spec), 1, 1));
+		img_pixel(data, data->px, rgb);
 }
 
 void	color(double itr, t_data *data)
 {
-	itr /= data->sttgs.live.itr;
-	if (data->sttgs.opt >> 9 & 1)
+	itr /= data->live.itr;
+	if (data->opt >> 9 & 1)
 		itr = pow(itr, 2);
-	if (data->sttgs.opt >> 10 & 1)
+	if (data->opt >> 10 & 1)
 		itr = sqrt(itr);
-	if (data->sttgs.opt >> 8 & 1)
+	if (data->opt >> 8 & 1)
 		itr = 1 - itr;
-	if (!data->sttgs.clr || data->sttgs.clr == N0_K)
+	if (!data->clr.clr || data->clr.clr == N1_K)
+		full_hsv(data, itr);
+	if (data->clr.clr == N0_K)
 		black_white(data, itr);
-	if (data->sttgs.clr == N1_K)
-		full_hsv(data, itr, data->sttgs.rng.real, data->sttgs.rng.imag);
 }

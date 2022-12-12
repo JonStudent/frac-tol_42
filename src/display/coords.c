@@ -16,40 +16,39 @@ void	zoom(t_data *data, int key, t_px px)
 {
 	t_cx	tmp;
 
-	coords(data, px);
-	tmp = cmplx(data->n.cx.real, data->n.cx.imag);
+	tmp = cmplx(data->cx.real, data->cx.imag);
 	if (key == 4)
-		data->sttgs.live.zoom *= 2;
-	else if (key == 5 && data->sttgs.live.zoom > 1)
-		data->sttgs.live.zoom /= 2;
-	if (key == 4 && data->sttgs.opt >> 11 & 1)
-		data->sttgs.live.itr += data->sttgs.init.itr / 10;
-	else if (key == 5 && data->sttgs.opt >> 11 & 1)
-		data->sttgs.live.itr -= data->sttgs.init.itr / 10;
+		data->live.zoom *= 2;
+	else if (key == 5 && data->live.zoom > 1)
+		data->live.zoom /= 2;
+	if (key == 4 && data->opt >> 11 & 1)
+		data->live.itr += data->init.itr / 10;
+	else if (key == 5 && data->opt >> 11 & 1)
+		data->live.itr -= data->init.itr / 10;
 	coords(data, px);
-	data->sttgs.live.offset.real -= data->n.cx.real - tmp.real;
-	data->sttgs.live.offset.imag -= data->n.cx.imag - tmp.imag;
+	data->live.offset.real -= data->cx.real - tmp.real;
+	data->live.offset.imag -= data->cx.imag - tmp.imag;
 }
 
 t_cx	coords(t_data *data, t_px px)
 {
-	data->n.cx = cmplx((px.x - data->sttgs.mid_win.x) \
-	/ (long double)data->sttgs.live.zoom + data->sttgs.live.offset.real, \
-	(data->sttgs.mid_win.y - px.y) \
-	/ (long double)data->sttgs.live.zoom + data->sttgs.live.offset.imag);
+	data->cx = cmplx((px.x - data->mid_win.x) \
+	/ (long double)data->live.zoom + data->live.offset.real, \
+	(data->mid_win.y - px.y) \
+	/ (long double)data->live.zoom + data->live.offset.imag);
 	if (data->set == julia)
-		return (data->n.cx_j);
-	return (data->n.cx);
+		return (data->cx_j);
+	return (data->cx);
 }
 
 int	px_iter(t_data *data)
 {
-	data->n.px.y = -1;
-	while (++data->n.px.y < data->sttgs.win_size.y)
+	data->px.y = -1;
+	while (++data->px.y < data->win_size.y)
 	{
-		data->n.px.x = -1;
-		while (++data->n.px.x < data->sttgs.win_size.x)
-			color(data->set(data, coords(data, data->n.px), 0), data);
+		data->px.x = -1;
+		while (++data->px.x < data->win_size.x)
+			color(data->set(data, coords(data, data->px), 0), data);
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	return (0);
