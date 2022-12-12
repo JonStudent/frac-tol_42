@@ -25,10 +25,13 @@ int	win_close(t_frtl *frtl)
 
 void	handle_error(t_frtl *frtl, char *cause)
 {
+	char	bad;
+
+	bad = 0;
+	if (cause && ++bad)
+		perror(cause);
 	if (!frtl->set)
 		ft_printf("Get ready for manual!\n");
-	if (cause)
-		perror(cause);
 	win_close(frtl);
 	if (frtl->parent)
 		win_close(frtl->parent);
@@ -37,7 +40,7 @@ void	handle_error(t_frtl *frtl, char *cause)
 	if (frtl->mlx)
 		mlx_destroy_display(frtl->mlx);
 	free(frtl->mlx);
-	exit(0);
+	exit(bad);
 }
 
 void	default_win(t_frtl *frtl)
