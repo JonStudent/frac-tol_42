@@ -18,6 +18,11 @@ t_px    pxl(int a, int b)
     return (p);
 }
 
+double	d_mod(double a, int b)
+{
+	return (a - pow(b, (int)(a / b)));
+}
+
 long double	ldabs(long double a)
 {
 	if (a < 0)

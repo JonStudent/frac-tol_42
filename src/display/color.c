@@ -12,11 +12,6 @@
 
 #include "../fractol.h"
 
-static double	mod(double a, int b)
-{
-	return (a - pow(b, (int)(a / b)));
-}
-
 int	hsv2rgb(double h, double s, double v)
 {
 	double c;
@@ -26,7 +21,7 @@ int	hsv2rgb(double h, double s, double v)
 	c = 255 * v;
 	m = c * (1 - s);
 
-	z =  (c - m) * (1 - ldabs(mod(h / 60, 2) - 1));
+	z =  (c - m) * (1 - ldabs(d_mod(h / 60, 2) - 1));
 	if (0 <= h && h < 60)
 		return ((int)c << 16 | (int)(z + m) << 8 | (int)m);
 	if (60 <= h && h < 120)
@@ -46,7 +41,16 @@ static void	black_white(t_data *data, long double itr)
 {
 	itr *= 255;
 	itr = (int)itr << 16 | (int)itr << 8 | (int)itr;
-	my_mlx_pixel_put(data, data->n.px, itr);
+	img_pixel(data, data->n.px, itr);
+}
+
+void	full_hsv(t_data *data, double itr, double init, double spec)
+{
+	if (((data->sttgs.opt >> 8 & 1 && !itr) \
+	|| (!(data->sttgs.opt >> 8 & 1) && (int)itr))) 
+		img_pixel(data, data->n.px, 0);
+	else
+		img_pixel(data, data->n.px, hsv2rgb(init + (itr * spec), 1, 1));
 }
 
 void	color(double itr, t_data *data)
@@ -61,5 +65,5 @@ void	color(double itr, t_data *data)
 	if (!data->sttgs.clr || data->sttgs.clr == N0_K)
 		black_white(data, itr);
 	if (data->sttgs.clr == N1_K)
-		my_mlx_pixel_put(data, data->n.px, hsv2rgb(itr * 360, 1, 1));
+		full_hsv(data, itr, data->sttgs.rng.real, data->sttgs.rng.imag);
 }

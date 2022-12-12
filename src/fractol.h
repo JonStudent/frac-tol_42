@@ -63,6 +63,7 @@ typedef struct s_vol {
 typedef struct s_sttgs {
 	int		opt;
 	int		clr;
+	t_cx	rng;
 	t_vol	init;
 	t_vol	live;
 	t_px	mid_win;
@@ -99,14 +100,14 @@ double	burning_ship(t_data *data, t_cx cx, int itr);
 void	init_win(t_data *data);
 void	settings(t_data *data);
 void	win_default(t_sttgs *sttgs);
-void	my_mlx_pixel_put(t_data *data, t_px px, int color);
+void	img_pixel(t_data *data, t_px px, int color);
 
 //  Coords and color
 int		px_iter(t_data *data);
 t_cx	coords(t_data *data, t_px px);
 void	color(double itr, t_data *data);
 void	zoom(t_data *data, int key, t_px px);
-int	hsv2rgb(double h, double s, double v);
+
 // Input Handling
 long double	atod(const char *s);
 int			keyboard(int	key, t_data *data);
@@ -117,5 +118,6 @@ void		*get_param(t_data *data, int i, int c, char **v);
 t_px		pxl(int a, int b);
 t_cx		cmplx(long double a, long double b);
 long double	ldabs(long double a);
+double		d_mod(double a, int b);
 
 #endif
