@@ -24,7 +24,7 @@ void	img_pixel(t_data *data, t_px px, int color)
 void	init_win(t_data *data)
 {
 	data->win = mlx_new_window(data->mlx, data->win_size.x, \
-	data->win_size.y, "Fract-ol");
+	data->win_size.y, "Fract-ol"" Bitch");
 	data->img.img = mlx_new_image(data->mlx, data->win_size.x, \
 	data->win_size.y);
 	data->img.addr = mlx_get_data_addr(data->img.img, \

@@ -11,9 +11,13 @@ static int	keyboard_plus(int key, t_data *data)
 	else if (key == 'a')
 		data->opt ^= 1 << 3; 
 	else if (key == 'r')
-		win_default(data);
+		win_init(data);
+	else if (key == 'j' && data->n_data && !data->n_data->win)
+		settings(data->n_data, data->mlx);
+	else if (key == 'j' && data->n_data)
+		win_close(data->n_data);
 	else if (key == 'j')
-		settings(data->next_data);
+		return (win_close(data));
 	else
 		return (0);
 	return (px_iter(data));
@@ -53,8 +57,8 @@ int	mouse(int key, int x, int y, t_data *data)
 		zoom(data, key, pxl(x, y));
 	else if (key == 1)
 		data->cx_j = data->cx;
-	if (key == 1 && data->next_data)
-		data->next_data->cx_j = data->cx;
+	if (key == 1 && data->n_data)
+		data->n_data->cx_j = data->cx;
 	printf("coords: [%Lf %Lf]	zoom: %ld iter: %ld\n", data->cx.real, data->cx.imag, data->head.zoom / PP_CM, data->head.itr);
 	return (px_iter(data));
 }

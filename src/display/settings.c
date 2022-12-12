@@ -34,7 +34,7 @@ void	*get_param(t_data *data, int i, int c, char **v)
 	return (data->set);
 }
 
-void	win_default(t_data *data)
+void	win_init(t_data *data)
 {
 	if (!data->init.itr)
 		data->init.itr = 64;
@@ -44,16 +44,26 @@ void	win_default(t_data *data)
 		data->init.zoom = PP_CM * (data->win_size.y / 350.0);
 	if (!data->head.hsv)
 		data->head.hsv = 359.99;
+	if (!data->set)
+		data->set = julia;
 	data->head.itr = data->init.itr;
 	data->head.zoom = data->init.zoom;
 	data->head.offset = data->init.offset;
 	data->mid_win = pxl(data->win_size.x / 2, data->win_size.y / 2);
 }
 
-void	settings(t_data *data)
+int	win_close(t_data *data)
 {
-	if (!data->mlx)
-		data->mlx = mlx_init();
-	win_default(data);
+	printf("HLLO\n");
+	mlx_destroy_image(data->mlx, data->img.img);
+	mlx_destroy_window(data->mlx, data->win);
+	data->win = 0;
+	return (0);
+}
+
+void	settings(t_data *data, void *p)
+{
+	data->mlx = p;
+	win_init(data);
 	init_win(data);
 }
