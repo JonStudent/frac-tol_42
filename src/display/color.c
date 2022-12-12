@@ -14,15 +14,15 @@
 
 static long	hsv2rgb(double h, double s, double v)
 {
-	double c;
-	double m;
-	double z;
+	double	c;
+	double	m;
+	double	z;
 
 	c = 255 * v;
 	m = c * (1 - s);
 	if (h == 360)
 		h = 0;
-	z =  (c - m) * (1 - ldabs(d_mod(h / 60, 2) - 1));
+	z = (c - m) * (1 - ldabs(d_mod(h / 60, 2) - 1));
 	if (0 <= h && h < 60)
 		return ((int)c << 16 | (int)(z + m) << 8 | (int)m);
 	if (60 <= h && h < 120)
@@ -49,7 +49,7 @@ static void	hsv_scale(t_data *frtl, double itr)
 {	
 	int	rgb;
 
-	rgb = hsv2rgb(frtl->init.hsv + itr * frtl->head.hsv, 1, 1);
+	rgb = hsv2rgb(frtl->hsv.real + itr * frtl->hsv.imag, 1, 1);
 	if ((frtl->opt & 1 && !itr) || (!(frtl->opt & 1) && (int)itr))
 		rgb = 0;
 	img_pixel(frtl, frtl->px, rgb);

@@ -26,6 +26,6 @@ int	main(int argc, char **argv)
 	frtl.child = &child;
 	child.parent = &frtl;
 	px_iter(settings(&frtl, mlx_init(), frtl.set));
-	// mlx_hook(frtl.img.win, 2, 1L<<0, keyboard, &frtl);
 	mlx_loop(frtl.mlx);
 }
+	// mlx_hook(frtl.win, 2, 1L<<0, keyboard, &frtl);

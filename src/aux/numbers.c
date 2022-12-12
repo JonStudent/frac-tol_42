@@ -1,21 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   numbers.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/12 21:53:04 by jbasilio          #+#    #+#             */
+/*   Updated: 2022/12/12 21:53:14 by jbasilio         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fractol.h"
 
-t_cx    cmplx(long double a, long double b)
+t_cx	cmplx(long double a, long double b)
 {
-    t_cx    c;
+	t_cx	c;
 
-    c.real = a;
-    c.imag = b;
-    return (c);
+	c.real = a;
+	c.imag = b;
+	return (c);
 }
 
-t_px    pxl(int a, int b)
+t_px	pxl(int a, int b)
 {
-    t_px    p;
+	t_px	p;
 
-    p.x = a;
-    p.y = b;
-    return (p);
+	p.x = a;
+	p.y = b;
+	return (p);
 }
 
 double	d_mod(double a, int b)

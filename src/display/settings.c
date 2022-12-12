@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   settings.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/12 21:52:45 by jbasilio          #+#    #+#             */
+/*   Updated: 2022/12/12 21:52:49 by jbasilio         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fractol.h"
 
 int	win_close(t_data *frtl)
@@ -36,15 +48,15 @@ void	default_win(t_data *frtl)
 		frtl->win_size = pxl(WIDTH, HEIGHT);
 	if (!frtl->init.zoom)
 		frtl->init.zoom = PP_CM * (frtl->win_size.y / 350.0);
-	if (!frtl->head.hsv)
-		frtl->head.hsv = 359.99;
+	if (!frtl->hsv.imag)
+		frtl->hsv.imag = 359.99;
 	frtl->head.itr = frtl->init.itr;
 	frtl->head.zoom = frtl->init.zoom;
 	frtl->head.offset = frtl->init.offset;
 	frtl->mid_win = pxl(frtl->win_size.x / 2, frtl->win_size.y / 2);
 }
 
-t_data *settings(t_data *frtl, void *mlx, void *set)
+t_data	*settings(t_data *frtl, void *mlx, void *set)
 {
 	default_win(frtl);
 	frtl->mlx = mlx;
