@@ -51,10 +51,10 @@ int	mouse(int key, int x, int y, t_data *data)
 	coords(data, pxl(x, y));
 	if (key == 4 || key == 5)
 		zoom(data, key, pxl(x, y));
-	else if (key == 1 && data->next_data)
-		data->next_data->cx_j = data->cx;
-	if (key == 1)
+	else if (key == 1)
 		data->cx_j = data->cx;
+	if (key == 1 && data->next_data)
+		data->next_data->cx_j = data->cx;
 	printf("coords: [%Lf %Lf]	zoom: %ld iter: %ld\n", data->cx.real, data->cx.imag, data->head.zoom / PP_CM, data->head.itr);
 	return (px_iter(data));
 }
