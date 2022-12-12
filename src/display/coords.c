@@ -36,7 +36,7 @@ t_cx	coords(t_data *data, t_px px)
 	/ (long double)data->head.zoom + data->head.offset.real, \
 	(data->mid_win.y - px.y) \
 	/ (long double)data->head.zoom + data->head.offset.imag);
-	if (data->set == julia)
+	if (data->set == julia || !data->n_data)
 		return (data->cx_j);
 	return (data->cx);
 }

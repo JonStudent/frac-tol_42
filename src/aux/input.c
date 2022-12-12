@@ -11,9 +11,9 @@ static int	keyboard_plus(int key, t_data *data)
 	else if (key == 'a')
 		data->opt ^= 1 << 3; 
 	else if (key == 'r')
-		win_init(data);
+		default_win(data);
 	else if (key == 'j' && data->n_data && !data->n_data->win)
-		settings(data->n_data, data->mlx);
+		settings(data->n_data, data->mlx, data->set);
 	else if (key == 'j' && data->n_data)
 		win_close(data->n_data);
 	else if (key == 'j')

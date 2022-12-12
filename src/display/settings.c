@@ -3,15 +3,15 @@
 
 void	*get_param(t_data *data, int i, int c, char **v)
 {
-	if (v[i][0] == 'j')
+	if (v[i][0] == 'j' || v[i][0] == 'J')
 	{
 		if (i + 2 < c)
 			data->cx_j = cmplx(atod(v[i + 1]), atod(v[i + 2]));
 		data->set = julia;
 	}
-	else if (v[i][0] == 'm')
+	else if (v[i][0] == 'm' || v[i][0] == 'M')
 		data->set = mandelbrot;
-	else if (v[i][0] == 'b')
+	else if (v[i][0] == 'b' || v[i][0] == 'B')
 		data->set = burning_ship;
 	else if (v[i][0] == '-')
 	{
@@ -34,7 +34,7 @@ void	*get_param(t_data *data, int i, int c, char **v)
 	return (data->set);
 }
 
-void	win_init(t_data *data)
+void	default_win(t_data *data)
 {
 	if (!data->init.itr)
 		data->init.itr = 64;
@@ -44,8 +44,6 @@ void	win_init(t_data *data)
 		data->init.zoom = PP_CM * (data->win_size.y / 350.0);
 	if (!data->head.hsv)
 		data->head.hsv = 359.99;
-	if (!data->set)
-		data->set = julia;
 	data->head.itr = data->init.itr;
 	data->head.zoom = data->init.zoom;
 	data->head.offset = data->init.offset;
@@ -54,16 +52,23 @@ void	win_init(t_data *data)
 
 int	win_close(t_data *data)
 {
-	printf("HLLO\n");
 	mlx_destroy_image(data->mlx, data->img.img);
 	mlx_destroy_window(data->mlx, data->win);
 	data->win = 0;
 	return (0);
 }
 
-void	settings(t_data *data, void *p)
+t_data *settings(t_data *data, void *mlx, void *set)
 {
-	data->mlx = p;
-	win_init(data);
+	data->mlx = mlx;
+	data->set = set;
+	default_win(data);
+	if (data->set == mandelbrot)
+		data->title = "Mandelbrot Set";
+	else if (data->set == julia)
+		data->title = "Julia Set";
+	else if (data->set == burning_ship)
+		data->title = "Burning_Ship Set";
 	init_win(data);
+	return (data);
 }

@@ -69,6 +69,7 @@ struct s_data {
 	t_data	*n_data;
 	void	*mlx;
 	void	*win;
+	char	*title;
 	int		clr;
 	char	opt;
 	t_cx	cx;
@@ -90,8 +91,8 @@ double	burning_ship(t_data *data, t_cx cx, long itr);
 //  Window Management
 void	init_win(t_data *data);
 int		win_close(t_data *data);
-void	settings(t_data *data, void *p);
-void	win_init(t_data *data);
+t_data *settings(t_data *data, void *mlx, void *set);
+void	default_win(t_data *data);
 void	img_pixel(t_data *data, t_px px, int color);
 
 //  Coords and color
