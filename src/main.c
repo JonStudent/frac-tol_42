@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// I could add one more set...
-
 // error handling and check
 // window manegamnt
 
@@ -19,14 +17,15 @@
 
 int	main(int argc, char **argv)
 {
-	static t_data	data;
-	static t_data	data2;
+	static t_data	frtl;
+	static t_data	child;
 
-	if (argc < 2 || !get_param(&data, 1, argc, argv))
-		return (0);
-	data.n_data = &data2;
-	px_iter(settings(&data, mlx_init(), data.set));
+	if (argc < 2 || !get_param(&frtl, 1, argc, argv))
+		handle_error(&frtl, NULL);
+	frtl.child = &child;
+	child.parent = &frtl;
+	px_iter(settings(&frtl, mlx_init(), frtl.set));
 	
-	// mlx_hook(data.img.win, 2, 1L<<0, keyboard, &data);
-	mlx_loop(data.mlx);
+	// mlx_hook(frtl.img.win, 2, 1L<<0, keyboard, &frtl);
+	mlx_loop(frtl.mlx);
 }

@@ -1,15 +1,15 @@
 #include "../fractol.h"
 
-double	mandelbrot(t_data *data, t_cx cx, long itr)
+double	mandelbrot(t_data *frtl, t_cx cx, long itr)
 {
 	long double	tmp;
 
-	while (pow(data->cx.real, 2.0) + pow(data->cx.imag, 2.0) < 4 \
-	&& ++itr < data->head.itr)
+	while (pow(frtl->cx.real, 2.0) + pow(frtl->cx.imag, 2.0) < 4 \
+	&& ++itr < frtl->head.itr)
 	{
-		tmp = pow(data->cx.real, 2.0) - pow(data->cx.imag, 2.0) + cx.real;
-		data->cx.imag = 2.0 * data->cx.real * data->cx.imag + cx.imag;
-		data->cx.real = tmp;
+		tmp = pow(frtl->cx.real, 2.0) - pow(frtl->cx.imag, 2.0) + cx.real;
+		frtl->cx.imag = 2.0 * frtl->cx.real * frtl->cx.imag + cx.imag;
+		frtl->cx.real = tmp;
 	}
 	return (itr);
 }

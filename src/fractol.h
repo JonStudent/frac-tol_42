@@ -56,7 +56,6 @@ typedef struct s_vol {
 typedef struct s_img {
 	void	*img;
 	char	*addr;
-	int		lenght;
 	int		line_len;
 	int		bits_per_pixel;
 	int		endian;
@@ -66,7 +65,8 @@ typedef struct s_img {
 typedef struct s_data t_data;
 
 struct s_data {
-	t_data	*n_data;
+	t_data	*child;
+	t_data	*parent;
 	void	*mlx;
 	void	*win;
 	char	*title;
@@ -80,32 +80,33 @@ struct s_data {
 	t_img	img;
 	t_vol	init;
 	t_vol	head;
-	double	(*set)(t_data *data, t_cx cx, long itr);
+	double	(*set)(t_data *frtl, t_cx cx, long itr);
 };
 
 // Sets
-double	julia(t_data *data, t_cx cx, long itr);
-double	mandelbrot(t_data *data, t_cx cx, long itr);
-double	burning_ship(t_data *data, t_cx cx, long itr);
+double	julia(t_data *frtl, t_cx cx, long itr);
+double	mandelbrot(t_data *frtl, t_cx cx, long itr);
+double	burning_ship(t_data *frtl, t_cx cx, long itr);
 
 //  Window Management
-void	init_win(t_data *data);
-int		win_close(t_data *data);
-t_data *settings(t_data *data, void *mlx, void *set);
-void	default_win(t_data *data);
-void	img_pixel(t_data *data, t_px px, int color);
+int		win_close(t_data *frtl);
+void	init_win(t_data *frtl);
+void	default_win(t_data *frtl);
+void	handle_error(t_data *frtl, char *cause);
+void	img_pixel(t_data *frtl, t_px px, int color);
+t_data *settings(t_data *frtl, void *mlx, void *set);
 
 //  Coords and color
-int		px_iter(t_data *data);
-t_cx	coords(t_data *data, t_px px);
-void	color(double itr, t_data *data);
-void	zoom(t_data *data, int key, t_px px);
+int		px_iter(t_data *frtl);
+t_cx	coords(t_data *frtl, t_px px);
+void	color(double itr, t_data *frtl);
+void	zoom(t_data *frtl, int key, t_px px);
 
 // Input Handling
 long double	atod(const char *s);
-int			keyboard(int	key, t_data *data);
-int			mouse(int key, int x, int y, t_data *data);
-void		*get_param(t_data *data, int i, int c, char **v);
+int			keyboard(int	key, t_data *frtl);
+int			mouse(int key, int x, int y, t_data *frtl);
+void		*get_param(t_data *frtl, int i, int c, char **v);
 
 // Number
 t_px		pxl(int a, int b);

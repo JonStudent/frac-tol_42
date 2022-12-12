@@ -38,34 +38,34 @@ static long	hsv2rgb(double h, double s, double v)
 	return (0);
 }
 
-static void	black_white(t_data *data, double itr)
+static void	black_white(t_data *frtl, double itr)
 {
 	itr *= 255;
 	itr = (int)itr << 16 | (int)itr << 8 | (int)itr;
-	img_pixel(data, data->px, itr);
+	img_pixel(frtl, frtl->px, itr);
 }
 
-static void	hsv_scale(t_data *data, double itr)
+static void	hsv_scale(t_data *frtl, double itr)
 {	
 	int	rgb;
 
-	rgb = hsv2rgb(data->init.hsv + itr * data->head.hsv, 1, 1);
-	if ((data->opt & 1 && !itr) || (!(data->opt & 1) && (int)itr))
+	rgb = hsv2rgb(frtl->init.hsv + itr * frtl->head.hsv, 1, 1);
+	if ((frtl->opt & 1 && !itr) || (!(frtl->opt & 1) && (int)itr))
 		rgb = 0;
-	img_pixel(data, data->px, rgb);
+	img_pixel(frtl, frtl->px, rgb);
 }
 
-void	color(double itr, t_data *data)
+void	color(double itr, t_data *frtl)
 {
-	itr /= data->head.itr;
-	if (data->opt >> 1 & 1)
+	itr /= frtl->head.itr;
+	if (frtl->opt >> 1 & 1)
 		itr = pow(itr, 2);
-	if (data->opt >> 2 & 1)
+	if (frtl->opt >> 2 & 1)
 		itr = sqrt(itr);
-	if (data->opt & 1)
+	if (frtl->opt & 1)
 		itr = 1 - itr;
-	if (!data->clr || data->clr == N1_K)
-		hsv_scale(data, itr);
-	if (data->clr == N0_K)
-		black_white(data, itr);
+	if (!frtl->clr || frtl->clr == N1_K)
+		hsv_scale(frtl, itr);
+	if (frtl->clr == N0_K)
+		black_white(frtl, itr);
 }
