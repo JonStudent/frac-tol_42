@@ -12,6 +12,7 @@
 
 // review perror
 // window manegamnt
+// Funky colors (modulos and powers)
 
 #include "fractol.h"
 
