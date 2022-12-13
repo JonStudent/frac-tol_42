@@ -16,6 +16,7 @@
 # include <mlx.h>
 # include <math.h>
 # include <libft.h>
+# include <stdio.h>
 
 # define WIDTH 600
 # define HEIGHT 600
@@ -102,7 +103,6 @@ void		*get_param(t_frtl *frtl, int i, int c, char **v);
 // Numeric Functions Functions
 t_px		pxl(int a, int b);
 t_cx		cmplx(long double a, long double b);
-long double	ldabs(long double a);
 double		d_mod(double a, int b);
 
 // Set Functions

@@ -98,7 +98,9 @@ int	mouse(int key, int x, int y, t_frtl *frtl)
 		frtl->curr.cx_j = frtl->cx;
 	if (key == 1 && frtl->child)
 		frtl->child->curr.cx_j = frtl->cx;
-	ft_printf("coords: [%Lf %Lf]	zoom: %ld iter: %ld\n", \
-	frtl->cx.real, frtl->cx.imag, frtl->curr.zoom / PP_CM, frtl->curr.itr);
+	printf("zoom: %ld iter: %ld coords: [%Lf %Lf]\n", frtl->curr.zoom / PP_CM, frtl->curr.itr, frtl->cx.real, frtl->cx.imag);
+	ft_printf("muhhh zoom: %d iter: %d coords: [%d]\n", \
+	(int)(frtl->curr.zoom / PP_CM),	frtl->curr.itr, \
+	(int)frtl->cx.real);
 	return (px_iter(frtl));
 }

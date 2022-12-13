@@ -35,13 +35,6 @@ double	d_mod(double a, int b)
 	return (a - pow(b, (int)(a / b)));
 }
 
-long double	ldabs(long double a)
-{
-	if (a < 0)
-		return (-a);
-	return (a);
-}
-
 long double	atod(const char *s)
 {
 	long double	i;
@@ -62,3 +55,12 @@ long double	atod(const char *s)
 	}
 	return (n);
 }
+
+/*
+long double	ldabs(long double a)
+{
+	if (a < 0)
+		return (-a);
+	return (a);
+}
+*/
