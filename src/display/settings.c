@@ -52,7 +52,7 @@ void	default_win(t_frtl *frtl)
 	if (!frtl->init.zoom)
 		frtl->init.zoom = PP_CM * (frtl->img.win_size.y / 350.0);
 	if (!frtl->img.hsv.imag)
-		frtl->img.hsv.imag = 360;
+		frtl->img.hsv.imag = 240;
 	frtl->curr.cx_j = frtl->init.cx_j;
 	frtl->curr.itr = frtl->init.itr;
 	frtl->curr.zoom = frtl->init.zoom;
