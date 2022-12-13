@@ -49,6 +49,8 @@ static int	keyboard_plus(int key, t_frtl *frtl)
 		frtl->img.opt ^= 1 << 3;
 	else if (key == 'r')
 		default_win(frtl);
+	else if(key == 'j' && frtl->set == julia)
+		return (0);
 	else if (key == 'j' && frtl->child && !frtl->child->win)
 		settings(frtl->child, frtl->mlx, frtl);
 	else if (key == 'j' && frtl->child)
