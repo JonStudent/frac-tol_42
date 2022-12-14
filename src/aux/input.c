@@ -55,7 +55,7 @@ static int	keyboard_plus(int key, t_frtl *f)
 		child_win(f);
 	else
 		return (0);
-	return (px_iter(f));
+	return (fill_win(f));
 }
 
 int	keyboard(int key, t_frtl *f)
@@ -82,7 +82,7 @@ int	keyboard(int key, t_frtl *f)
 		f->img.clr = key;
 	else
 		return (keyboard_plus(key, f));
-	return (px_iter(f));
+	return (fill_win(f));
 }
 
 int	mouse(int key, int x, int y, t_frtl *f)
@@ -90,14 +90,14 @@ int	mouse(int key, int x, int y, t_frtl *f)
 	coords(f, pxl(x, y));
 	if (key == 4 || key == 5)
 		zoom(f, key, pxl(x, y));
-	else if (key == 1 && f->set == julia)
+	else if (key == 1)
 		f->live.cx_j = f->cx;
-	else if (key == 1 && f->child)
+	if (key == 1 && f->child)
 		f->child->live.cx_j = f->cx;
 	if (key == 1 && f->img.opt >> 4 & 1)
-		stats(f, (int)f->live.itr, (int)(f->live.zoom / PP_CM));
-	if (key == 1 && f->child)
-		return (px_iter(f->child));
-	return (px_iter(f));
+		stats(f, f->live.itr, f->live.zoom / PP_CM);
+	if (key == 1 && f->set != julia && f->child)
+		return (fill_win(f->child));
+	return (fill_win(f));
 }
 	// printf("%.9Lf %.9Lf\n", f->cx.real, f->cx.imag);

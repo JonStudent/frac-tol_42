@@ -25,7 +25,6 @@ int	main(int argc, char **argv)
 		handle_error(&parent, NULL);
 	parent.child = &child;
 	child.parent = &parent;
-	px_iter(settings(&parent, mlx_init(), &parent));
+	create_win(&parent, mlx_init(), &parent);
 	mlx_loop(parent.mlx);
 }
-	// mlx_hook(parent.win, 2, 1L<<0, keyboard, &parent);

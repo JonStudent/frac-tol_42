@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   settings.c                                         :+:      :+:    :+:   */
+/*   create_win.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,7 +14,7 @@
 
 void	stats(t_frtl *f, int i, int z)
 {
-	ft_printf("Max Iteration: %d Zoom: %dx", i, z);
+	ft_printf("Max Iteration: %d Zoom: x%d ", i, z);
 	print_coords(f->cx.real, f->cx.imag);
 }
 
@@ -41,12 +41,12 @@ void	child_win(t_frtl *f)
 	if (f->child && f->child->win)
 		win_close(f->child);
 	else if (f->child)
-		settings(f->child, f->mlx, f);
+		create_win(f->child, f->mlx, f);
 	else
 		win_close(f);
 }
 
-t_frtl	*settings(t_frtl *child, void *mlx, t_frtl *parent)
+void	create_win(t_frtl *child, void *mlx, t_frtl *parent)
 {
 	child->mlx = mlx;
 	if (!child->mlx)
@@ -62,5 +62,5 @@ t_frtl	*settings(t_frtl *child, void *mlx, t_frtl *parent)
 		child->init.cx_j = child->live.cx_j;
 	default_win(child);
 	init_win(child);
-	return (child);
+	fill_win(child);
 }

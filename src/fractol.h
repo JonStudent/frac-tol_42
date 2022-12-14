@@ -88,10 +88,10 @@ void		stats(t_frtl *f, int i, int z);
 void		handle_error(t_frtl *f, char *cause);
 void		pixel_to_img(t_frtl *f, t_px px, int color);
 void		child_win(t_frtl *f);
-t_frtl		*settings(t_frtl *frtl_c, void *mlx, t_frtl *frtl_p);
+void		create_win(t_frtl *frtl_c, void *mlx, t_frtl *frtl_p);
 
 //  Coords and Color Functions
-int			px_iter(t_frtl *f);
+int			fill_win(t_frtl *f);
 t_cx		coords(t_frtl *f, t_px px);
 void		color(double itr, t_frtl *f);
 void		zoom(t_frtl *f, int key, t_px px);
