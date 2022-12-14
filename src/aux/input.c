@@ -51,17 +51,8 @@ static int	keyboard_plus(int key, t_frtl *frtl)
 		frtl->img.opt ^= 1 << 4;
 	else if (key == 'r')
 		default_win(frtl);
-	else if (key == 'j' && frtl->set == julia)
-		return (0);
-	else if (key == 'j' && frtl->child && !frtl->child->win)
-		settings(frtl->child, frtl->mlx, frtl);
-	else if (key == 'j' && frtl->child)
-		win_close(frtl->child);
 	else if (key == 'j')
-	{
-		win_close(frtl);
-		return (0);
-	}
+		child_win(frtl);
 	else
 		return (0);
 	return (px_iter(frtl));

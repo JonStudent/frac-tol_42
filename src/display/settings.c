@@ -12,6 +12,12 @@
 
 #include "../fractol.h"
 
+void	stats(t_frtl *f, int i, int z)
+{
+	ft_printf("Max Iteration: %d Zoom: x%d ", i, z);
+	print_coords(f->cx.real, f->cx.imag);
+}
+
 void	handle_error(t_frtl *frtl, char *cause)
 {
 	char	bad;
@@ -30,11 +36,14 @@ void	handle_error(t_frtl *frtl, char *cause)
 	exit(bad);
 }
 
-void	stats(t_frtl *f, int i, int z)
+void	child_win(t_frtl *f)
 {
-	ft_printf("Max Iteration: %d Zoom: x%d ", i, z);
-	print_coords(f->cx.real, f->cx.imag);
-
+	if (f->child && f->child->win)
+		win_close(f->child);
+	else if (f->child)
+		settings(f->child, f->mlx, f);
+	else
+		win_close(f);
 }
 
 t_frtl	*settings(t_frtl *frtl_c, void *mlx, t_frtl *frtl_p)

@@ -43,6 +43,8 @@ t_cx	coords(t_frtl *frtl, t_px px)
 
 int	px_iter(t_frtl *frtl)
 {
+	if (!frtl || !frtl->win)
+		return (0);
 	frtl->px.y = -1;
 	while (++frtl->px.y < frtl->img.win_size.y)
 	{
@@ -51,7 +53,5 @@ int	px_iter(t_frtl *frtl)
 			color(frtl->set(frtl, coords(frtl, frtl->px), 0), frtl);
 	}
 	mlx_put_image_to_window(frtl->mlx, frtl->win, frtl->img.img, 0, 0);
-	if (frtl->child && frtl->child->win)
-		px_iter(frtl->child);
-	return (0);
+	return (px_iter(frtl->child));
 }
