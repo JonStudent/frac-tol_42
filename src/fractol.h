@@ -81,7 +81,7 @@ struct s_frtl {
 };
 
 //  Window Management Functions
-void		win_close(t_frtl *f);
+int			win_close(t_frtl *f);
 void		init_win(t_frtl *f);
 void		default_win(t_frtl *f);
 void		stats(t_frtl *f, int i, int z);

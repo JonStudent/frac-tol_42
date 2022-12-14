@@ -21,16 +21,20 @@ void	pixel_to_img(t_frtl *f, t_px px, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	win_close(t_frtl *f)
+int	win_close(t_frtl *f)
 {
 	if (!f)
-		return ;
+		return (0);
 	if (f->mlx && f->img.img)
 		mlx_destroy_image(f->mlx, f->img.img);
 	f->img.img = 0;
 	if (f->mlx && f->win)
 		mlx_destroy_window(f->mlx, f->win);
 	f->win = 0;
+	win_close(f->child);
+	if (f->mlx && f->child)
+		handle_error(f, NULL);
+	return (0);
 }
 
 void	init_win(t_frtl *f)
@@ -47,6 +51,8 @@ void	init_win(t_frtl *f)
 	&f->img.bits_per_pixel, &f->img.line_len, &f->img.endian);
 	mlx_key_hook(f->win, keyboard, f);
 	mlx_mouse_hook(f->win, mouse, f);
+	mlx_hook(f->win, 33, (1L << 5), win_close, f);
+	mlx_expose_hook(f->win, fill_win, f);
 }
 
 void	default_win(t_frtl *f)
