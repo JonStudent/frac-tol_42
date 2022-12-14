@@ -88,14 +88,14 @@ int	keyboard(int key, t_frtl *f)
 int	mouse(int key, int x, int y, t_frtl *f)
 {
 	coords(f, pxl(x, y));
-	if (key == 1 && f->img.opt >> 4 & 1)
-		return (stats(f, (int)(f->live.zoom / PP_CM), f->live.itr));
-	else if (key == 4 || key == 5)
+	if (key == 4 || key == 5)
 		zoom(f, key, pxl(x, y));
 	else if (key == 1 && f->set == julia)
 		f->live.cx_j = f->cx;
 	else if (key == 1 && f->child)
 		f->child->live.cx_j = f->cx;
+	if (key == 1 && f->img.opt >> 4 & 1)
+		stats(f, (int)f->live.itr, (int)(f->live.zoom / PP_CM));
 	if (key == 1 && f->child)
 		return (px_iter(f->child));
 	return (px_iter(f));

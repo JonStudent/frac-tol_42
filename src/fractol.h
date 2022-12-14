@@ -84,7 +84,7 @@ struct s_frtl {
 void		win_close(t_frtl *f);
 void		init_win(t_frtl *f);
 void		default_win(t_frtl *f);
-int			stats(t_frtl *f, int i, int z);
+void		stats(t_frtl *f, int i, int z);
 void		handle_error(t_frtl *f, char *cause);
 void		pixel_to_img(t_frtl *f, t_px px, int color);
 void		child_win(t_frtl *f);
