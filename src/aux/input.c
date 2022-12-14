@@ -89,7 +89,7 @@ int	mouse(int key, int x, int y, t_frtl *f)
 {
 	coords(f, pxl(x, y));
 	if (key == 1 && f->img.opt >> 4 & 1)
-		stats(f, (int)(f->live.zoom / PP_CM), f->live.itr);
+		return (stats(f, (int)(f->live.zoom / PP_CM), f->live.itr));
 	else if (key == 4 || key == 5)
 		zoom(f, key, pxl(x, y));
 	else if (key == 1 && f->set == julia)
