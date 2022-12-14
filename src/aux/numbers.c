@@ -35,6 +35,19 @@ double	d_mod(double a, int b)
 	return (a - pow(b, (int)(a / b)));
 }
 
+void	print_coords(double d, double n)
+{
+	if (n)
+		ft_printf("Coordinates: [");
+	if (d < 0 && ft_printf("-"))
+		d = -d;
+	ft_printf("%d.%09u", (int)d, (long)((d - (int)d) * pow(10, 9)));
+	if (n && ft_printf(" "))
+		print_coords(n, 0);
+	else
+		ft_printf("]\n");
+}
+
 long double	atod(const char *s)
 {
 	long double	i;

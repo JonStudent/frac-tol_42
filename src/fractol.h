@@ -21,7 +21,7 @@
 # define WIDTH 600
 # define HEIGHT 600
 # define PP_CM 86
-# define OFFSET 0.5 
+# define OFFSET 0.5
 # define RIGHT_K 65363
 # define LEFT_K 65361
 # define UP_K 65362
@@ -81,9 +81,10 @@ struct s_frtl {
 };
 
 //  Window Management Functions
-int			win_close(t_frtl *frtl);
+void		win_close(t_frtl *frtl);
 void		init_win(t_frtl *frtl);
 void		default_win(t_frtl *frtl);
+void		stats(t_frtl *f, int i, int z);
 void		handle_error(t_frtl *frtl, char *cause);
 void		pixel_to_img(t_frtl *frtl, t_px px, int color);
 t_frtl		*settings(t_frtl *frtl_c, void *mlx, t_frtl *frtl_p);
@@ -104,6 +105,7 @@ void		*get_param(t_frtl *frtl, int i, int c, char **v);
 t_px		pxl(int a, int b);
 t_cx		cmplx(long double a, long double b);
 double		d_mod(double a, int b);
+void		print_coords(double d, double n);
 
 // Set Functions
 double		julia(t_frtl *frtl, t_cx cx, long itr);

@@ -39,7 +39,7 @@ void	*get_param(t_frtl *frtl, int i, int c, char **v)
 
 static int	keyboard_plus(int key, t_frtl *frtl)
 {
-	if (key == 'i')
+	if (key == '*')
 		frtl->img.opt ^= 1;
 	else if (key == 'p')
 		frtl->img.opt ^= 1 << 1;
@@ -47,16 +47,21 @@ static int	keyboard_plus(int key, t_frtl *frtl)
 		frtl->img.opt ^= 1 << 2;
 	else if (key == 'a')
 		frtl->img.opt ^= 1 << 3;
+	else if (key == 'i')
+		frtl->img.opt ^= 1 << 4;
 	else if (key == 'r')
 		default_win(frtl);
-	else if(key == 'j' && frtl->set == julia)
+	else if (key == 'j' && frtl->set == julia)
 		return (0);
 	else if (key == 'j' && frtl->child && !frtl->child->win)
 		settings(frtl->child, frtl->mlx, frtl);
 	else if (key == 'j' && frtl->child)
 		win_close(frtl->child);
 	else if (key == 'j')
-		return (win_close(frtl));
+	{
+		win_close(frtl);
+		return (0);
+	}
 	else
 		return (0);
 	return (px_iter(frtl));
@@ -94,13 +99,12 @@ int	mouse(int key, int x, int y, t_frtl *frtl)
 	coords(frtl, pxl(x, y));
 	if (key == 4 || key == 5)
 		zoom(frtl, key, pxl(x, y));
-	else if (key == 1)
+	else if (key == 1 && frtl->set == julia)
 		frtl->curr.cx_j = frtl->cx;
-	if (key == 1 && frtl->child)
+	else if (key == 1 && frtl->child)
 		frtl->child->curr.cx_j = frtl->cx;
-	printf("zoom: %ld iter: %ld coords: [%Lf %Lf]\n", frtl->curr.zoom / PP_CM, frtl->curr.itr, frtl->cx.real, frtl->cx.imag);
-	ft_printf("muhhh zoom: %d iter: %d coords: [%d]\n", \
-	(int)(frtl->curr.zoom / PP_CM),	frtl->curr.itr, \
-	(int)frtl->cx.real);
+	if (key == 1 && frtl->img.opt >> 4 & 1)
+		stats(frtl, (int)(frtl->curr.zoom / PP_CM), frtl->curr.itr);
 	return (px_iter(frtl));
 }
+	// printf("%.9Lf %.9Lf\n", frtl->cx.real, frtl->cx.imag);

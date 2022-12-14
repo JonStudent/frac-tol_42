@@ -12,17 +12,6 @@
 
 #include "../fractol.h"
 
-int	win_close(t_frtl *frtl)
-{
-	if (frtl->mlx && frtl->img.img)
-		mlx_destroy_image(frtl->mlx, frtl->img.img);
-	frtl->img.img = 0;
-	if (frtl->mlx && frtl->win)
-		mlx_destroy_window(frtl->mlx, frtl->win);
-	frtl->win = 0;
-	return (0);
-}
-
 void	handle_error(t_frtl *frtl, char *cause)
 {
 	char	bad;
@@ -33,31 +22,19 @@ void	handle_error(t_frtl *frtl, char *cause)
 	if (!frtl->set)
 		ft_printf("Get ready for manual!\n");
 	win_close(frtl);
-	if (frtl->parent)
-		win_close(frtl->parent);
-	if (frtl->child)
-		win_close(frtl->child);
+	win_close(frtl->parent);
+	win_close(frtl->child);
 	if (frtl->mlx)
 		mlx_destroy_display(frtl->mlx);
 	free(frtl->mlx);
 	exit(bad);
 }
 
-void	default_win(t_frtl *frtl)
+void	stats(t_frtl *f, int i, int z)
 {
-	if (!frtl->init.itr)
-		frtl->init.itr = 64;
-	if (!frtl->img.win_size.x || !frtl->img.win_size.y)
-		frtl->img.win_size = pxl(WIDTH, HEIGHT);
-	if (!frtl->init.zoom)
-		frtl->init.zoom = PP_CM * (frtl->img.win_size.y / 350.0);
-	if (!frtl->img.hsv.imag)
-		frtl->img.hsv.imag = 240;
-	frtl->curr.cx_j = frtl->init.cx_j;
-	frtl->curr.itr = frtl->init.itr;
-	frtl->curr.zoom = frtl->init.zoom;
-	frtl->curr.offset = frtl->init.offset;
-	frtl->img.mid_win = pxl(frtl->img.win_size.x / 2, frtl->img.win_size.y / 2);
+	ft_printf("Max Iteration: %d Zoom: x%d ", i, z);
+	print_coords(f->cx.real, f->cx.imag);
+
 }
 
 t_frtl	*settings(t_frtl *frtl_c, void *mlx, t_frtl *frtl_p)
