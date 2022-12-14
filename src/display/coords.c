@@ -12,46 +12,46 @@
 
 #include "../fractol.h"
 
-void	zoom(t_frtl *frtl, int key, t_px px)
+void	zoom(t_frtl *f, int key, t_px px)
 {
 	t_cx	tmp;
 
-	tmp = cmplx(frtl->cx.real, frtl->cx.imag);
+	tmp = cmplx(f->cx.real, f->cx.imag);
 	if (key == 4)
-		frtl->curr.zoom *= 2;
-	else if (key == 5 && frtl->curr.zoom > 1)
-		frtl->curr.zoom /= 2;
-	if (key == 4 && frtl->img.opt >> 3 & 1)
-		frtl->curr.itr += frtl->init.itr / 10;
-	else if (key == 5 && frtl->img.opt >> 3 & 1)
-		frtl->curr.itr -= frtl->init.itr / 10;
-	coords(frtl, px);
-	frtl->curr.offset.real -= frtl->cx.real - tmp.real;
-	frtl->curr.offset.imag -= frtl->cx.imag - tmp.imag;
+		f->live.zoom *= 2;
+	else if (key == 5 && f->live.zoom > 1)
+		f->live.zoom /= 2;
+	if (key == 4 && f->img.opt >> 3 & 1)
+		f->live.itr += f->init.itr / 10;
+	else if (key == 5 && f->img.opt >> 3 & 1)
+		f->live.itr -= f->init.itr / 10;
+	coords(f, px);
+	f->live.offset.real -= f->cx.real - tmp.real;
+	f->live.offset.imag -= f->cx.imag - tmp.imag;
 }
 
-t_cx	coords(t_frtl *frtl, t_px px)
+t_cx	coords(t_frtl *f, t_px px)
 {
-	frtl->cx = cmplx((px.x - frtl->img.mid_win.x) \
-	/ (long double)frtl->curr.zoom + frtl->curr.offset.real, \
-	(frtl->img.mid_win.y - px.y) \
-	/ (long double)frtl->curr.zoom + frtl->curr.offset.imag);
-	if (frtl->set == julia || !frtl->child)
-		return (frtl->curr.cx_j);
-	return (frtl->cx);
+	f->cx = cmplx((px.x - f->img.w_cntr.x) \
+	/ (long double)f->live.zoom + f->live.offset.real, \
+	(f->img.w_cntr.y - px.y) \
+	/ (long double)f->live.zoom + f->live.offset.imag);
+	if (f->set == julia || !f->child)
+		return (f->live.cx_j);
+	return (f->cx);
 }
 
-int	px_iter(t_frtl *frtl)
+int	px_iter(t_frtl *f)
 {
-	if (!frtl || !frtl->win)
+	if (!f || !f->win)
 		return (0);
-	frtl->px.y = -1;
-	while (++frtl->px.y < frtl->img.win_size.y)
+	f->px.y = -1;
+	while (++f->px.y < f->img.w_size.y)
 	{
-		frtl->px.x = -1;
-		while (++frtl->px.x < frtl->img.win_size.x)
-			color(frtl->set(frtl, coords(frtl, frtl->px), 0), frtl);
+		f->px.x = -1;
+		while (++f->px.x < f->img.w_size.x)
+			color(f->set(f, coords(f, f->px), 0), f);
 	}
-	mlx_put_image_to_window(frtl->mlx, frtl->win, frtl->img.img, 0, 0);
-	return (px_iter(frtl->child));
+	mlx_put_image_to_window(f->mlx, f->win, f->img.img, 0, 0);
+	return (px_iter(f->child));
 }

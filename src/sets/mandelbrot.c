@@ -12,16 +12,16 @@
 
 #include "../fractol.h"
 
-double	mandelbrot(t_frtl *frtl, t_cx cx, long itr)
+double	mandelbrot(t_frtl *f, t_cx cx, long itr)
 {
 	long double	tmp;
 
-	while (pow(frtl->cx.real, 2.0) + pow(frtl->cx.imag, 2.0) < 4 \
-	&& ++itr < frtl->curr.itr)
+	while (pow(f->cx.real, 2.0) + pow(f->cx.imag, 2.0) < 4 \
+	&& ++itr < f->live.itr)
 	{
-		tmp = pow(frtl->cx.real, 2.0) - pow(frtl->cx.imag, 2.0) + cx.real;
-		frtl->cx.imag = 2.0 * frtl->cx.real * frtl->cx.imag + cx.imag;
-		frtl->cx.real = tmp;
+		tmp = pow(f->cx.real, 2.0) - pow(f->cx.imag, 2.0) + cx.real;
+		f->cx.imag = 2.0 * f->cx.real * f->cx.imag + cx.imag;
+		f->cx.real = tmp;
 	}
 	return (itr);
 }

@@ -59,8 +59,8 @@ typedef struct s_img {
 	int		clr;
 	char	opt;
 	t_cx	hsv;
-	t_px	mid_win;
-	t_px	win_size;
+	t_px	w_cntr;
+	t_px	w_size;
 }	t_img;
 
 //Main  struct
@@ -76,31 +76,31 @@ struct s_frtl {
 	t_px	px;
 	t_img	img;
 	t_vol	init;
-	t_vol	curr;
-	double	(*set)(t_frtl *frtl, t_cx cx, long itr);
+	t_vol	live;
+	double	(*set)(t_frtl *f, t_cx cx, long itr);
 };
 
 //  Window Management Functions
-void		win_close(t_frtl *frtl);
-void		init_win(t_frtl *frtl);
-void		default_win(t_frtl *frtl);
+void		win_close(t_frtl *f);
+void		init_win(t_frtl *f);
+void		default_win(t_frtl *f);
 void		stats(t_frtl *f, int i, int z);
-void		handle_error(t_frtl *frtl, char *cause);
-void		pixel_to_img(t_frtl *frtl, t_px px, int color);
+void		handle_error(t_frtl *f, char *cause);
+void		pixel_to_img(t_frtl *f, t_px px, int color);
 void		child_win(t_frtl *f);
 t_frtl		*settings(t_frtl *frtl_c, void *mlx, t_frtl *frtl_p);
 
 //  Coords and Color Functions
-int			px_iter(t_frtl *frtl);
-t_cx		coords(t_frtl *frtl, t_px px);
-void		color(double itr, t_frtl *frtl);
-void		zoom(t_frtl *frtl, int key, t_px px);
+int			px_iter(t_frtl *f);
+t_cx		coords(t_frtl *f, t_px px);
+void		color(double itr, t_frtl *f);
+void		zoom(t_frtl *f, int key, t_px px);
 
 // Input Handling Functions
 long double	atod(const char *s);
-int			keyboard(int key, t_frtl *frtl);
-int			mouse(int key, int x, int y, t_frtl *frtl);
-void		*get_param(t_frtl *frtl, int i, int c, char **v);
+int			keyboard(int key, t_frtl *f);
+int			mouse(int key, int x, int y, t_frtl *f);
+void		*get_param(t_frtl *f, int i, int c, char **v);
 
 // Numeric Functions Functions
 t_px		pxl(int a, int b);
@@ -109,8 +109,8 @@ double		d_mod(double a, int b);
 void		print_coords(double d, double n);
 
 // Set Functions
-double		julia(t_frtl *frtl, t_cx cx, long itr);
-double		mandelbrot(t_frtl *frtl, t_cx cx, long itr);
-double		burning_ship(t_frtl *frtl, t_cx cx, long itr);
+double		julia(t_frtl *f, t_cx cx, long itr);
+double		mandelbrot(t_frtl *f, t_cx cx, long itr);
+double		burning_ship(t_frtl *f, t_cx cx, long itr);
 
 #endif

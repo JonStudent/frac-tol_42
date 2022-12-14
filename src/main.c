@@ -18,14 +18,14 @@
 
 int	main(int argc, char **argv)
 {
-	static t_frtl	frtl;
+	static t_frtl	parent;
 	static t_frtl	child;
 
-	if (argc < 2 || !get_param(&frtl, 1, argc, argv))
-		handle_error(&frtl, NULL);
-	frtl.child = &child;
-	child.parent = &frtl;
-	px_iter(settings(&frtl, mlx_init(), &frtl));
-	mlx_loop(frtl.mlx);
+	if (argc < 2 || !get_param(&parent, 1, argc, argv))
+		handle_error(&parent, NULL);
+	parent.child = &child;
+	child.parent = &parent;
+	px_iter(settings(&parent, mlx_init(), &parent));
+	mlx_loop(parent.mlx);
 }
-	// mlx_hook(frtl.win, 2, 1L<<0, keyboard, &frtl);
+	// mlx_hook(parent.win, 2, 1L<<0, keyboard, &parent);

@@ -12,56 +12,56 @@
 
 #include "../fractol.h"
 
-void	pixel_to_img(t_frtl *frtl, t_px px, int color)
+void	pixel_to_img(t_frtl *f, t_px px, int color)
 {
 	char	*dst;
 
-	dst = frtl->img.addr + \
-	(px.y * frtl->img.line_len + px.x * (frtl->img.bits_per_pixel / 8));
+	dst = f->img.addr + \
+	(px.y * f->img.line_len + px.x * (f->img.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 
-void	win_close(t_frtl *frtl)
+void	win_close(t_frtl *f)
 {
-	if (!frtl)
+	if (!f)
 		return ;
-	if (frtl->mlx && frtl->img.img)
-		mlx_destroy_image(frtl->mlx, frtl->img.img);
-	frtl->img.img = 0;
-	if (frtl->mlx && frtl->win)
-		mlx_destroy_window(frtl->mlx, frtl->win);
-	frtl->win = 0;
+	if (f->mlx && f->img.img)
+		mlx_destroy_image(f->mlx, f->img.img);
+	f->img.img = 0;
+	if (f->mlx && f->win)
+		mlx_destroy_window(f->mlx, f->win);
+	f->win = 0;
 }
 
-void	init_win(t_frtl *frtl)
+void	init_win(t_frtl *f)
 {
-	frtl->win = mlx_new_window(frtl->mlx, frtl->img.win_size.x, \
-	frtl->img.win_size.y, frtl->title);
-	if (!frtl->win)
-		handle_error(frtl, "Mlx didn't create window--");
-	frtl->img.img = mlx_new_image(frtl->mlx, frtl->img.win_size.x, \
-	frtl->img.win_size.y);
-	if (!frtl->img.img)
-		handle_error(frtl, "Mlx didn't create image--");
-	frtl->img.addr = mlx_get_data_addr(frtl->img.img, \
-	&frtl->img.bits_per_pixel, &frtl->img.line_len, &frtl->img.endian);
-	mlx_key_hook(frtl->win, keyboard, frtl);
-	mlx_mouse_hook(frtl->win, mouse, frtl);
+	f->win = mlx_new_window(f->mlx, f->img.w_size.x, \
+	f->img.w_size.y, f->title);
+	if (!f->win)
+		handle_error(f, "Mlx didn't create window--");
+	f->img.img = mlx_new_image(f->mlx, f->img.w_size.x, \
+	f->img.w_size.y);
+	if (!f->img.img)
+		handle_error(f, "Mlx didn't create image--");
+	f->img.addr = mlx_get_data_addr(f->img.img, \
+	&f->img.bits_per_pixel, &f->img.line_len, &f->img.endian);
+	mlx_key_hook(f->win, keyboard, f);
+	mlx_mouse_hook(f->win, mouse, f);
 }
 
-void	default_win(t_frtl *frtl)
+void	default_win(t_frtl *f)
 {
-	if (!frtl->init.itr)
-		frtl->init.itr = 64;
-	if (!frtl->img.win_size.x || !frtl->img.win_size.y)
-		frtl->img.win_size = pxl(WIDTH, HEIGHT);
-	if (!frtl->init.zoom)
-		frtl->init.zoom = PP_CM * (frtl->img.win_size.y / 350.0);
-	if (!frtl->img.hsv.imag)
-		frtl->img.hsv.imag = 240;
-	frtl->curr.cx_j = frtl->init.cx_j;
-	frtl->curr.itr = frtl->init.itr;
-	frtl->curr.zoom = frtl->init.zoom;
-	frtl->curr.offset = frtl->init.offset;
-	frtl->img.mid_win = pxl(frtl->img.win_size.x / 2, frtl->img.win_size.y / 2);
+	if (!f->init.itr)
+		f->init.itr = 64;
+	if (!f->img.w_size.x || !f->img.w_size.y)
+		f->img.w_size = pxl(WIDTH, HEIGHT);
+	if (!f->init.zoom)
+		f->init.zoom = PP_CM * (f->img.w_size.y / 350.0);
+	if (!f->img.hsv.imag)
+		f->img.hsv.imag = 240;
+	f->live.cx_j = f->init.cx_j;
+	f->live.itr = f->init.itr;
+	f->live.zoom = f->init.zoom;
+	f->live.offset = f->init.offset;
+	f->img.w_cntr = pxl(f->img.w_size.x / 2, f->img.w_size.y / 2);
 }

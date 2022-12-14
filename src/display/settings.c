@@ -18,21 +18,21 @@ void	stats(t_frtl *f, int i, int z)
 	print_coords(f->cx.real, f->cx.imag);
 }
 
-void	handle_error(t_frtl *frtl, char *cause)
+void	handle_error(t_frtl *f, char *cause)
 {
 	char	bad;
 
 	bad = 0;
 	if (cause && ++bad)
 		perror(cause);
-	if (!frtl->set)
+	if (!f->set)
 		ft_printf("Get ready for manual!\n");
-	win_close(frtl);
-	win_close(frtl->parent);
-	win_close(frtl->child);
-	if (frtl->mlx)
-		mlx_destroy_display(frtl->mlx);
-	free(frtl->mlx);
+	win_close(f);
+	win_close(f->parent);
+	win_close(f->child);
+	if (f->mlx)
+		mlx_destroy_display(f->mlx);
+	free(f->mlx);
 	exit(bad);
 }
 
@@ -46,21 +46,21 @@ void	child_win(t_frtl *f)
 		win_close(f);
 }
 
-t_frtl	*settings(t_frtl *frtl_c, void *mlx, t_frtl *frtl_p)
+t_frtl	*settings(t_frtl *child, void *mlx, t_frtl *parent)
 {
-	frtl_c->mlx = mlx;
-	if (!frtl_c->mlx)
-		handle_error(frtl_c, "Mlx did't init--");
-	frtl_c->set = frtl_p->set;
-	if (frtl_c->set == mandelbrot)
-		frtl_c->title = "Mandelbrot Set";
-	else if (frtl_c->set == julia)
-		frtl_c->title = "Julia Set";
-	else if (frtl_c->set == burning_ship)
-		frtl_c->title = "Burning_Ship Set";
-	if (!frtl_c->init.cx_j.real && !frtl_c->init.cx_j.imag)
-		frtl_c->init.cx_j = frtl_c->curr.cx_j;
-	default_win(frtl_c);
-	init_win(frtl_c);
-	return (frtl_c);
+	child->mlx = mlx;
+	if (!child->mlx)
+		handle_error(child, "Mlx did't init--");
+	child->set = parent->set;
+	if (child->set == mandelbrot)
+		child->title = "Mandelbrot Set";
+	else if (child->set == julia)
+		child->title = "Julia Set";
+	else if (child->set == burning_ship)
+		child->title = "Burning_Ship Set";
+	if (!child->child)
+		child->init.cx_j = child->live.cx_j;
+	default_win(child);
+	init_win(child);
+	return (child);
 }

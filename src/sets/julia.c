@@ -12,15 +12,15 @@
 
 #include "../fractol.h"
 
-double	julia(t_frtl *frtl, t_cx cx, long itr)
+double	julia(t_frtl *f, t_cx cx, long itr)
 {
 	long double	tmp;
 
-	if (pow(frtl->cx.real, 2.0) + pow(frtl->cx.imag, 2.0) >= 4 \
-	|| ++itr == frtl->curr.itr)
+	if (pow(f->cx.real, 2.0) + pow(f->cx.imag, 2.0) >= 4 \
+	|| ++itr == f->live.itr)
 		return (itr);
-	tmp = pow(frtl->cx.real, 2.0) - pow(frtl->cx.imag, 2.0) + cx.real;
-	frtl->cx.imag = 2.0 * frtl->cx.real * frtl->cx.imag + cx.imag;
-	frtl->cx.real = tmp;
-	return (julia(frtl, cx, itr));
+	tmp = pow(f->cx.real, 2.0) - pow(f->cx.imag, 2.0) + cx.real;
+	f->cx.imag = 2.0 * f->cx.real * f->cx.imag + cx.imag;
+	f->cx.real = tmp;
+	return (julia(f, cx, itr));
 }
