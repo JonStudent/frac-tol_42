@@ -47,6 +47,10 @@ int	win_close(t_frtl *f)
 		handle_error(f, NULL);
 	return (0);
 }
+int	resize(t_frtl *f, int x, int y)
+{
+	printf("hi x: %dy: %d\n");
+}
 
 void	init_win(t_frtl *f)
 {
@@ -62,7 +66,8 @@ void	init_win(t_frtl *f)
 	&f->img.bits_per_pixel, &f->img.line_len, &f->img.endian);
 	mlx_key_hook(f->win, keyboard, f);
 	mlx_mouse_hook(f->win, mouse, f);
-	mlx_hook(f->win, 33, (1L << 5), win_close, f);
+	mlx_hook(f->win, 33, 1L << 5, win_close, f);
+	mlx_hook(f->win, 15, 1L << 18, win_close, f);
 	mlx_expose_hook(f->win, fill_win, f);
 }
 
