@@ -12,15 +12,22 @@
 
 #include "../fractol.h"
 
-static void	move(t_frtl *f, t_cx from, t_px to)
+void	move(t_frtl *f)
 {
-	coords(f, to);
-	f->live.offset.real -= f->cx.real - from.real;
-	f->live.offset.imag -= f->cx.imag - from.imag;
+	ft_printf("moved bitch \n");
+	t_cx	mouse;
+
+	mouse = f->cx;
+	coords(f, f->w_cntr);
+	f->live.offset.real -= mouse.real - f->cx.real;
+	f->live.offset.imag -= mouse.imag - f->cx.imag;
 }
 
 int	zoom(t_frtl *f, int key, t_px px)
 {
+	t_cx	tmp;
+
+	tmp = f->cx;
 	if (key == 4)
 		f->live.zoom *= 2;
 	else if (key == 5 && f->live.zoom > 1)
@@ -29,15 +36,17 @@ int	zoom(t_frtl *f, int key, t_px px)
 		f->live.itr += f->init.itr / 15;
 	else if (key == 5 && f->img.opt >> 3 & 1)
 		f->live.itr -= f->init.itr / 15;
-	move(f, cmplx(f->cx.real, f->cx.imag), px);
+	coords(f, px);
+	f->live.offset.real -= f->cx.real - tmp.real;
+	f->live.offset.imag -= f->cx.imag - tmp.imag;
 	return	(fill_win(f));
 }
 
 t_cx	coords(t_frtl *f, t_px px)
 {
-	f->cx = cmplx((px.x - f->img.w_cntr.x) \
+	f->cx = cmplx((px.x - f->w_cntr.x) \
 	/ (long double)f->live.zoom + f->live.offset.real, \
-	(f->img.w_cntr.y - px.y) \
+	(f->w_cntr.y - px.y) \
 	/ (long double)f->live.zoom + f->live.offset.imag);
 	if (f->set == julia || !f->child)
 		return (f->live.cx_j);
@@ -50,10 +59,10 @@ int	fill_win(t_frtl *f)
 		return (0);
 	ft_printf("Rendring %s...", f->title);
 	f->px.y = -1;
-	while (++f->px.y < f->img.w_size.y)
+	while (++f->px.y < f->w_size.y)
 	{
 		f->px.x = -1;
-		while (++f->px.x < f->img.w_size.x)
+		while (++f->px.x < f->w_size.x)
 			color(f->set(f, coords(f, f->px), 0), f);
 	}
 	mlx_put_image_to_window(f->mlx, f->win, f->img.img, 0, 0);

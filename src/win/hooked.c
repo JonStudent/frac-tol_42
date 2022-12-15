@@ -64,11 +64,13 @@ int	mouse(int key, int x, int y, t_frtl *f)
 {
 	coords(f, pxl(x, y));
 	if (key == 1 && f->img.opt >> 4 & 1)
-		stats(f, f->live.itr, f->live.zoom / PP_CM);
+		stats(f);
 	if (key == 4 || key == 5)
 		return (zoom(f, key, pxl(x, y)));
+	if (key == 3)
+		move(f);
 	if (!f->child || key != 1)
-		return (0);
+		return (fill_win(f));
 	f->child->live.cx_j = f->cx;
 	f->live.cx_j = f->cx;
 	if (f->set == julia)

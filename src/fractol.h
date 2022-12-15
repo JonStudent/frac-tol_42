@@ -34,8 +34,8 @@
 # define N2_K 65433
 
 typedef struct s_px {
-	int	y;
 	int	x;
+	int	y;
 }	t_px;
 
 typedef struct s_cx {
@@ -59,8 +59,6 @@ typedef struct s_img {
 	int		clr;
 	char	opt;
 	t_cx	hsv;
-	t_px	w_cntr;
-	t_px	w_size;
 }	t_img;
 
 //Main  struct
@@ -77,6 +75,8 @@ struct s_frtl {
 	t_img	img;
 	t_val	init;
 	t_val	live;
+	t_px	w_cntr;
+	t_px	w_size;
 	double	(*set)(t_frtl *f, t_cx cx, long itr);
 };
 
@@ -94,6 +94,7 @@ int			fill_win(t_frtl *f);
 t_cx		coords(t_frtl *f, t_px px);
 void		color(double itr, t_frtl *f);
 int			zoom(t_frtl *f, int key, t_px px);
+void		move(t_frtl *f);
 
 // Numeric Functions Functions
 t_px		pxl(int a, int b);
@@ -105,7 +106,7 @@ int			win_close(t_frtl *f);
 int			child_win(t_frtl *f);
 void		init_win(t_frtl *f);
 void		default_win(t_frtl *f);
-void		stats(t_frtl *f, int i, int z);
+void		stats(t_frtl *f);
 void		handle_error(t_frtl *f, char *cause);
 void		pixel_to_img(t_frtl *f, t_px px, int color);
 void		create_win(t_frtl *frtl_c, void *mlx, t_frtl *frtl_p);

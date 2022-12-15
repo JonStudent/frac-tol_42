@@ -29,7 +29,7 @@ void	*get_param(t_frtl *f, int i, int c, char **v)
 	else if (v[i][0] == '-' && (v[i][1] == 'c' && i + 2 < c))
 		f->img.hsv = cmplx(atod(v[i + 1]), atod(v[i + 2]));
 	else if (v[i][0] == '-' && (v[i][1] == 'w' && i + 2 < c))
-		f->img.w_size = pxl(atod(v[i + 1]), atod(v[i + 2]));
+		f->w_size = pxl(atod(v[i + 1]), atod(v[i + 2]));
 	else if (v[i][0] == '-' && (v[i][1] == 'o' && i + 2 < c))
 		f->init.offset = cmplx(atod(v[i + 1]), atod(v[i + 2]));
 	if (++i < c)

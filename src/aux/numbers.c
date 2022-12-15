@@ -30,23 +30,26 @@ t_px	pxl(int a, int b)
 	return (p);
 }
 
-static void	print_coords(double d, double n)
+static void	print_coords(t_cx crd)
 {
-	if (n)
-		ft_printf("Coordinates: [");
-	if (d < 0 && ft_printf("-"))
-		d = -d;
-	ft_printf("%d.%09u", (int)d, (long)((d - (int)d) * pow(10, 9)));
-	if (n && ft_printf(" "))
-		print_coords(n, 0);
-	else
-		ft_printf("]\n");
+	t_cx	dec;
+
+	ft_printf("Coordinates: ");
+	if (crd.real < 0 && ft_printf("-"))
+		crd.real = -crd.real;
+	dec.real = (crd.real - (int)crd.real) * pow(10, 9);
+	ft_printf("[%0d.%09u ", (int)crd.real, (unsigned)dec.real);
+	if (crd.imag < 0 && ft_printf("-"))
+		crd.imag = -crd.imag;
+	dec.imag = (crd.imag - (int)crd.imag) * pow(10, 9);
+	ft_printf("%0d.%09u]", (int)crd.imag, (unsigned)dec.imag);
 }
 
-void	stats(t_frtl *f, int i, int z)
+void	stats(t_frtl *f)
 {
-	ft_printf("Max Iteration: %d Zoom: x%d ", i, z);
-	print_coords(f->cx.real, f->cx.imag);
+	ft_printf("%s's\nZoom: x%d ", f->title, f->live.zoom / PP_CM);
+	print_coords(f->cx);
+	ft_printf(" Max Iterations: %d\n", f->live.itr);
 }
 
 long double	atod(const char *s)

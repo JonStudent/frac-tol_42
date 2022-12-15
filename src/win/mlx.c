@@ -50,12 +50,12 @@ int	win_close(t_frtl *f)
 
 void	init_win(t_frtl *f)
 {
-	f->win = mlx_new_window(f->mlx, f->img.w_size.x, \
-	f->img.w_size.y, f->title);
+	f->win = mlx_new_window(f->mlx, f->w_size.x, \
+	f->w_size.y, f->title);
 	if (!f->win)
 		handle_error(f, "Mlx didn't create window--");
-	f->img.img = mlx_new_image(f->mlx, f->img.w_size.x, \
-	f->img.w_size.y);
+	f->img.img = mlx_new_image(f->mlx, f->w_size.x, \
+	f->w_size.y);
 	if (!f->img.img)
 		handle_error(f, "Mlx didn't create image--");
 	f->img.addr = mlx_get_data_addr(f->img.img, \
@@ -70,15 +70,15 @@ void	default_win(t_frtl *f)
 {
 	if (!f->init.itr)
 		f->init.itr = 70;
-	if (!f->img.w_size.x || !f->img.w_size.y)
-		f->img.w_size = pxl(WIDTH, HEIGHT);
+	if (!f->w_size.x || !f->w_size.y)
+		f->w_size = pxl(WIDTH, HEIGHT);
 	if (!f->init.zoom)
-		f->init.zoom = PP_CM * (f->img.w_size.y / 350.0);
+		f->init.zoom = PP_CM * (f->w_size.y / 350.0);
 	if (!f->img.hsv.imag)
 		f->img.hsv.imag = 240;
 	f->live.cx_j = f->init.cx_j;
 	f->live.itr = f->init.itr;
 	f->live.zoom = f->init.zoom;
 	f->live.offset = f->init.offset;
-	f->img.w_cntr = pxl(f->img.w_size.x / 2, f->img.w_size.y / 2);
+	f->w_cntr = pxl(f->w_size.x / 2, f->w_size.y / 2);
 }
