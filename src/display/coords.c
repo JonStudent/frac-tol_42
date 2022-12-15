@@ -35,7 +35,7 @@ int	move(t_frtl *f, int key, t_px px)
 	coords(f, f->w_cntr);
 	to = f->cx;
 	if (key != 3)
-		to = zoom(f, key, px); 
+		to = zoom(f, key, px);
 	f->live.offset.real -= to.real - from.real;
 	f->live.offset.imag -= to.imag - from.imag;
 	return (fill_win(f));
