@@ -72,6 +72,6 @@ int	mouse(int key, int x, int y, t_frtl *f)
 	f->child->live.cx_j = f->cx;
 	f->live.cx_j = f->cx;
 	if (f->set == julia)
-		return (fill_win(f));
+		fill_win(f);
 	return (fill_win(f->child));
 }
