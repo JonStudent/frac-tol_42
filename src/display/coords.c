@@ -38,7 +38,7 @@ int	move(t_frtl *f, int key, t_px px)
 		to = zoom(f, key, px); 
 	f->live.offset.real -= to.real - from.real;
 	f->live.offset.imag -= to.imag - from.imag;
-	return (fill_win(f));
+	return (!++f->locked);
 }
 
 t_cx	coords(t_frtl *f, t_px px)
@@ -56,7 +56,6 @@ int	fill_win(t_frtl *f)
 {
 	if (!f || !f->win)
 		return (0);
-	f->locked++;
 	ft_printf("Rendring %s..."GN, f->title);
 	f->px.y = -1;
 	while (++f->px.y < f->w_size.y)

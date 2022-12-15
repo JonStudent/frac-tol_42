@@ -30,13 +30,11 @@ static int	keyboard_plus(int key, t_frtl *f)
 		return (child_win(f));
 	else
 		return (0);
-	return (fill_win(f));
+	return (!++f->locked);
 }
 
 int	keyboard(int key, t_frtl *f)
 {
-	if (f->locked)
-		return (0);
 	if (key == ESC_K)
 		handle_error(f, NULL);
 	else if (key == RIGHT_K)
@@ -59,13 +57,11 @@ int	keyboard(int key, t_frtl *f)
 		f->img.clr = key;
 	else
 		return (keyboard_plus(key, f));
-	return (fill_win(f));
+	return (!++f->locked);
 }
 
 int	mouse(int key, int x, int y, t_frtl *f)
 {
-	if (f->locked)
-		return (0);
 	coords(f, pxl(x, y));
 	if (key == 2)
 		stats(f);
@@ -77,11 +73,13 @@ int	mouse(int key, int x, int y, t_frtl *f)
 	f->live.cx_j = f->cx;
 	if (f->set == julia)
 		fill_win(f);
-	return (fill_win(f->child));
+	return (!++f->locked);
 }
 
 int	wait(t_frtl *f)
 {
+	if (f->locked)
+		fill_win(f);
 	f->locked = 0;
-	return (f->locked);
+	return (0);
 }
