@@ -27,8 +27,9 @@ void	handle_error(t_frtl *f, char *cause)
 		perror(cause);
 	if (!f->set)
 		ft_printf("Get ready for manual!\n");
-	if (f->parent)
-		win_close(f->parent);
+	if (f->win)
+		win_close(f);
+	win_close(f->parent);
 	if (f->mlx)
 		mlx_destroy_display(f->mlx);
 	free(f->mlx);

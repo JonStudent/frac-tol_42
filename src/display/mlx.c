@@ -23,16 +23,16 @@ void	pixel_to_img(t_frtl *f, t_px px, int color)
 
 int	win_close(t_frtl *f)
 {
-	if (!f)
+	if (!f || !f->mlx)
 		return (0);
-	if (f->mlx && f->img.img)
+	if (f->img.img)
 		mlx_destroy_image(f->mlx, f->img.img);
 	f->img.img = 0;
-	if (f->mlx && f->win)
+	if (f->win)
 		mlx_destroy_window(f->mlx, f->win);
 	f->win = 0;
 	win_close(f->child);
-	if (f->mlx && f->child)
+	if (f->child)
 		handle_error(f, NULL);
 	return (0);
 }
