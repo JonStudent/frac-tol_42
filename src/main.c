@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// review perror
 // window manegamnt
 // Funky colors (modulos and powers)
 

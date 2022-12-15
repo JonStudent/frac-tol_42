@@ -12,7 +12,7 @@
 
 #include "../fractol.h"
 
-void	zoom(t_frtl *f, int key, t_px px)
+int	zoom(t_frtl *f, int key, t_px px)
 {
 	t_cx	tmp;
 
@@ -22,12 +22,13 @@ void	zoom(t_frtl *f, int key, t_px px)
 	else if (key == 5 && f->live.zoom > 1)
 		f->live.zoom /= 2;
 	if (key == 4 && f->img.opt >> 3 & 1)
-		f->live.itr += f->init.itr / 10;
+		f->live.itr += f->init.itr / 15;
 	else if (key == 5 && f->img.opt >> 3 & 1)
-		f->live.itr -= f->init.itr / 10;
+		f->live.itr -= f->init.itr / 15;
 	coords(f, px);
 	f->live.offset.real -= f->cx.real - tmp.real;
 	f->live.offset.imag -= f->cx.imag - tmp.imag;
+	return	(fill_win(f));
 }
 
 t_cx	coords(t_frtl *f, t_px px)

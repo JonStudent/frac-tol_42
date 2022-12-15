@@ -43,12 +43,12 @@ typedef struct s_cx {
 	long double	imag;
 }	t_cx;
 
-typedef struct s_vol {
+typedef struct s_val {
 	long	itr;
 	long	zoom;
 	t_cx	offset;
 	t_cx	cx_j;
-}	t_vol;
+}	t_val;
 
 typedef struct s_img {
 	void	*img;
@@ -75,8 +75,8 @@ struct s_frtl {
 	t_cx	cx;
 	t_px	px;
 	t_img	img;
-	t_vol	init;
-	t_vol	live;
+	t_val	init;
+	t_val	live;
 	double	(*set)(t_frtl *f, t_cx cx, long itr);
 };
 
@@ -94,7 +94,7 @@ void		create_win(t_frtl *frtl_c, void *mlx, t_frtl *frtl_p);
 int			fill_win(t_frtl *f);
 t_cx		coords(t_frtl *f, t_px px);
 void		color(double itr, t_frtl *f);
-void		zoom(t_frtl *f, int key, t_px px);
+int			zoom(t_frtl *f, int key, t_px px);
 
 // Input Handling Functions
 long double	atod(const char *s);
