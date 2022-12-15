@@ -20,8 +20,10 @@
 
 # define WIDTH 600
 # define HEIGHT 600
+
 # define PP_CM 86
 # define OFFSET 0.5
+
 # define RIGHT_K 65363
 # define LEFT_K 65361
 # define UP_K 65362
@@ -32,6 +34,10 @@
 # define N0_K 65438
 # define N1_K 65436
 # define N2_K 65433
+
+# define GN	"\x1B[32m"
+# define BL	"\x1B[34m"
+# define RT	"\x1B[0m"
 
 typedef struct s_px {
 	int	x;
@@ -70,6 +76,7 @@ struct s_frtl {
 	char	*title;
 	void	*mlx;
 	void	*win;
+	char	locked;
 	t_cx	cx;
 	t_px	px;
 	t_img	img;
@@ -83,6 +90,7 @@ struct s_frtl {
 // Input Handling Functions
 int			keyboard(int key, t_frtl *f);
 int			mouse(int key, int x, int y, t_frtl *f);
+int			wait(t_frtl *f);
 
 // Set Functions
 double		julia(t_frtl *f, t_cx cx, long itr);
@@ -91,9 +99,9 @@ double		burning_ship(t_frtl *f, t_cx cx, long itr);
 
 //  Coords and Color Functions
 int			fill_win(t_frtl *f);
-int			zoom(t_frtl *f, int key, t_px px);
+int			move(t_frtl *f, int key, t_px px);
 void		color(double itr, t_frtl *f);
-t_cx		move(t_frtl *f, int key, t_px px);
+t_cx		zoom(t_frtl *f, int key, t_px px);
 t_cx		coords(t_frtl *f, t_px px);
 
 // Numeric Functions Functions

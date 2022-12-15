@@ -12,7 +12,7 @@
 
 #include "../fractol.h"
 
-t_cx	move(t_frtl *f, int key, t_px px)
+t_cx	zoom(t_frtl *f, int key, t_px px)
 {
 	if (key == 4)
 		f->live.zoom *= 2;
@@ -26,7 +26,7 @@ t_cx	move(t_frtl *f, int key, t_px px)
 	return (f->cx);
 }
 
-int	zoom(t_frtl *f, int key, t_px px)
+int	move(t_frtl *f, int key, t_px px)
 {
 	t_cx	from;
 	t_cx	to;
@@ -35,7 +35,7 @@ int	zoom(t_frtl *f, int key, t_px px)
 	coords(f, f->w_cntr);
 	to = f->cx;
 	if (key != 3)
-		to = move(f, key, px); 
+		to = zoom(f, key, px); 
 	f->live.offset.real -= to.real - from.real;
 	f->live.offset.imag -= to.imag - from.imag;
 	return (fill_win(f));
@@ -56,7 +56,8 @@ int	fill_win(t_frtl *f)
 {
 	if (!f || !f->win)
 		return (0);
-	ft_printf("Rendring %s...", f->title);
+	f->locked++;
+	ft_printf("Rendring %s..."GN, f->title);
 	f->px.y = -1;
 	while (++f->px.y < f->w_size.y)
 	{
@@ -65,6 +66,6 @@ int	fill_win(t_frtl *f)
 			color(f->set(f, coords(f, f->px), 0), f);
 	}
 	mlx_put_image_to_window(f->mlx, f->win, f->img.img, 0, 0);
-	ft_printf("Done!\n");
+	ft_printf("Done\n"RT);
 	return (0);
 }

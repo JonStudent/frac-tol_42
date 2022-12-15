@@ -35,6 +35,8 @@ static int	keyboard_plus(int key, t_frtl *f)
 
 int	keyboard(int key, t_frtl *f)
 {
+	if (f->locked)
+		return (0);
 	if (key == ESC_K)
 		handle_error(f, NULL);
 	else if (key == RIGHT_K)
@@ -50,9 +52,9 @@ int	keyboard(int key, t_frtl *f)
 		f->live.offset.imag -= OFFSET * f->init.zoom \
 		/ f->live.zoom;
 	else if (key == PLUS_K)
-		f->live.itr += 1;
+		f->live.itr += 20;
 	else if (key == MINUS_K && f->live.itr > 20)
-		f->live.itr -= 1;
+		f->live.itr -= 20;
 	else if (key == N0_K || key == N1_K || key == N2_K)
 		f->img.clr = key;
 	else
@@ -62,11 +64,13 @@ int	keyboard(int key, t_frtl *f)
 
 int	mouse(int key, int x, int y, t_frtl *f)
 {
+	if (f->locked)
+		return (0);
 	coords(f, pxl(x, y));
 	if (key == 2)
 		stats(f);
 	else if (key >= 3 && key <= 5)
-		return (zoom(f, key, pxl(x, y)));
+		return (move(f, key, pxl(x, y)));
 	if (!f->child || key != 1)
 		return (0);
 	f->child->live.cx_j = f->cx;
@@ -74,4 +78,10 @@ int	mouse(int key, int x, int y, t_frtl *f)
 	if (f->set == julia)
 		fill_win(f);
 	return (fill_win(f->child));
+}
+
+int	wait(t_frtl *f)
+{
+	f->locked = 0;
+	return (f->locked);
 }

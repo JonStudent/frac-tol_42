@@ -62,14 +62,15 @@ void	init_win(t_frtl *f)
 	&f->img.bits_per_pixel, &f->img.line_len, &f->img.endian);
 	mlx_key_hook(f->win, keyboard, f);
 	mlx_mouse_hook(f->win, mouse, f);
-	mlx_hook(f->win, 33, 1L << 5, win_close, f);
 	mlx_expose_hook(f->win, fill_win, f);
+	mlx_hook(f->win, 33, (1L << 5), win_close, f);
+	mlx_loop_hook(f->mlx, wait, f);
 }
 
 void	default_win(t_frtl *f)
 {
 	if (!f->init.itr)
-		f->init.itr = 70;
+		f->init.itr = 50;
 	if (!f->w_size.x || !f->w_size.y)
 		f->w_size = pxl(WIDTH, HEIGHT);
 	if (!f->init.zoom)
