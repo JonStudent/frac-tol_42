@@ -22,7 +22,7 @@ static long	hsv2rgb(double h, double s, double v)
 	m = c * (1 - s);
 	if (h == 360)
 		h = 0;
-	z = (c - m) * (1 - fabs(h / 60 - pow(2, h / 120) - 1));
+	z = (c - m) * (1 - fabs(h / 60 - pow(2, (int)(h / 120)) - 1));
 	if (0 <= h && h < 60)
 		return ((int)c << 16 | (int)(z + m) << 8 | (int)m);
 	if (60 <= h && h < 120)
