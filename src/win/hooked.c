@@ -22,6 +22,8 @@ static int	keyboard_plus(int key, t_frtl *f)
 		f->img.opt ^= 1 << 2;
 	else if (key == 'a')
 		f->img.opt ^= 1 << 3;
+	else if (key == 'f')
+		f->img.opt ^= 1 << 4;
 	else if (key == 'r')
 		default_win(f);
 	else if (key == 'j')
@@ -48,9 +50,9 @@ int	keyboard(int key, t_frtl *f)
 		f->live.offset.imag -= OFFSET * f->init.zoom \
 		/ f->live.zoom;
 	else if (key == PLUS_K)
-		f->live.itr += 20;
+		f->live.itr += 1;
 	else if (key == MINUS_K && f->live.itr > 20)
-		f->live.itr -= 20;
+		f->live.itr -= 1;
 	else if (key == N0_K || key == N1_K || key == N2_K)
 		f->img.clr = key;
 	else
