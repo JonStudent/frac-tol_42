@@ -93,7 +93,7 @@ double		burning_ship(t_frtl *f, t_cx cx, long itr);
 int			fill_win(t_frtl *f);
 int			zoom(t_frtl *f, int key, t_px px);
 void		color(double itr, t_frtl *f);
-void		move(t_frtl *f, t_cx from, t_cx to);
+t_cx		move(t_frtl *f, int key, t_px px);
 t_cx		coords(t_frtl *f, t_px px);
 
 // Numeric Functions Functions

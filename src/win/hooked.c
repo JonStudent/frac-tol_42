@@ -60,18 +60,13 @@ int	keyboard(int key, t_frtl *f)
 
 int	mouse(int key, int x, int y, t_frtl *f)
 {
-	t_cx	cntr;
-
-	cntr = coords(f, f->w_cntr);
 	coords(f, pxl(x, y));
 	if (key == 2)
 		stats(f);
-	else if (key == 4 || key == 5)
+	else if (key >= 3 && key <= 5)
 		return (zoom(f, key, pxl(x, y)));
-	else if (key == 3)
-		move(f, cntr, f->cx);
 	if (!f->child || key != 1)
-		return (fill_win(f));
+		return (0);
 	f->child->live.cx_j = f->cx;
 	f->live.cx_j = f->cx;
 	if (f->set == julia)
