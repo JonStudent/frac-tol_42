@@ -14,7 +14,6 @@
 
 t_cx	move(t_frtl *f, int key, t_px px)
 {
-	coords(f, px);
 	if (key == 4)
 		f->live.zoom *= 2;
 	else if (key == 5 && f->live.zoom > 1)
@@ -23,6 +22,7 @@ t_cx	move(t_frtl *f, int key, t_px px)
 		f->live.itr += f->init.itr / 15;
 	else if (key == 5 && f->img.opt >> 3 & 1)
 		f->live.itr -= f->init.itr / 15;
+	coords(f, px);
 	return (f->cx);
 }
 
@@ -31,8 +31,8 @@ int	zoom(t_frtl *f, int key, t_px px)
 	t_cx	from;
 	t_cx	to;
 
+	from = f->cx;
 	coords(f, f->w_cntr);
-	from = cmplx(f->cx.real, f->cx.imag);
 	to = f->cx;
 	if (key != 3)
 		to = move(f, key, px); 
