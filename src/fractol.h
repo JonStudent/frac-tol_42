@@ -80,6 +80,27 @@ struct s_frtl {
 	double	(*set)(t_frtl *f, t_cx cx, long itr);
 };
 
+// Input Handling Functions
+int			keyboard(int key, t_frtl *f);
+int			mouse(int key, int x, int y, t_frtl *f);
+
+// Set Functions
+double		julia(t_frtl *f, t_cx cx, long itr);
+double		mandelbrot(t_frtl *f, t_cx cx, long itr);
+double		burning_ship(t_frtl *f, t_cx cx, long itr);
+
+//  Coords and Color Functions
+int			fill_win(t_frtl *f);
+t_cx		coords(t_frtl *f, t_px px);
+void		color(double itr, t_frtl *f);
+int			zoom(t_frtl *f, int key, t_px px);
+
+// Numeric Functions Functions
+t_px		pxl(int a, int b);
+t_cx		cmplx(long double a, long double b);
+void		print_coords(double d, double n);
+long double	atod(const char *s);
+
 //  Window Management Functions
 int			win_close(t_frtl *f);
 void		init_win(t_frtl *f);
@@ -89,28 +110,5 @@ void		handle_error(t_frtl *f, char *cause);
 void		pixel_to_img(t_frtl *f, t_px px, int color);
 void		child_win(t_frtl *f);
 void		create_win(t_frtl *frtl_c, void *mlx, t_frtl *frtl_p);
-
-//  Coords and Color Functions
-int			fill_win(t_frtl *f);
-t_cx		coords(t_frtl *f, t_px px);
-void		color(double itr, t_frtl *f);
-int			zoom(t_frtl *f, int key, t_px px);
-
-// Input Handling Functions
-long double	atod(const char *s);
-int			keyboard(int key, t_frtl *f);
-int			mouse(int key, int x, int y, t_frtl *f);
 void		*get_param(t_frtl *f, int i, int c, char **v);
-
-// Numeric Functions Functions
-t_px		pxl(int a, int b);
-t_cx		cmplx(long double a, long double b);
-double		d_mod(double a, int b);
-void		print_coords(double d, double n);
-
-// Set Functions
-double		julia(t_frtl *f, t_cx cx, long itr);
-double		mandelbrot(t_frtl *f, t_cx cx, long itr);
-double		burning_ship(t_frtl *f, t_cx cx, long itr);
-
 #endif

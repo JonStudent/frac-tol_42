@@ -30,11 +30,6 @@ t_px	pxl(int a, int b)
 	return (p);
 }
 
-double	d_mod(double a, int b)
-{
-	return (a - pow(b, (int)(a / b)));
-}
-
 void	print_coords(double d, double n)
 {
 	if (n)
