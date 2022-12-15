@@ -34,7 +34,7 @@ int	child_win(t_frtl *f)
 
 int	win_close(t_frtl *f)
 {
-	if (!f || !f->mlx)
+	if (!f)
 		return (0);
 	if (f->img.img)
 		mlx_destroy_image(f->mlx, f->img.img);
@@ -69,7 +69,7 @@ void	init_win(t_frtl *f)
 void	default_win(t_frtl *f)
 {
 	if (!f->init.itr)
-		f->init.itr = 64;
+		f->init.itr = 70;
 	if (!f->img.w_size.x || !f->img.w_size.y)
 		f->img.w_size = pxl(WIDTH, HEIGHT);
 	if (!f->init.zoom)

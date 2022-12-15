@@ -39,10 +39,7 @@ void	*get_param(t_frtl *f, int i, int c, char **v)
 
 void	handle_error(t_frtl *f, char *cause)
 {
-	char	bad;
-
-	bad = 0;
-	if (cause && ++bad)
+	if (cause)
 		perror(cause);
 	if (!f->set)
 		ft_printf("Get ready for manual!\n");
@@ -52,7 +49,7 @@ void	handle_error(t_frtl *f, char *cause)
 	if (f->mlx)
 		mlx_destroy_display(f->mlx);
 	free(f->mlx);
-	exit(bad);
+	exit(0);
 }
 
 void	create_win(t_frtl *child, void *mlx, t_frtl *parent)
