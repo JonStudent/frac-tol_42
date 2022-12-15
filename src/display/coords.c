@@ -38,7 +38,7 @@ int	move(t_frtl *f, int key, t_px px)
 		to = zoom(f, key, px); 
 	f->live.offset.real -= to.real - from.real;
 	f->live.offset.imag -= to.imag - from.imag;
-	return (!++f->locked);
+	return (fill_win(f));
 }
 
 t_cx	coords(t_frtl *f, t_px px)
@@ -56,7 +56,8 @@ int	fill_win(t_frtl *f)
 {
 	if (!f || !f->win)
 		return (0);
-	ft_printf("Rendring %s..."GN, f->title);
+	f->locked++;
+	ft_printf("\nRendring %s...", f->title);
 	f->px.y = -1;
 	while (++f->px.y < f->w_size.y)
 	{
@@ -65,6 +66,6 @@ int	fill_win(t_frtl *f)
 			color(f->set(f, coords(f, f->px), 0), f);
 	}
 	mlx_put_image_to_window(f->mlx, f->win, f->img.img, 0, 0);
-	ft_printf("Done\n"RT);
+	ft_printf(GN" Done\n"RT);
 	return (0);
 }

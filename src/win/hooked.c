@@ -15,7 +15,7 @@
 static int	keyboard_plus(int key, t_frtl *f)
 {
 	if (key == 'i')
-		f->img.opt ^= 1;
+		f->img.opt ^= 1 << 0;
 	else if (key == 'p')
 		f->img.opt ^= 1 << 1;
 	else if (key == 's')
@@ -30,7 +30,7 @@ static int	keyboard_plus(int key, t_frtl *f)
 		return (child_win(f));
 	else
 		return (0);
-	return (!++f->locked);
+	return (fill_win(f));
 }
 
 int	keyboard(int key, t_frtl *f)

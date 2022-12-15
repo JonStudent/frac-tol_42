@@ -34,22 +34,22 @@ static void	print_coords(t_cx crd)
 {
 	t_cx	dec;
 
-	ft_printf("Coordinates: ");
+	ft_printf("Coordinates: ["GN);
 	if (crd.real < 0 && ft_printf("-"))
 		crd.real = -crd.real;
 	dec.real = (crd.real - (int)crd.real) * pow(10, 9);
-	ft_printf("[%0d.%09u ", (int)crd.real, (unsigned)dec.real);
+	ft_printf("%0d.%09u ", (int)crd.real, (unsigned)dec.real);
 	if (crd.imag < 0 && ft_printf("-"))
 		crd.imag = -crd.imag;
 	dec.imag = (crd.imag - (int)crd.imag) * pow(10, 9);
-	ft_printf("%0d.%09u]", (int)crd.imag, (unsigned)dec.imag);
+	ft_printf("%0d.%09u"RT"]", (int)crd.imag, (unsigned)dec.imag);
 }
 
 void	stats(t_frtl *f)
 {
-	ft_printf("%s's\nZoom: x%d ", f->title, f->live.zoom / PP_CM);
+	ft_printf("\n%s's\nZoom: x"GN"%d "RT, f->title, f->live.zoom / PP_CM);
 	print_coords(f->cx);
-	ft_printf(" Max Iterations: %d\n", f->live.itr);
+	ft_printf(" Max Iterations: "GN"%d\n"RT, f->live.itr);
 }
 
 long double	atod(const char *s)
