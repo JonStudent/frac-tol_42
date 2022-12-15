@@ -98,17 +98,16 @@ int			zoom(t_frtl *f, int key, t_px px);
 // Numeric Functions Functions
 t_px		pxl(int a, int b);
 t_cx		cmplx(long double a, long double b);
-void		print_coords(double d, double n);
 long double	atod(const char *s);
 
 //  Window Management Functions
 int			win_close(t_frtl *f);
+int			child_win(t_frtl *f);
 void		init_win(t_frtl *f);
 void		default_win(t_frtl *f);
 void		stats(t_frtl *f, int i, int z);
 void		handle_error(t_frtl *f, char *cause);
 void		pixel_to_img(t_frtl *f, t_px px, int color);
-void		child_win(t_frtl *f);
 void		create_win(t_frtl *frtl_c, void *mlx, t_frtl *frtl_p);
 void		*get_param(t_frtl *f, int i, int c, char **v);
 #endif

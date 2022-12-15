@@ -30,7 +30,7 @@ t_px	pxl(int a, int b)
 	return (p);
 }
 
-void	print_coords(double d, double n)
+static void	print_coords(double d, double n)
 {
 	if (n)
 		ft_printf("Coordinates: [");
@@ -41,6 +41,12 @@ void	print_coords(double d, double n)
 		print_coords(n, 0);
 	else
 		ft_printf("]\n");
+}
+
+void	stats(t_frtl *f, int i, int z)
+{
+	ft_printf("Max Iteration: %d Zoom: x%d ", i, z);
+	print_coords(f->cx.real, f->cx.imag);
 }
 
 long double	atod(const char *s)

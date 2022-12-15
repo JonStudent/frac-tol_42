@@ -21,14 +21,15 @@ void	pixel_to_img(t_frtl *f, t_px px, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	child_win(t_frtl *f)
+int	child_win(t_frtl *f)
 {
 	if (f->child && f->child->win)
-		win_close(f->child);
-	else if (f->child)
+		return (win_close(f->child));
+	if (f->child)
 		create_win(f->child, f->mlx, f);
 	else
-		win_close(f);
+		return (win_close(f));
+	return (0);
 }
 
 int	win_close(t_frtl *f)

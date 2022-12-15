@@ -37,12 +37,6 @@ void	*get_param(t_frtl *f, int i, int c, char **v)
 	return (f->set);
 }
 
-void	stats(t_frtl *f, int i, int z)
-{
-	ft_printf("Max Iteration: %d Zoom: x%d ", i, z);
-	print_coords(f->cx.real, f->cx.imag);
-}
-
 void	handle_error(t_frtl *f, char *cause)
 {
 	char	bad;
@@ -67,15 +61,14 @@ void	create_win(t_frtl *child, void *mlx, t_frtl *parent)
 	if (!child->mlx)
 		handle_error(child, "Mlx did't init--");
 	child->set = parent->set;
-	if (child->set == mandelbrot)
-		child->title = "Mandelbrot Set";
-	else if (child->set == julia)
-		child->title = "Julia Set";
+	if (child->set == julia || child->parent)
+		child->title = "Julia";
+	else if (child->set == mandelbrot)
+		child->title = "Mandelbrot";
 	else if (child->set == burning_ship)
-		child->title = "Burning_Ship Set";
-	if (!child->child)
+		child->title = "Burning_Ship";
+	if (child->parent)
 		child->init.cx_j = child->live.cx_j;
 	default_win(child);
 	init_win(child);
-	fill_win(child);
 }

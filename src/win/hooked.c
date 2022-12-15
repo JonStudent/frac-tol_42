@@ -27,7 +27,7 @@ static int	keyboard_plus(int key, t_frtl *f)
 	else if (key == 'r')
 		default_win(f);
 	else if (key == 'j')
-		child_win(f);
+		return (child_win(f));
 	else
 		return (0);
 	return (fill_win(f));
@@ -67,7 +67,7 @@ int	mouse(int key, int x, int y, t_frtl *f)
 		stats(f, f->live.itr, f->live.zoom / PP_CM);
 	if (key == 4 || key == 5)
 		return (zoom(f, key, pxl(x, y)));
-	if (key == 1 && !f->child)
+	if (!f->child)
 		return (0);
 	f->child->live.cx_j = f->cx;
 	f->live.cx_j = f->cx;
