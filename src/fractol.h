@@ -91,10 +91,10 @@ double		burning_ship(t_frtl *f, t_cx cx, long itr);
 
 //  Coords and Color Functions
 int			fill_win(t_frtl *f);
-t_cx		coords(t_frtl *f, t_px px);
-void		color(double itr, t_frtl *f);
 int			zoom(t_frtl *f, int key, t_px px);
-void		move(t_frtl *f);
+void		color(double itr, t_frtl *f);
+void		move(t_frtl *f, t_cx from, t_cx to);
+t_cx		coords(t_frtl *f, t_px px);
 
 // Numeric Functions Functions
 t_px		pxl(int a, int b);

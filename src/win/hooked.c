@@ -22,8 +22,6 @@ static int	keyboard_plus(int key, t_frtl *f)
 		f->img.opt ^= 1 << 2;
 	else if (key == 'a')
 		f->img.opt ^= 1 << 3;
-	else if (key == 'c')
-		f->img.opt ^= 1 << 4;
 	else if (key == 'r')
 		default_win(f);
 	else if (key == 'j')
@@ -62,13 +60,16 @@ int	keyboard(int key, t_frtl *f)
 
 int	mouse(int key, int x, int y, t_frtl *f)
 {
+	t_cx	cntr;
+
+	cntr = coords(f, f->w_cntr);
 	coords(f, pxl(x, y));
-	if (key == 1 && f->img.opt >> 4 & 1)
+	if (key == 2)
 		stats(f);
-	if (key == 4 || key == 5)
+	else if (key == 4 || key == 5)
 		return (zoom(f, key, pxl(x, y)));
-	if (key == 3)
-		move(f);
+	else if (key == 3)
+		move(f, cntr, f->cx);
 	if (!f->child || key != 1)
 		return (fill_win(f));
 	f->child->live.cx_j = f->cx;

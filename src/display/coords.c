@@ -12,22 +12,17 @@
 
 #include "../fractol.h"
 
-void	move(t_frtl *f)
+void	move(t_frtl *f, t_cx to, t_cx from)
 {
-	ft_printf("moved bitch \n");
-	t_cx	mouse;
-
-	mouse = f->cx;
-	coords(f, f->w_cntr);
-	f->live.offset.real -= mouse.real - f->cx.real;
-	f->live.offset.imag -= mouse.imag - f->cx.imag;
+	f->live.offset.real -= to.real - from.real;
+	f->live.offset.imag -= to.imag - from.imag;
 }
 
 int	zoom(t_frtl *f, int key, t_px px)
 {
 	t_cx	tmp;
 
-	tmp = f->cx;
+	tmp = cmplx(f->cx.real, f->cx.imag);
 	if (key == 4)
 		f->live.zoom *= 2;
 	else if (key == 5 && f->live.zoom > 1)
@@ -37,9 +32,8 @@ int	zoom(t_frtl *f, int key, t_px px)
 	else if (key == 5 && f->img.opt >> 3 & 1)
 		f->live.itr -= f->init.itr / 15;
 	coords(f, px);
-	f->live.offset.real -= f->cx.real - tmp.real;
-	f->live.offset.imag -= f->cx.imag - tmp.imag;
-	return	(fill_win(f));
+	move(f, cmplx(f->cx.real , f->cx.imag), tmp);
+	return (fill_win(f));
 }
 
 t_cx	coords(t_frtl *f, t_px px)
