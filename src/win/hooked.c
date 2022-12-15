@@ -67,7 +67,7 @@ int	mouse(int key, int x, int y, t_frtl *f)
 		stats(f, f->live.itr, f->live.zoom / PP_CM);
 	if (key == 4 || key == 5)
 		return (zoom(f, key, pxl(x, y)));
-	if (!f->child)
+	if (!f->child || key != 1)
 		return (0);
 	f->child->live.cx_j = f->cx;
 	f->live.cx_j = f->cx;
