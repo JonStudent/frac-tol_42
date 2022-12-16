@@ -91,14 +91,19 @@ int	mouse(int key, int x, int y, t_frtl *f)
 }
 int	dance(int x, int y, t_frtl *f)
 {
-	if (!(f->opt >> 6 & 1) || \
+	if (!(f->opt >> 6 & 1) || !f->child || \
 	(!(f->opt >> 5 & 1) && f->locked))
 		return (0);
 	coords(f, pxl(x, y));
 	f->live.cx_j = f->cx;
-	if (f->opt >> 5 & 1)
+	f->child->live.cx_j = f->child->cx;
+	if (f->opt >> 5 & 1 && f->set == julia)
 		return (!++f->locked);
-	return (fill_win(f));
+	else if (f->opt >> 5 & 1)
+		return (!++f->child->locked);
+	if (f->set == julia)
+		fill_win(f);
+	return (fill_win(f->child));
 }
 
 int	wait(t_frtl *f)
@@ -106,5 +111,8 @@ int	wait(t_frtl *f)
 	if (f->opt >> 5 & 1 && f->locked)
 		fill_win(f);
 	f->locked = 0;
+	if (f->child->opt >> 5 & 1 && f->child->locked)
+		fill_win(f->child);
+	f->child->locked = 0;
 	return (0);
 }

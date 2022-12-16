@@ -64,7 +64,6 @@ void	init_win(t_frtl *f)
 	mlx_mouse_hook(f->win, mouse, f);
 	mlx_hook(f->win, 06, (1L << 6), dance, f);
 	mlx_hook(f->win, 33, (1L << 5), win_close, f);
-	mlx_loop_hook(f->mlx, wait, f);
 }
 
 void	default_win(t_frtl *f)
