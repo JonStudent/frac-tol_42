@@ -68,4 +68,5 @@ void	create_win(t_frtl *child, void *mlx, t_frtl *parent)
 		child->init.cx_j = child->live.cx_j;
 	default_win(child);
 	init_win(child);
+	fill_win(child);
 }

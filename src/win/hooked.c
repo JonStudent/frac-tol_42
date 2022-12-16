@@ -16,16 +16,18 @@ static int	keyboard_plus(int key, t_frtl *f)
 {
 	if (key == 'i')
 		f->opt ^= 1 << 0;
-	else if (key == 'p')
+	else if (key == 'u')
 		f->opt ^= 1 << 1;
-	else if (key == 's')
+	else if (key == 'y')
 		f->opt ^= 1 << 2;
 	else if (key == 'a')
 		f->opt ^= 1 << 3;
-	else if (key == 'f')
+	else if (key == 'o')
 		f->opt ^= 1 << 4;
-	else if (key == 'z')
+	else if (key == 's')
 		f->opt ^= 1 << 5;
+	else if (key == 'd')
+		f->opt ^= 1 << 6;
 	else if (key == 'r')
 		default_win(f);
 	else if (key == 'j')
@@ -86,6 +88,17 @@ int	mouse(int key, int x, int y, t_frtl *f)
 	if (f->opt >> 5 & 1)
 		return (!++f->locked);
 	return (fill_win(f->child));
+}
+int	dance(int x, int y, t_frtl *f)
+{
+	if (!(f->opt >> 6 & 1) || \
+	(!(f->opt >> 5 & 1) && f->locked))
+		return (0);
+	coords(f, pxl(x, y));
+	f->live.cx_j = f->cx;
+	if (f->opt >> 5 & 1)
+		return (!++f->locked);
+	return (fill_win(f));
 }
 
 int	wait(t_frtl *f)

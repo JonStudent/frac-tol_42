@@ -25,7 +25,7 @@ int	child_win(t_frtl *f)
 {
 	if (f->child && f->child->win)
 		return (win_close(f->child));
-	if (f->child)
+	else if (f->child)
 		create_win(f->child, f->mlx, f);
 	else
 		return (win_close(f));
@@ -62,7 +62,7 @@ void	init_win(t_frtl *f)
 	&f->img.bits_per_pixel, &f->img.line_len, &f->img.endian);
 	mlx_key_hook(f->win, keyboard, f);
 	mlx_mouse_hook(f->win, mouse, f);
-	mlx_expose_hook(f->win, fill_win, f);
+	mlx_hook(f->win, 06, (1L << 6), dance, f);
 	mlx_hook(f->win, 33, (1L << 5), win_close, f);
 	mlx_loop_hook(f->mlx, wait, f);
 }
