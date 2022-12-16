@@ -40,7 +40,7 @@ static long	hsv2rgb(double h, double s, double v)
 
 static void	black_white(t_frtl *f, double itr)
 {
-	if (f->img.opt >> 4 & 1)
+	if (f->opt >> 4 & 1)
 		itr = (int)(itr * f->live.itr) % 2;
 	itr *= 255;
 	itr = (int)itr << 16 | (int)itr << 8 | (int)itr;
@@ -53,10 +53,10 @@ static void	hsv_scale(t_frtl *f, double itr)
 	double	v;
 
 	v = 1;
-	if (f->img.opt >> 4 & 1 && (int)(itr * f->live.itr) % 2)
+	if (f->opt >> 4 & 1 && (int)(itr * f->live.itr) % 2)
 		v = itr;
 	rgb = hsv2rgb(f->img.hsv.real + itr * f->img.hsv.imag, v, 1);
-	if ((f->img.opt & 1 && !itr) || (!(f->img.opt & 1) && (int)itr))
+	if ((f->opt & 1 && !itr) || (!(f->opt & 1) && (int)itr))
 		rgb = 0;
 	pixel_to_img(f, f->px, rgb);
 }
@@ -64,11 +64,11 @@ static void	hsv_scale(t_frtl *f, double itr)
 void	color(double itr, t_frtl *f)
 {
 	itr /= f->live.itr;
-	if (f->img.opt >> 1 & 1)
+	if (f->opt >> 1 & 1)
 		itr = pow(itr, 2);
-	if (f->img.opt >> 2 & 1)
+	if (f->opt >> 2 & 1)
 		itr = sqrt(itr);
-	if (f->img.opt & 1)
+	if (f->opt & 1)
 		itr = 1 - itr;
 	if (!f->img.clr || f->img.clr == N1_K)
 		hsv_scale(f, itr);

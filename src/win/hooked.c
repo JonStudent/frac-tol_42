@@ -15,27 +15,31 @@
 static int	keyboard_plus(int key, t_frtl *f)
 {
 	if (key == 'i')
-		f->img.opt ^= 1 << 0;
+		f->opt ^= 1 << 0;
 	else if (key == 'p')
-		f->img.opt ^= 1 << 1;
+		f->opt ^= 1 << 1;
 	else if (key == 's')
-		f->img.opt ^= 1 << 2;
+		f->opt ^= 1 << 2;
 	else if (key == 'a')
-		f->img.opt ^= 1 << 3;
+		f->opt ^= 1 << 3;
 	else if (key == 'f')
-		f->img.opt ^= 1 << 4;
+		f->opt ^= 1 << 4;
+	else if (key == 'z')
+		f->opt ^= 1 << 5;
 	else if (key == 'r')
 		default_win(f);
 	else if (key == 'j')
 		return (child_win(f));
 	else
 		return (0);
+	if (f->opt >> 5 & 1)
+		return (!++f->locked);
 	return (fill_win(f));
 }
 
 int	keyboard(int key, t_frtl *f)
 {
-	if (f->locked)
+	if (!(f->opt >> 5 & 1) && f->locked)
 		return (0);
 	if (key == ESC_K)
 		handle_error(f, NULL);
@@ -59,12 +63,14 @@ int	keyboard(int key, t_frtl *f)
 		f->img.clr = key;
 	else
 		return (keyboard_plus(key, f));
+	if (f->opt >> 5 & 1)
+		return (!++f->locked);
 	return (fill_win(f));
 }
 
 int	mouse(int key, int x, int y, t_frtl *f)
 {
-	if (f->locked)
+	if (!(f->opt >> 5 & 1) && f->locked)
 		return (0);
 	coords(f, pxl(x, y));
 	if (key == 2)
@@ -77,11 +83,15 @@ int	mouse(int key, int x, int y, t_frtl *f)
 	f->live.cx_j = f->cx;
 	if (f->set == julia)
 		fill_win(f);
+	if (f->opt >> 5 & 1)
+		return (!++f->locked);
 	return (fill_win(f->child));
 }
 
 int	wait(t_frtl *f)
 {
+	if (f->opt >> 5 & 1 && f->locked)
+		fill_win(f);
 	f->locked = 0;
 	return (0);
 }

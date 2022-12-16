@@ -63,7 +63,6 @@ typedef struct s_img {
 	int		bits_per_pixel;
 	int		endian;
 	int		clr;
-	char	opt;
 	t_cx	hsv;
 }	t_img;
 
@@ -77,6 +76,7 @@ struct s_frtl {
 	void	*mlx;
 	void	*win;
 	char	locked;
+	char	opt;
 	t_cx	cx;
 	t_px	px;
 	t_img	img;
