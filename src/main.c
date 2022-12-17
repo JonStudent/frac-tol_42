@@ -26,5 +26,6 @@ int	main(int argc, char **argv)
 	child.parent = &parent;
 	create_win(&parent, mlx_init(), &parent);
 	mlx_loop_hook(parent.mlx, wait, &parent);
+	mlx_hook(parent.win, 06, (1L << 8), dance, &parent);
 	mlx_loop(parent.mlx);
 }

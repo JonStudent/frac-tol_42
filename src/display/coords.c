@@ -39,7 +39,7 @@ int	move(t_frtl *f, int key, t_px px)
 	f->live.offset.real -= to.real - from.real;
 	f->live.offset.imag -= to.imag - from.imag;
 	if (f->opt >> 5 & 1)
-		return (!++f->locked);
+		return (!++f->lock);
 	return (fill_win(f));
 }
 
@@ -59,7 +59,7 @@ int	fill_win(t_frtl *f)
 	if (!f || !f->win)
 		return (0);
 	if (!(f->opt >> 5 & 1))
-		f->locked++;
+		f->lock++;
 	ft_printf("\nRendring %s..", f->title);
 	f->px.y = -1;
 	while (++f->px.y < f->w_size.y)

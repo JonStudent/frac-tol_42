@@ -14,7 +14,9 @@
 
 static int	keyboard_plus(int key, t_frtl *f)
 {
-	if (key == 'i')
+	if (key == N0_K || key == N1_K || key == N2_K)
+		f->img.clr = key;
+	else if (key == 'i')
 		f->opt ^= 1 << 0;
 	else if (key == 'u')
 		f->opt ^= 1 << 1;
@@ -24,27 +26,25 @@ static int	keyboard_plus(int key, t_frtl *f)
 		f->opt ^= 1 << 3;
 	else if (key == 'o')
 		f->opt ^= 1 << 4;
-	else if (key == 's')
+	else if (key == 's' && stats(f, 's'))
 		f->opt ^= 1 << 5;
-	else if (key == 'd')
-		f->opt ^= 1 << 6;
 	else if (key == 'r')
 		default_win(f);
 	else if (key == 'j')
 		return (child_win(f));
+	else if (key == ESC_K)
+		handle_error(f, NULL);
 	else
 		return (0);
 	if (f->opt >> 5 & 1)
-		return (!++f->locked);
+		return (!++f->lock);
 	return (fill_win(f));
 }
 
 int	keyboard(int key, t_frtl *f)
 {
-	if (!(f->opt >> 5 & 1) && f->locked)
+	if (!(f->opt >> 5 & 1) && f->lock)
 		return (0);
-	if (key == ESC_K)
-		handle_error(f, NULL);
 	else if (key == RIGHT_K)
 		f->live.offset.real += OFFSET * f->init.zoom \
 		/ f->live.zoom;
@@ -61,30 +61,29 @@ int	keyboard(int key, t_frtl *f)
 		f->live.itr += 20;
 	else if (key == MINUS_K && f->live.itr > 20)
 		f->live.itr -= 20;
-	else if (key == N0_K || key == N1_K || key == N2_K)
-		f->img.clr = key;
 	else
 		return (keyboard_plus(key, f));
 	if (f->opt >> 5 & 1)
-		return (!++f->locked);
+		return (!++f->lock);
 	return (fill_win(f));
 }
 
 int	mouse(int key, int x, int y, t_frtl *f)
 {
-	if (!(f->opt >> 5 & 1) && f->locked)
+	if (!(f->opt >> 5 & 1) && f->lock)
 		return (0);
 	coords(f, pxl(x, y));
 	if (key == 2)
-		stats(f);
+		stats(f, 0);
 	else if (key >= 3 && key <= 5)
 		return (move(f, key, pxl(x, y)));
 	if (!f->child || key != 1)
 		return (0);
-	f->child->live.cx_j = f->cx;
 	f->live.cx_j = f->cx;
-	if (f->opt >> 5 & 1)
-		return (!++f->child->locked);
+	f->child->live.cx_j = f->cx;
+	if (f->opt >> 5 & 1 || !++f->lock)
+		if (f->set != julia || ++f->lock)
+			return (!++f->child->lock);
 	if (f->set == julia)
 		fill_win(f);
 	return (fill_win(f->child));
@@ -92,18 +91,16 @@ int	mouse(int key, int x, int y, t_frtl *f)
 
 int	dance(int x, int y, t_frtl *f)
 {
-	if (!f->child || !(f->opt >> 6 & 1))
-		return (0);
 	return (mouse(1, x, y, f));
 }
 
 int	wait(t_frtl *f)
 {
-	if (f->opt >> 5 & 1 && f->locked)
+	if ((f->opt >> 5 & 1) && f->lock)
 		fill_win(f);
-	f->locked = 0;
-	if (f->child->opt >> 5 & 1 && f->child->locked)
+	f->lock = 0;
+	if ((f->opt >> 5 & 1) && f->child->lock)
 		fill_win(f->child);
-	f->child->locked = 0;
+	f->child->lock = 0;
 	return (0);
 }

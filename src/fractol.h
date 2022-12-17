@@ -38,6 +38,7 @@
 # define GN	"\x1B[32m"
 # define BL	"\x1B[34m"
 # define RT	"\x1B[0m"
+# define RD  "\x1B[31m"
 
 typedef struct s_px {
 	int	x;
@@ -75,7 +76,7 @@ struct s_frtl {
 	char	*title;
 	void	*mlx;
 	void	*win;
-	char	locked;
+	char	lock;
 	char	opt;
 	t_cx	cx;
 	t_px	px;
@@ -111,11 +112,11 @@ t_cx		cmplx(long double a, long double b);
 long double	atod(const char *s);
 
 //  Window Management Functions
+int			stats(t_frtl *f, char s);
 int			win_close(t_frtl *f);
 int			child_win(t_frtl *f);
 void		init_win(t_frtl *f);
 void		default_win(t_frtl *f);
-void		stats(t_frtl *f);
 void		handle_error(t_frtl *f, char *cause);
 void		pixel_to_img(t_frtl *f, t_px px, int color);
 void		create_win(t_frtl *frtl_c, void *mlx, t_frtl *frtl_p);

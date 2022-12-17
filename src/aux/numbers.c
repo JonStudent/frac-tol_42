@@ -45,11 +45,17 @@ static void	print_coords(t_cx crd)
 	ft_printf("%0d.%09u"RT"]", (int)crd.imag, (unsigned)dec.imag);
 }
 
-void	stats(t_frtl *f)
+int	stats(t_frtl *f, char s)
 {
+	if (s == 's' && ft_printf("Safety: "))
+		if (!(f->opt >> 5 & 1))
+			return (ft_printf(GN"ON"RT));
+	if (s == 's')
+		return (ft_printf(RD"OFF"RT));
 	ft_printf("\n%s's\nZoom: x"GN"%d "RT, f->title, f->live.zoom / PP_CM);
 	print_coords(f->cx);
 	ft_printf(" Max Iterations: "GN"%d\n"RT, f->live.itr);
+	return (0);
 }
 
 long double	atod(const char *s)
