@@ -71,7 +71,7 @@ void	handle_error(t_frtl *f, char *cause)
 	if (cause)
 		perror(cause);
 	if (!f->set)
-		ft_printf("Get ready for manual!\n");
+		ft_printf(MAN);
 	if (f->win)
 		win_close(f);
 	win_close(f->parent);
@@ -97,5 +97,4 @@ void	create_win(t_frtl *child, void *mlx, t_frtl *parent)
 		child->init.cx_j = child->live.cx_j;
 	default_win(child);
 	init_win(child);
-	fill_win(child);
 }

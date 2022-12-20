@@ -38,10 +38,37 @@
 # define GN	"\x1B[32m"
 # define YL	"\x1B[33m"
 # define BL	"\x1B[34m"
+# define MG	"\x1B[35m"
+# define CY	"\x1B[36m"
 # define RD "\x1B[31m"
 # define RT	"\x1B[0m"
 
-# define TOBIG	"too big for ft_printf (reached long size number)"
+# define TOBIG "too big for ft_printf (reached long size number)"
+# define MAN CY"\n\t\tFract-ol Manual"RT\
+			 "\n\n\tWelcome to my little fractals exploratian program!"\
+			 BL"\n\nSYNOPSIS"RT"\n\n\t./frac-tol "GN"<FRACTAL>"RT" "YL"[OPTIONS]..."RT\
+			 BL"\n\nDESCRIPTION"RT"\n\nAll the "GN"<"RT"..."GN">"RT" selections are "\
+			 RD"REQUIRED\n"RT"and all "YL"["RT"..."YL"]"RT" are "YL"OPTIONAL"RT\
+			 "\n\n\t"GN"FRACTAL"RT":"\
+			 "\n\t("RD"not"RT" case sensitive)"\
+			 "\n\n\t "GN"m"RT", Mandelbrot\t\t Generate Mandelbrot Set."\
+			 "\n\n\t "GN"j"RT", Julia "YL"["RT"real, imag"YL"]"RT"\t Generate Julia Set."\
+			 "\n\t\t\t\t If an optional complex number is given, the Julia Set"\
+			 "\n\t\t\t\t will be calculated using it as it's fixed point."\
+			 "\n\n\t "GN"b"RT", BurningShip\t\t Generate Burning Ship Set."\
+			 "\n\n\t"YL"OPTIONS"RT":"\
+			 "\n\t(case sensitive)"\
+			 "\n\n\t-"YL"z"RT" "GN"<"RT"initial zoom"GN">"RT\
+			 "\t Select initial zoom to be rendered."\
+			 "\n\n\t-"YL"o"RT" "GN"<"RT"real"GN">"RT" "GN"<"RT"imag"GN">"RT\
+			 "\t Select origin Point. Set will be centered at that coordinate."\
+			 "\n\t\t\t\t (Complex numbers act as coordinates in the complex plane)"\
+			 "\n\n\t-"YL"i"RT" "GN"<"RT"max iteration"GN">"RT\
+			 "\t Select starting Max Iteration."\
+			 "\n\t\t\t\t (Maximum number of times the different equations will run,"\
+			 "\n\t\t\t\t if not escaping to infinity).\n"\
+			 "\n\n\t-"YL"w"RT" "GN"<"RT"WITDH"GN">"RT" "GN"<"RT"HEIGHT"GN">"RT\
+			 "\t Select Window Size.\n"
 
 typedef struct s_px {
 	int	x;
