@@ -61,6 +61,7 @@ void	init_win(t_frtl *f)
 	f->img.addr = mlx_get_data_addr(f->img.img, \
 	&f->img.bits_per_pixel, &f->img.line_len, &f->img.endian);
 	mlx_key_hook(f->win, keyboard, f);
+	mlx_expose_hook(f->win, expose, f);
 	mlx_mouse_hook(f->win, mouse, f);
 	mlx_hook(f->win, 33, (1L << 5), win_close, f);
 }

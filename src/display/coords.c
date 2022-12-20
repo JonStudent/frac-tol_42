@@ -60,7 +60,7 @@ int	fill_win(t_frtl *f)
 		return (0);
 	if (!(f->opt >> 5 & 1))
 		f->lock++;
-	ft_printf("\nRendring %s..", f->title);
+	ft_printf("\nRendring %s...", f->title);
 	f->px.y = -1;
 	while (++f->px.y < f->w_size.y)
 	{
@@ -69,6 +69,6 @@ int	fill_win(t_frtl *f)
 			color(f->set(f, coords(f, f->px), 0), f);
 	}
 	mlx_put_image_to_window(f->mlx, f->win, f->img.img, 0, 0);
-	ft_printf("."GN" Done\n"RT);
+	ft_printf(GN" Done\n"RT);
 	return (0);
 }

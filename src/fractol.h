@@ -93,9 +93,11 @@ struct s_frtl {
 
 // Input Handling Functions
 int			keyboard(int key, t_frtl *f);
+int			keyboard_plus(int key, t_frtl *f);
 int			mouse(int key, int x, int y, t_frtl *f);
 int			wait(t_frtl *f);
 int			dance(int x, int y, t_frtl *f);
+int			expose(t_frtl *f);
 
 // Set Functions
 double		julia(t_frtl *f, t_cx cx, long itr);

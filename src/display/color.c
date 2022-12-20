@@ -40,8 +40,8 @@ static long	hsv2rgb(double h, double s, double v)
 
 static void	black_white(t_frtl *f, double itr)
 {
-	if (f->opt >> 4 & 1)
-		itr = (int)(itr * f->live.itr) % 2;
+	if (f->opt >> 4 & 1 && (int)(itr * f->live.itr) % 2)
+		itr = !(f->opt & 1);
 	itr *= 255;
 	itr = (int)itr << 16 | (int)itr << 8 | (int)itr;
 	pixel_to_img(f, f->px, itr);

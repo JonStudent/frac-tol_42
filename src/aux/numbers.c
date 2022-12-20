@@ -49,7 +49,7 @@ int	stats(t_frtl *f, char s)
 {
 	ft_printf("\n%s's\n", f->title);
 	if (s == 's' && ft_printf("Safety: "))
-		if (!(f->opt >> 5 & 1))
+		if (f->opt >> 5 & 1)
 			return (ft_printf(GN"ON"RT));
 	if (s == 's')
 		return (ft_printf(RD"OFF"RT));
@@ -82,12 +82,3 @@ long double	atod(const char *s)
 	}
 	return (n);
 }
-
-/*
-long double	ldabs(long double a)
-{
-	if (a < 0)
-		return (-a);
-	return (a);
-}
-*/

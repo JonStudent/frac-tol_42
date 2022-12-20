@@ -12,35 +12,6 @@
 
 #include "../fractol.h"
 
-static int	keyboard_plus(int key, t_frtl *f)
-{
-	if (key == N0_K || key == N1_K || key == N2_K)
-		f->img.clr = key;
-	else if (key == 'i')
-		f->opt ^= 1 << 0;
-	else if (key == 'u')
-		f->opt ^= 1 << 1;
-	else if (key == 'y')
-		f->opt ^= 1 << 2;
-	else if (key == 'a')
-		f->opt ^= 1 << 3;
-	else if (key == 'o')
-		f->opt ^= 1 << 4;
-	else if (key == 's' && stats(f, 's'))
-		f->opt ^= 1 << 5;
-	else if (key == 'r')
-		default_win(f);
-	else if (key == 'j')
-		return (child_win(f));
-	else if (key == ESC_K)
-		handle_error(f, NULL);
-	else
-		return (0);
-	if (f->opt >> 5 & 1)
-		return (!++f->lock);
-	return (fill_win(f));
-}
-
 int	keyboard(int key, t_frtl *f)
 {
 	if (!(f->opt >> 5 & 1) && f->lock)
@@ -89,18 +60,27 @@ int	mouse(int key, int x, int y, t_frtl *f)
 	return (fill_win(f->child));
 }
 
+int	wait(t_frtl *f)
+{
+	if (f->opt >> 5 & 1 && f->lock)
+		fill_win(f);
+	if (f->opt >> 5 & 1 && f->child->lock)
+		fill_win(f->child);
+	f->lock = 0;
+	f->child->lock = 0;
+	return (0);
+}
+
+int	expose(t_frtl *f)
+{
+	if (f->opt >> 5 & 1)
+		return (!++f->lock);
+	else if (!f->lock)
+		return (fill_win(f));
+	return (0);
+}
+
 int	dance(int x, int y, t_frtl *f)
 {
 	return (mouse(1, x, y, f));
-}
-
-int	wait(t_frtl *f)
-{
-	if ((f->opt >> 5 & 1) && f->lock)
-		fill_win(f);
-	f->lock = 0;
-	if ((f->opt >> 5 & 1) && f->child->lock)
-		fill_win(f->child);
-	f->child->lock = 0;
-	return (0);
 }
