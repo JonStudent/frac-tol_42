@@ -36,9 +36,12 @@
 # define N2_K 65433
 
 # define GN	"\x1B[32m"
+# define YL	"\x1B[33m"
 # define BL	"\x1B[34m"
+# define RD "\x1B[31m"
 # define RT	"\x1B[0m"
-# define RD  "\x1B[31m"
+
+# define TOBIG	"too big for ft_printf (reached long size number)"
 
 typedef struct s_px {
 	int	x;

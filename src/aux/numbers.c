@@ -38,23 +38,27 @@ static void	print_coords(t_cx crd)
 	if (crd.real < 0 && ft_printf("-"))
 		crd.real = -crd.real;
 	dec.real = (crd.real - (int)crd.real) * pow(10, 9);
-	ft_printf("%0d.%09u ", (int)crd.real, (unsigned)dec.real);
+	ft_printf("%0d"RT"."GN"%09u ", (int)crd.real, (unsigned)dec.real);
 	if (crd.imag < 0 && ft_printf("-"))
 		crd.imag = -crd.imag;
 	dec.imag = (crd.imag - (int)crd.imag) * pow(10, 9);
-	ft_printf("%0d.%09u"RT"]", (int)crd.imag, (unsigned)dec.imag);
+	ft_printf("%0d"RT"."GN"%09u"RT"]", (int)crd.imag, (unsigned)dec.imag);
 }
 
 int	stats(t_frtl *f, char s)
 {
+	ft_printf("\n%s's\n", f->title);
 	if (s == 's' && ft_printf("Safety: "))
 		if (!(f->opt >> 5 & 1))
 			return (ft_printf(GN"ON"RT));
 	if (s == 's')
 		return (ft_printf(RD"OFF"RT));
-	ft_printf("\n%s's\nZoom: x"GN"%d "RT, f->title, f->live.zoom / PP_CM);
+	if (f->live.zoom / PP_CM > (unsigned)-1)
+		ft_printf("Zoom: "RD"%s "RT, TOBIG);
+	else
+		ft_printf("Zoom: "GN"%u "RT, f->live.zoom / PP_CM);
 	print_coords(f->cx);
-	ft_printf(" Max Iterations: "GN"%d\n"RT, f->live.itr);
+	ft_printf("\nMax Iterations: "YL"%u\n"RT, f->live.itr);
 	return (0);
 }
 
