@@ -37,38 +37,71 @@
 
 # define GN	"\x1B[32m"
 # define YL	"\x1B[33m"
-# define BL	"\x1B[34m"
 # define MG	"\x1B[35m"
+# define BL	"\x1B[34m"
 # define CY	"\x1B[36m"
 # define RD "\x1B[31m"
 # define RT	"\x1B[0m"
 
 # define TOBIG "too big for ft_printf (reached long size number)"
-# define MAN CY"\n\t\tFract-ol Manual"RT\
-			 "\n\n\tWelcome to my little fractals exploratian program!"\
-			 BL"\n\nSYNOPSIS"RT"\n\n\t./frac-tol "GN"<FRACTAL>"RT" "YL"[OPTIONS]..."RT\
-			 BL"\n\nDESCRIPTION"RT"\n\nAll the "GN"<"RT"..."GN">"RT" selections are "\
-			 RD"REQUIRED\n"RT"and all "YL"["RT"..."YL"]"RT" are "YL"OPTIONAL"RT\
-			 "\n\n\t"GN"FRACTAL"RT":"\
-			 "\n\t("RD"not"RT" case sensitive)"\
-			 "\n\n\t "GN"m"RT", Mandelbrot\t\t Generate Mandelbrot Set."\
-			 "\n\n\t "GN"j"RT", Julia "YL"["RT"real, imag"YL"]"RT"\t Generate Julia Set."\
-			 "\n\t\t\t\t If an optional complex number is given, the Julia Set"\
-			 "\n\t\t\t\t will be calculated using it as it's fixed point."\
-			 "\n\n\t "GN"b"RT", BurningShip\t\t Generate Burning Ship Set."\
-			 "\n\n\t"YL"OPTIONS"RT":"\
-			 "\n\t(case sensitive)"\
-			 "\n\n\t-"YL"z"RT" "GN"<"RT"initial zoom"GN">"RT\
-			 "\t Select initial zoom to be rendered."\
-			 "\n\n\t-"YL"o"RT" "GN"<"RT"real"GN">"RT" "GN"<"RT"imag"GN">"RT\
-			 "\t Select origin Point. Set will be centered at that coordinate."\
-			 "\n\t\t\t\t (Complex numbers act as coordinates in the complex plane)"\
-			 "\n\n\t-"YL"i"RT" "GN"<"RT"max iteration"GN">"RT\
-			 "\t Select starting Max Iteration."\
-			 "\n\t\t\t\t (Maximum number of times the different equations will run,"\
-			 "\n\t\t\t\t if not escaping to infinity).\n"\
-			 "\n\n\t-"YL"w"RT" "GN"<"RT"WITDH"GN">"RT" "GN"<"RT"HEIGHT"GN">"RT\
-			 "\t Select Window Size.\n"
+# define WLC "\x1B[36m\n\n\t\t\tFract-ol Manual\x1B[0m\n\n\
+\tWelcome to my little fractals exploratian program!\x1B[34m\n"
+# define MAN "SYNOPSIS\x1B[0m\n\n\t./frac-tol \x1B[32m<FRACTAL>\
+\x1B[0m \x1B[33m[OPTIONS]...\x1B[0m\x1B[34m\n\n\
+DESCRIPTION\x1B[0m\n\nAll the \x1B[32m<\x1B[0m...\x1B[32m>\
+\x1B[0m selections are \x1B[31mREQUIRED\n\x1B[0mand all \x1B[33m[\x1B[0m...\
+\x1B[33m]\x1B[0m are \x1B[33mOPTIONAL\x1B[0m\n\n\n\t\x1B[32mFRACTAL\x1B[0m\n\
+\t(case \x1B[32minsensitive\x1B[0m)\n\n\
+\t\x1B[32mm\x1B[0m, Mandelbrot\t\tGenerate Mandelbrot Set.\n\
+\t\x1B[32mj\x1B[0m, Julia \x1B[33m[\x1B[0mreal, imag\x1B[33m]\x1B[0m\
+\tGenerate Julia Set.\n\
+\t\t\t\tIf an optional complex number is given, the Julia Set\n\
+\t\t\t\twill be calculated using it as it's fixed point.\n\
+\t\x1B[32mb\x1B[0m, BurningShip\t\tGenerate Burning Ship Set.\n\n\n\
+\t\x1B[33mOPTIONS\x1B[0m\n\
+\t(case \x1B[31msensitive\x1B[0m)\n\n\
+\t-\x1B[33mz\x1B[0m \x1B[32m<\x1B[0minitial zoom\x1B[32m>\x1B[0m\
+\tSelect initial zoom to be rendered.\n\
+\t-\x1B[33mo\x1B[0m \x1B[32m<\x1B[0mreal\x1B[32m>\x1B[0m \x1B[32m<\x1B[0mimag\
+\x1B[32m>\x1B[0m\tSelect origin Point. \
+Set will be centered at that coordinate.\n\
+\t\t\t\t(Complex numbers act as coordinates in the complex plane)\n\
+\t-\x1B[33mi\x1B[0m \x1B[32m<\x1B[0mmax iteration\x1B[32m>\x1B[0m\
+\tSelect starting Max Iteration.\n\
+\t\t\t\t(Maximum number of times the different equations will run,\n\
+\t\t\t\tif not escaping to infinity).\n\
+\t-\x1B[33mw\x1B[0m \x1B[32m<\x1B[0mWITDH\x1B[32m>\x1B[0m \
+\x1B[32m<\x1B[0mHEIGHT\x1B[32m>\x1B[0m\tSelect Window Size.\n\
+\t-\x1B[33mc\x1B[0m \x1B[32m<\x1B[0mbegin\x1B[32m>\x1B[0m \
+\x1B[32m<\x1B[0mend\x1B[32m>\x1B[0m\tSelect color spectrum.\n\
+\t\t\t\tUse two HSV values (from 0 to 360) to select a color range.\n\n"
+
+# define INST "\x1B[34mINSTRUCTIONS\x1B[0m\n\n\
+Use both \x1B[32mKeyboard\x1B[0m and \x1B[33mMouse\x1B[0m\n\
+to control exploration:\n\n\
+\t\x1B[32mKEYBOARD\x1B[0m\n\t(case \x1B[31msensitive\x1B[0m)\n\n\
+\t\t-\x1B[32mArrows\x1B[0m\t\tMove 0.5cm proportional to zoom.\n\
+\t\t-\x1B[32m+\x1B[0m\t\tIncrease MaxIteration by 20%%.\n\
+\t\t-\x1B[32m-\x1B[0m\t\tDecrease MaxIteration by 20%%.\n\
+\t\t-\x1B[32ms\x1B[0m\t\tToggle Safety \
+(allow multiple commands between frames).\n\
+\t\t-\x1B[32ma\x1B[0m\t\tToggle Auto Mode - \
+Tries to adjust Max_Iterations at each zoom\n\
+\t\t-\x1B[32m0\x1B[0m, \x1B[32m1\x1B[0m\t\tSelect coloring Method.\n\
+\t\t-\x1B[32mi\x1B[0m\t\tInvert color spectrum.\n\
+\t\t-\x1B[32mo\x1B[0m\t\tOscillate colors.\n\
+\t\t-\x1B[32mu\x1B[0m\t\tCompress colors(square-root of the linear mapping).\n\
+\t\t-\x1B[32my\x1B[0m\t\tSpread colors(square of the linear mapping).\n\
+\t\t-\x1B[32mj\x1B[0m\t\tToggle Julia window for corresponding set.\n\
+\t\t-\x1B[32mr\x1B[0m\t\tRestart window.\n\
+\t\t-\x1B[32mESC\x1B[0m\t\tClose windows and exit program.\n\
+\n\t\x1B[33mMOUSE\x1B[0m\n\t(case \x1B[31msensitive\x1B[0m)\n\n\
+\t\t\x1B[33mLeft-Click\x1B[0m\tSend selected point to Julia window\n\
+\t\t\t\t(Continuous press Supporded).\n\
+\t\t\x1B[33mRight-Click\x1B[0m\tCenter window on selected point.\n\
+\t\t\x1B[33mWheel\x1B[0m\t\tZoom in/out at mouse position.\n\
+\t\t\x1B[33mMiddle-Click\x1B[0m\tSee statistics for selected point.\n\
+\x1B[36m\n\t\t\tHope you enjoy, i know i did\x1B[0m :)\n"
 
 typedef struct s_px {
 	int	x;

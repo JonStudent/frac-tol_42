@@ -47,11 +47,16 @@ static void	print_coords(t_cx crd)
 
 int	stats(t_frtl *f, char s)
 {
-	ft_printf("\n%s's\n", f->title);
+	ft_printf("\n%s's", f->title);
 	if (s == 's' && ft_printf("Safety: "))
 		if (f->opt >> 5 & 1)
 			return (ft_printf(GN"ON"RT));
 	if (s == 's')
+		return (ft_printf(RD"OFF"RT));
+	if (s == 'a' && ft_printf("Auto Mode: "))
+		if (!(f->opt >> 3 & 1))
+			return (ft_printf(GN"ON"RT));
+	if (s == 'a')
 		return (ft_printf(RD"OFF"RT));
 	if (f->live.zoom / PP_CM > (unsigned)-1)
 		ft_printf("Zoom: "RD"%s "RT, TOBIG);

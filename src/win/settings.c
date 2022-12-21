@@ -22,11 +22,11 @@ int	keyboard_plus(int key, t_frtl *f)
 		f->opt ^= 1 << 1;
 	else if (key == 'y')
 		f->opt ^= 1 << 2;
-	else if (key == 'a')
+	else if (key == 'a' && stats(f, key))
 		f->opt ^= 1 << 3;
 	else if (key == 'o')
 		f->opt ^= 1 << 4;
-	else if (key == 's' && stats(f, 's'))
+	else if (key == 's' && stats(f, key))
 		f->opt ^= 1 << 5;
 	else if (key == 'r')
 		default_win(f);
@@ -71,7 +71,7 @@ void	handle_error(t_frtl *f, char *cause)
 	if (cause)
 		perror(cause);
 	if (!f->set)
-		ft_printf(MAN);
+		ft_printf(WLC"\n"MAN);
 	if (f->win)
 		win_close(f);
 	win_close(f->parent);
