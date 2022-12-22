@@ -47,7 +47,7 @@ static void	print_coords(t_cx crd)
 
 int	stats(t_frtl *f, char s)
 {
-	ft_printf("\n%s's", f->title);
+	ft_printf("\n%s's ", f->title);
 	if (s == 's' && ft_printf("Safety: "))
 		if (f->opt >> 5 & 1)
 			return (ft_printf(GN"ON"RT));
