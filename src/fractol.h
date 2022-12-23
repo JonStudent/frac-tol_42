@@ -45,7 +45,7 @@
 
 # define TOBIG "too big for ft_printf (reached long size number)"
 # define WLC "\x1B[36m\n\n\t\t\tFract-ol Manual\x1B[0m\n\n\
-\tWelcome to my little fractals exploratian program!\x1B[34m\n"
+\tWelcome to my little fractals exploratian program!\x1B[34m\n\n"
 # define MAN "SYNOPSIS\x1B[0m\n\n\t./frac-tol \x1B[32m<FRACTAL>\
 \x1B[0m \x1B[33m[OPTIONS]...\x1B[0m\x1B[34m\n\n\
 DESCRIPTION\x1B[0m\n\nAll the \x1B[32m<\x1B[0m...\x1B[32m>\
@@ -93,6 +93,7 @@ Tries to adjust Max_Iterations at each zoom\n\
 \t\t-\x1B[32mu\x1B[0m\t\tCompress colors(square-root of the linear mapping).\n\
 \t\t-\x1B[32my\x1B[0m\t\tSpread colors(square of the linear mapping).\n\
 \t\t-\x1B[32mj\x1B[0m\t\tToggle Julia window for corresponding set.\n\
+\t\t\t\t(New window maintains all functionalities).\n\
 \t\t-\x1B[32mr\x1B[0m\t\tRestart window.\n\
 \t\t-\x1B[32mESC\x1B[0m\t\tClose windows and exit program.\n\
 \n\t\x1B[33mMOUSE\x1B[0m\n\t(case \x1B[31msensitive\x1B[0m)\n\n\
