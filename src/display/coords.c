@@ -19,9 +19,9 @@ t_cx	zoom(t_frtl *f, int key, t_px px)
 	else if (key == 5 && f->live.zoom > 1)
 		f->live.zoom /= 2;
 	if (key == 4 && f->opt >> 3 & 1)
-		f->live.itr += f->init.itr / 25;
+		f->live.itr += f->init.itr / 10;
 	else if (key == 5 && f->opt >> 3 & 1)
-		f->live.itr -= f->init.itr / 25;
+		f->live.itr -= f->init.itr / 10;
 	coords(f, px);
 	return (f->cx);
 }
