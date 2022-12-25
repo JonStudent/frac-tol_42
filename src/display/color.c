@@ -54,7 +54,7 @@ static void	hsv_scale(t_frtl *f, double itr)
 
 	v = 1;
 	if (f->opt >> 4 & 1 && (int)(itr * f->live.itr) % 2)
-		v = itr;
+		v = 1 - itr;
 	rgb = hsv2rgb(f->img.hsv.real + itr * f->img.hsv.imag, v, 1);
 	if ((f->opt & 1 && !itr) || (!(f->opt & 1) && (int)itr))
 		rgb = 0;
