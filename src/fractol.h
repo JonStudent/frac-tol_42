@@ -17,18 +17,18 @@
 # include <math.h>
 # include <libft.h>
 # include <stdio.h>
+# include <unistd.h>
 
 # define WIDTH 600
 # define HEIGHT 600
-
 # define PP_CM 86
-# define OFFSET 0.5
+# define MOVE 0.5
 
+# define ESC_K 65307
 # define RIGHT_K 65363
 # define LEFT_K 65361
 # define UP_K 65362
 # define DOWN_K 65364
-# define ESC_K 65307
 # define PLUS_K 65451
 # define MINUS_K 65453
 # define N0_K 65438
@@ -43,7 +43,7 @@
 # define RD "\x1B[31m"
 # define RT	"\x1B[0m"
 
-# define TOBIG "too big for ft_printf (reached long size number)"
+# define TOBIG "N/A - (reached long size number)"
 # define WLC "\x1B[36m\n\n\t\t\tFract-ol Manual\x1B[0m\n\n\
 \tWelcome to my little fractals exploratian program!\x1B[34m\n\n"
 # define MAN "SYNOPSIS\x1B[0m\n\n\t./frac-tol \x1B[32m<FRACTAL>\
@@ -140,15 +140,15 @@ struct s_frtl {
 	char	*title;
 	void	*mlx;
 	void	*win;
-	char	lock;
-	char	opt;
+	t_px	w_cntr;
+	t_px	w_size;
 	t_cx	cx;
 	t_px	px;
 	t_img	img;
 	t_val	init;
 	t_val	live;
-	t_px	w_cntr;
-	t_px	w_size;
+	char	opt;
+	char	lock;
 	double	(*set)(t_frtl *f, t_cx cx, long itr);
 };
 

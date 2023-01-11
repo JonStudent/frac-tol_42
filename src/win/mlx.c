@@ -53,11 +53,11 @@ void	init_win(t_frtl *f)
 	f->win = mlx_new_window(f->mlx, f->w_size.x, \
 	f->w_size.y, f->title);
 	if (!f->win)
-		handle_error(f, "Mlx didn't create window--");
+		handle_error(f, "Mlx could not create window");
 	f->img.img = mlx_new_image(f->mlx, f->w_size.x, \
 	f->w_size.y);
 	if (!f->img.img)
-		handle_error(f, "Mlx didn't create image--");
+		handle_error(f, "Mlx could not create image");
 	f->img.addr = mlx_get_data_addr(f->img.img, \
 	&f->img.bits_per_pixel, &f->img.line_len, &f->img.endian);
 	mlx_key_hook(f->win, keyboard, f);

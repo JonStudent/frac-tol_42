@@ -85,7 +85,7 @@ void	create_win(t_frtl *child, void *mlx, t_frtl *parent)
 {
 	child->mlx = mlx;
 	if (!child->mlx)
-		handle_error(child, "Mlx did't init--");
+		handle_error(child, "Mlx could not init");
 	child->set = parent->set;
 	if (child->set == julia || child->parent)
 		child->title = "Julia";
