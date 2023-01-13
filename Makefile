@@ -38,7 +38,7 @@ $(NAME): $(OBJ)
 	@make -s -C $(MLX_LIB_DIR) > /dev/null 2>&1
 	@printf '%s\n$(RST)%s$(GRN)' "Done" "Compiling Libft... "
 	@make -s -C $(LIBFT_DIR)
-	@printf '%s\n$(RST)%s$(GRN)%s$(RST)\n' "Done" "Compiling Frac-tol... " "Done"
+	@printf '%s\n$(RST)%s$(GRN)%s$(RST)\n' "Done" "Compiling Frac-tol... " "Go"
 	@$(CC) $(^) $(FLAGS) -o $(@)
 
 %.o: %.c
