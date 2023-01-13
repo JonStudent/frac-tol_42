@@ -43,9 +43,13 @@
 # define RD "\x1B[31m"
 # define RT	"\x1B[0m"
 
-# define TOBIG "N/A - (reached long size number)"
-# define WLC "\x1B[36m\n\n\t\t\tFract-ol Manual\x1B[0m\n\n\
+# define WLC "\n\n\n\t\t\t\x1B[36mFract-ol Manual\x1B[0m\n\n\
 \tWelcome to my little fractals exploratian program!\x1B[34m\n\n"
+
+# define BYE "\x1B[36m\n\n\n\t\t\tBye, hope you enjoyed it\x1B[0m :)\n\n"
+
+# define TOBIG "N/A - (reached long size number)"
+
 # define MAN "SYNOPSIS\x1B[0m\n\n\t./frac-tol \x1B[32m<FRACTAL>\
 \x1B[0m \x1B[33m[OPTIONS]...\x1B[0m\x1B[34m\n\n\
 DESCRIPTION\x1B[0m\n\nAll the \x1B[32m<\x1B[0m...\x1B[32m>\
@@ -77,32 +81,32 @@ Set will be centered at that coordinate.\n\
 \t\t\t\tUse two HSV values (from 0 to 360) to select a color range.\n\n"
 
 # define INST "\x1B[34mINSTRUCTIONS\x1B[0m\n\n\
-Use both \x1B[32mKeyboard\x1B[0m and \x1B[33mMouse\x1B[0m\n\
+Use both \x1B[32mKeyboard\x1B[0m and \x1B[31mMouse\x1B[0m\n\
 to control exploration:\n\n\
-\t\x1B[32mKEYBOARD\x1B[0m\n\t(case \x1B[31msensitive\x1B[0m)\n\n\
-\t\t-\x1B[32mArrows\x1B[0m\t\tMove 0.5cm proportional to zoom.\n\
-\t\t-\x1B[32m+\x1B[0m\t\tIncrease MaxIteration by 20%%.\n\
-\t\t-\x1B[32m-\x1B[0m\t\tDecrease MaxIteration by 20%%.\n\
-\t\t-\x1B[32ms\x1B[0m\t\tToggle Safety \
+\t\x1B[32mKEYBOARD\x1B[0m\n\n\
+\t\t-\x1B[34mArrows\x1B[0m\t\tMove 0.5cm proportional to zoom.\n\
+\t\t-\x1B[34m+\x1B[0m\t\tIncrease MaxIteration by 20%%.\n\
+\t\t-\x1B[34m-\x1B[0m\t\tDecrease MaxIteration by 20%%.\n\
+\t\t-\x1B[34ms\x1B[0m\t\tToggle Safety \
 (allow multiple commands between frames).\n\
-\t\t-\x1B[32ma\x1B[0m\t\tToggle Auto Mode - \
+\t\t-\x1B[34ma\x1B[0m\t\tToggle Auto Mode - \
 Tries to adjust Max_Iterations at each zoom\n\
-\t\t-\x1B[32m0\x1B[0m, \x1B[32m1\x1B[0m\t\tSelect coloring Method.\n\
-\t\t-\x1B[32mi\x1B[0m\t\tInvert color spectrum.\n\
-\t\t-\x1B[32mo\x1B[0m\t\tOscillate colors.\n\
-\t\t-\x1B[32mu\x1B[0m\t\tCompress colors(square-root of the linear mapping).\n\
-\t\t-\x1B[32my\x1B[0m\t\tSpread colors(square of the linear mapping).\n\
-\t\t-\x1B[32mj\x1B[0m\t\tToggle Julia window for corresponding set.\n\
+\t\t-\x1B[34m0\x1B[0m, \x1B[34m1\x1B[0m\t\tSelect coloring Method.\n\
+\t\t-\x1B[34mi\x1B[0m\t\tInvert color spectrum.\n\
+\t\t-\x1B[34mo\x1B[0m\t\tOscillate colors.\n\
+\t\t-\x1B[34mu\x1B[0m\t\tCompress colors(square-root of the linear mapping).\n\
+\t\t-\x1B[34my\x1B[0m\t\tSpread colors(square of the linear mapping).\n\
+\t\t-\x1B[34mj\x1B[0m\t\tToggle Julia window for corresponding set.\n\
 \t\t\t\t(New window maintains all functionalities).\n\
-\t\t-\x1B[32mr\x1B[0m\t\tRestart window.\n\
-\t\t-\x1B[32mESC\x1B[0m\t\tClose windows and exit program.\n\
-\n\t\x1B[33mMOUSE\x1B[0m\n\t(case \x1B[31msensitive\x1B[0m)\n\n\
-\t\t\x1B[33mLeft-Click\x1B[0m\tSend selected point to Julia window\n\
+\t\t-\x1B[34mr\x1B[0m\t\tRestart window.\n\
+\t\t-\x1B[34mESC\x1B[0m\t\tClose windows and exit program.\n\
+\n\t\x1B[31mMOUSE\x1B[0m\n\n\
+\t\t\x1B[34mLeft-Click\x1B[0m\tSend selected point to Julia window\n\
 \t\t\t\t(Continuous press Supporded).\n\
-\t\t\x1B[33mRight-Click\x1B[0m\tCenter window on selected point.\n\
-\t\t\x1B[33mWheel\x1B[0m\t\tZoom in/out at mouse position.\n\
-\t\t\x1B[33mMiddle-Click\x1B[0m\tSee statistics for selected point.\n\
-\x1B[36m\n\t\t\tHope you enjoy, i know i did\x1B[0m :)\n"
+\t\t\x1B[34mRight-Click\x1B[0m\tCenter window on selected point.\n\
+\t\t\x1B[34mWheel\x1B[0m\t\tZoom in/out at mouse position.\n\
+\t\t\x1B[34mMiddle-Click\x1B[0m\tSee statistics for selected point.\n\
+\x1B[36m\n\t\t\tGo get it !!\x1B[0m\n\n"
 
 typedef struct s_px {
 	int	x;

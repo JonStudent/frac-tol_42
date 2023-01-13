@@ -78,6 +78,7 @@ void	handle_error(t_frtl *f, char *cause)
 	if (f->mlx)
 		mlx_destroy_display(f->mlx);
 	free(f->mlx);
+	ft_printf(BYE);
 	exit(0);
 }
 
