@@ -63,8 +63,6 @@ int	mouse(int key, int x, int y, t_frtl *f)
 	coords(f, pxl(x, y));
 	if (key == 2)
 		stats(f, 0);
-	else if (key >= 3 && key <= 5)
-		return (move(f, key, pxl(x, y)));
 	if (!f->child || key != 1)
 		return (0);
 	f->live.cx_j = f->cx;
