@@ -12,32 +12,6 @@
 
 #include "../../fractol.h"
 
-int	move(int key, int x, int y, t_frtl *f)
-{
-	t_cx	from;
-	t_cx	to;
-
-	if (!(f->opt >> 5 & 1) && f->lock)
-		return (0);
-	if (key == 1 || key == 2)
-		return (0);
-	from = f->cx;
-	coords(f, pxl(x, y));
-	to = f->cx;
-	if (key != 3)
-		to = zoom(f, key, pxl(x, y));
-	f->live.offset.real -= to.real - from.real;
-	f->live.offset.imag -= to.imag - from.imag;
-	if (f->opt >> 5 & 1)
-		return (!++f->lock);
-	return (fill_win(f));
-}
-
-int	dance(int x, int y, t_frtl *f)
-{
-	return (mouse(1, x, y, f));
-}
-
 int	expose(t_frtl *f)
 {
 	if (f->opt >> 5 & 1)
@@ -45,6 +19,11 @@ int	expose(t_frtl *f)
 	else if (!f->lock)
 		return (fill_win(f));
 	return (0);
+}
+
+int	dance(int x, int y, t_frtl *f)
+{
+	return (mouse_press(1, x, y, f));
 }
 
 int	wait(t_frtl *f)

@@ -50,10 +50,12 @@ static void	black_white(t_frtl *f, double itr)
 static void	hsv_scale(t_frtl *f, double itr)
 {	
 	int		rgb;
+	double	perc;
 
+	perc = itr;
 	if (f->opt >> 4 & 1 && (int)(itr * f->live.itr) % 2)
-		itr = 0;
-	rgb = hsv2rgb(f->img.hsv.real + itr * f->img.hsv.imag, 1, 1);
+		perc = 1 - perc;
+	rgb = hsv2rgb(f->img.hsv.real + perc * f->img.hsv.imag, 1, 1);
 	if ((f->opt & 1 && !itr) || (!(f->opt & 1) && (int)itr))
 		rgb = 0;
 	pixel_to_img(f, f->px, rgb);

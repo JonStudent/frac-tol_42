@@ -61,8 +61,7 @@ int	stats(t_frtl *f, char s)
 	else
 		ft_printf("Zoom: "GN"%u "RT, f->live.zoom / PP_CM);
 	print_coords(f->cx);
-	ft_printf("\nMax Iterations: "YL"%u\n"RT, f->live.itr);
-	return (0);
+	return (ft_printf("\nMax Iterations: "YL"%u\n"RT, f->live.itr));
 }
 
 long double	atod(const char *s)

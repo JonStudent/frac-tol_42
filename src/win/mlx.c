@@ -41,17 +41,17 @@ void	init_win(t_frtl *f)
 {
 	f->win = mlx_new_window(f->mlx, f->w_size.x, \
 	f->w_size.y, f->title);
-	if (!f->win)
-		exit_win(f, "Mlx could not create window");
 	f->img.img = mlx_new_image(f->mlx, f->w_size.x, \
 	f->w_size.y);
+	if (!f->win)
+		exit_win(f, "Mlx could not create window");
 	if (!f->img.img)
 		exit_win(f, "Mlx could not create image");
 	f->img.addr = mlx_get_data_addr(f->img.img, \
 	&f->img.bits_per_pixel, &f->img.line_len, &f->img.endian);
 	mlx_key_hook(f->win, keyboard, f);
-	mlx_hook(f->win, 04, (1L << 2), mouse, f);
-	mlx_hook(f->win, 05, (1L << 3), move, f);
+	mlx_hook(f->win, 04, (1L << 2), mouse_press, f);
+	mlx_hook(f->win, 05, (1L << 3), mouse_release, f);
 	mlx_expose_hook(f->win, expose, f);
 	mlx_hook(f->win, 06, (1L << 8), dance, f);
 	mlx_hook(f->win, 33, (1L << 5), win_close, f);

@@ -159,7 +159,7 @@ struct s_frtl {
 // Input Handling Functions
 int			keyboard(int key, t_frtl *f);
 int			keyboard_plus(int key, t_frtl *f);
-int			mouse(int key, int x, int y, t_frtl *f);
+int			mouse_press(int key, int x, int y, t_frtl *f);
 int			wait(t_frtl *f);
 int			dance(int x, int y, t_frtl *f);
 int			expose(t_frtl *f);
@@ -171,7 +171,7 @@ double		burning_ship(t_frtl *f, t_cx cx, long itr);
 
 //  Coords and Color Functions
 int			fill_win(t_frtl *f);
-int			move(int key, int x, int y, t_frtl *f);
+int			mouse_release(int key, int x, int y, t_frtl *f);
 void		color(double itr, t_frtl *f);
 t_cx		zoom(t_frtl *f, int key, t_px px);
 t_cx		coords(t_frtl *f, t_px px);

@@ -34,6 +34,8 @@ int	keyboard_plus(int key, t_frtl *f)
 		child_win(f);
 	else if (key == ESC_K)
 		exit_win(f, NULL);
+	else
+		return (0);
 	return (key != 'a' && key != 's' && key != 'j');
 }
 
@@ -64,14 +66,12 @@ int	keyboard(int key, t_frtl *f)
 	return (fill_win(f));
 }
 
-int	mouse(int key, int x, int y, t_frtl *f)
+int	mouse_press(int key, int x, int y, t_frtl *f)
 {
 	if (f->opt >> 5 ^ 1 && f->lock)
 		return (0);
 	coords(f, pxl(x, y));
-	if (key == 2)
-		stats(f, 0);
-	if (!f->child || key != 1)
+	if ((key == 2 && stats(f, 0)) || !f->child || key != 1)
 		return (0);
 	f->live.cx_j = f->cx;
 	f->child->live.cx_j = f->cx;
@@ -81,4 +81,23 @@ int	mouse(int key, int x, int y, t_frtl *f)
 	if (f->set == julia)
 		fill_win(f);
 	return (fill_win(f->child));
+}
+
+int	mouse_release(int key, int x, int y, t_frtl *f)
+{
+	t_cx	from;
+	t_cx	to;
+
+	if ((f->opt >> 5 ^ 1 && f->lock) || key == 1 || key == 2)
+		return (0);
+	from = f->cx;
+	coords(f, pxl(x, y));
+	to = f->cx;
+	if (key != 3)
+		to = zoom(f, key, pxl(x, y));
+	f->live.offset.real -= to.real - from.real;
+	f->live.offset.imag -= to.imag - from.imag;
+	if (f->opt >> 5 & 1)
+		return (!++f->lock);
+	return (fill_win(f));
 }
