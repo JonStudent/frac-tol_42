@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 	static t_frtl	child;
 
 	if (argc < 2 || !get_param(&parent, 1, argc, argv))
-		handle_error(&parent, NULL);
+		exit_win(&parent, NULL);
 	ft_printf(WLC"\n"INST);
 	parent.child = &child;
 	child.parent = &parent;

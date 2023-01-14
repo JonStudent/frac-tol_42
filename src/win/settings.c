@@ -55,7 +55,17 @@ void	default_win(t_frtl *f)
 	f->w_cntr = pxl(f->w_size.x / 2, f->w_size.y / 2);
 }
 
-void	handle_error(t_frtl *f, char *cause)
+void	child_win(t_frtl *f)
+{
+	if (f->child && f->child->win)
+		win_close(f->child);
+	else if (f->child)
+		create_win(f->child, f->mlx, f);
+	else
+		win_close(f);
+}
+
+void	exit_win(t_frtl *f, char *cause)
 {
 	if (cause)
 		perror(cause);
@@ -72,22 +82,11 @@ void	handle_error(t_frtl *f, char *cause)
 	exit(0);
 }
 
-int	child_win(t_frtl *f)
-{
-	if (f->child && f->child->win)
-		return (win_close(f->child));
-	else if (f->child)
-		create_win(f->child, f->mlx, f);
-	else
-		return (win_close(f));
-	return (0);
-}
-
 void	create_win(t_frtl *child, void *mlx, t_frtl *parent)
 {
 	child->mlx = mlx;
 	if (!child->mlx)
-		handle_error(child, "Mlx could not init");
+		exit_win(child, "Mlx could not init");
 	child->set = parent->set;
 	if (child->set == julia || child->parent)
 		child->title = "Julia";

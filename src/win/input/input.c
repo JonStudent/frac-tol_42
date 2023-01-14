@@ -31,19 +31,15 @@ int	keyboard_plus(int key, t_frtl *f)
 	else if (key == 'r')
 		default_win(f);
 	else if (key == 'j')
-		return (child_win(f));
+		child_win(f);
 	else if (key == ESC_K)
-		handle_error(f, NULL);
-	else
-		return (0);
-	if (f->opt >> 5 & 1)
-		return (!++f->lock);
-	return (fill_win(f));
+		exit_win(f, NULL);
+	return (key != 'a' && key != 's' && key != 'j');
 }
 
 int	keyboard(int key, t_frtl *f)
 {
-	if (!(f->opt >> 5 & 1) && f->lock)
+	if (f->opt >> 5 ^ 1 && f->lock)
 		return (0);
 	else if (key == RIGHT_K)
 		f->live.offset.real += MOVE * f->init.zoom \
@@ -61,8 +57,8 @@ int	keyboard(int key, t_frtl *f)
 		f->live.itr += 20;
 	else if (key == MINUS_K && f->live.itr > 20)
 		f->live.itr -= 20;
-	else
-		return (keyboard_plus(key, f));
+	else if (!keyboard_plus(key, f))
+		return (0);
 	if (f->opt >> 5 & 1)
 		return (!++f->lock);
 	return (fill_win(f));
@@ -70,7 +66,7 @@ int	keyboard(int key, t_frtl *f)
 
 int	mouse(int key, int x, int y, t_frtl *f)
 {
-	if (!(f->opt >> 5 & 1) && f->lock)
+	if (f->opt >> 5 ^ 1 && f->lock)
 		return (0);
 	coords(f, pxl(x, y));
 	if (key == 2)
