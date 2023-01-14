@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// window manegamnt
-// Funky colors (modulos and powers)
+// review leaks
 
 #include "fractol.h"
 

@@ -26,27 +26,6 @@ t_cx	zoom(t_frtl *f, int key, t_px px)
 	return (f->cx);
 }
 
-int	move(int key, int x, int y, t_frtl *f)
-{
-	t_cx	from;
-	t_cx	to;
-	
-	if (!(f->opt >> 5 & 1) && f->lock)
-		return (0);
-	if (key == 1 || key == 2)
-		return (0);
-	from = f->cx;
-	coords(f, pxl(x, y));
-	to = f->cx;
-	if (key != 3)
-		to = zoom(f, key, pxl(x, y));
-	f->live.offset.real -= to.real - from.real;
-	f->live.offset.imag -= to.imag - from.imag;
-	if (f->opt >> 5 & 1)
-		return (!++f->lock);
-	return (fill_win(f));
-}
-
 t_cx	coords(t_frtl *f, t_px px)
 {
 	f->cx = cmplx((px.x - f->w_cntr.x) \
