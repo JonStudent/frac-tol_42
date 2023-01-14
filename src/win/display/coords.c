@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../../fractol.h"
 
 t_cx	zoom(t_frtl *f, int key, t_px px)
 {

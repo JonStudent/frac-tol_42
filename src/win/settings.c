@@ -12,35 +12,6 @@
 
 #include "../fractol.h"
 
-int	keyboard_plus(int key, t_frtl *f)
-{
-	if (key == N0_K || key == N1_K || key == N2_K)
-		f->img.clr = key;
-	else if (key == 'i')
-		f->opt ^= 1 << 0;
-	else if (key == 'u')
-		f->opt ^= 1 << 1;
-	else if (key == 'y')
-		f->opt ^= 1 << 2;
-	else if (key == 'a' && stats(f, key))
-		f->opt ^= 1 << 3;
-	else if (key == 'o')
-		f->opt ^= 1 << 4;
-	else if (key == 's' && stats(f, key))
-		f->opt ^= 1 << 5;
-	else if (key == 'r')
-		default_win(f);
-	else if (key == 'j')
-		return (child_win(f));
-	else if (key == ESC_K)
-		handle_error(f, NULL);
-	else
-		return (0);
-	if (f->opt >> 5 & 1)
-		return (!++f->lock);
-	return (fill_win(f));
-}
-
 void	*get_param(t_frtl *f, int i, int c, char **v)
 {
 	if (v[i][0] == 'j' || v[i][0] == 'J')
@@ -66,20 +37,50 @@ void	*get_param(t_frtl *f, int i, int c, char **v)
 	return (f->set);
 }
 
+void	default_win(t_frtl *f)
+{
+	if (!f->init.itr)
+		f->init.itr = 50;
+	if (!f->w_size.x || !f->w_size.y)
+		f->w_size = pxl(WIDTH, HEIGHT);
+	if (!f->init.zoom)
+		f->init.zoom = PP_CM * (f->w_size.y / 350.0);
+	if (!f->img.hsv.imag)
+		f->img.hsv.imag = 360;
+	f->img.hsv.imag -= f->img.hsv.real;
+	f->live.cx_j = f->init.cx_j;
+	f->live.itr = f->init.itr;
+	f->live.zoom = f->init.zoom;
+	f->live.offset = f->init.offset;
+	f->w_cntr = pxl(f->w_size.x / 2, f->w_size.y / 2);
+}
+
 void	handle_error(t_frtl *f, char *cause)
 {
 	if (cause)
 		perror(cause);
-	if (!f->set)
-		ft_printf(WLC"\n"MAN);
 	if (f->win)
 		win_close(f);
 	win_close(f->parent);
 	if (f->mlx)
 		mlx_destroy_display(f->mlx);
 	free(f->mlx);
-	ft_printf(BYE);
+	if (!f->set)
+		ft_printf(WLC"\n"MAN);
+	else
+		ft_printf(BYE);
 	exit(0);
+}
+
+int	child_win(t_frtl *f)
+{
+	if (f->child && f->child->win)
+		return (win_close(f->child));
+	else if (f->child)
+		create_win(f->child, f->mlx, f);
+	else
+		return (win_close(f));
+	return (0);
 }
 
 void	create_win(t_frtl *child, void *mlx, t_frtl *parent)

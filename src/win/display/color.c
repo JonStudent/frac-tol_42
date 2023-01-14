@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../../fractol.h"
 
 static long	hsv2rgb(double h, double s, double v)
 {

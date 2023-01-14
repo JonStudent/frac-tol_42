@@ -21,17 +21,6 @@ void	pixel_to_img(t_frtl *f, t_px px, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	child_win(t_frtl *f)
-{
-	if (f->child && f->child->win)
-		return (win_close(f->child));
-	else if (f->child)
-		create_win(f->child, f->mlx, f);
-	else
-		return (win_close(f));
-	return (0);
-}
-
 int	win_close(t_frtl *f)
 {
 	if (!f)
@@ -61,25 +50,8 @@ void	init_win(t_frtl *f)
 	f->img.addr = mlx_get_data_addr(f->img.img, \
 	&f->img.bits_per_pixel, &f->img.line_len, &f->img.endian);
 	mlx_key_hook(f->win, keyboard, f);
-	mlx_expose_hook(f->win, expose, f);
 	mlx_mouse_hook(f->win, mouse, f);
+	mlx_expose_hook(f->win, expose, f);
+	mlx_hook(f->win, 06, (1L << 8), dance, f);
 	mlx_hook(f->win, 33, (1L << 5), win_close, f);
-}
-
-void	default_win(t_frtl *f)
-{
-	if (!f->init.itr)
-		f->init.itr = 50;
-	if (!f->w_size.x || !f->w_size.y)
-		f->w_size = pxl(WIDTH, HEIGHT);
-	if (!f->init.zoom)
-		f->init.zoom = PP_CM * (f->w_size.y / 350.0);
-	if (!f->img.hsv.imag)
-		f->img.hsv.imag = 360;
-	f->img.hsv.imag -= f->img.hsv.real;
-	f->live.cx_j = f->init.cx_j;
-	f->live.itr = f->init.itr;
-	f->live.zoom = f->init.zoom;
-	f->live.offset = f->init.offset;
-	f->w_cntr = pxl(f->w_size.x / 2, f->w_size.y / 2);
 }

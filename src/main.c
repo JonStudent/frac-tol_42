@@ -22,11 +22,10 @@ int	main(int argc, char **argv)
 
 	if (argc < 2 || !get_param(&parent, 1, argc, argv))
 		handle_error(&parent, NULL);
+	ft_printf(WLC"\n"INST);
 	parent.child = &child;
 	child.parent = &parent;
 	create_win(&parent, mlx_init(), &parent);
-	ft_printf(WLC"\n"INST);
 	mlx_loop_hook(parent.mlx, wait, &parent);
-	mlx_hook(parent.win, 06, (1L << 8), dance, &parent);
 	mlx_loop(parent.mlx);
 }
