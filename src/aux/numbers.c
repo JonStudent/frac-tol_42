@@ -56,10 +56,9 @@ int	stats(t_frtl *f, char s)
 		return (ft_printf("Auto Mode: "GN"ON"RT));
 	else if (s == 'a')
 		return (ft_printf("Auto Mode: "RD"OFF"RT));
-	if (f->live.zoom / PP_CM > (unsigned)-1)
-		ft_printf("Zoom: "RD"%s "RT, TOBIG);
-	else
-		ft_printf("Zoom: "GN"%u "RT, f->live.zoom / PP_CM);
+	if (ft_printf("Zoom: ") && f->live.zoom / PP_CM > (unsigned)-1)
+		ft_printf(GN"%u"RT, (f->live.zoom / PP_CM) / 1000000000);
+	ft_printf(GN"%u \n"RT, (f->live.zoom / PP_CM) % 1000000000);
 	print_coords(f->cx);
 	return (ft_printf("\nMax Iterations: "YL"%u\n"RT, f->live.itr));
 }
