@@ -46,9 +46,10 @@ void	default_win(t_frtl *f)
 		f->w_size = pxl(WIDTH, HEIGHT);
 	if (!f->init.zoom)
 		f->init.zoom = PP_CM * (f->w_size.y / 350.0);
-	if (!f->img.hsv.imag)
+	if (!f->img.hsv.real && !f->img.hsv.imag)
 		f->img.hsv.imag = 360;
-	f->img.hsv.imag -= f->img.hsv.real;
+	if (!f->img.hsv_dif)
+		f->img.hsv_dif = f->img.hsv.imag - f->img.hsv.real;
 	f->live.cx_j = f->init.cx_j;
 	f->live.itr = f->init.itr;
 	f->live.zoom = f->init.zoom;

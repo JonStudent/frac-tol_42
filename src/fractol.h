@@ -130,6 +130,7 @@ typedef struct s_img {
 	int		bits_per_pixel;
 	int		endian;
 	int		clr;
+	double	hsv_dif;
 	t_cx	hsv;
 }	t_img;
 
