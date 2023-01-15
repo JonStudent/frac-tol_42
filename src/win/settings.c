@@ -16,7 +16,8 @@ void	*get_param(t_frtl *f, int i, int c, char **v)
 {
 	if (v[i][0] == 'j' || v[i][0] == 'J')
 		f->set = julia;
-	if ((v[i][0] == 'j' || v[i][0] == 'J') && i + 2 < c)
+	if ((v[i][0] == 'j' || v[i][0] == 'J') && i + 2 < c \
+		&& v[i + 1][1] >= '0' && v[i + 1][1] <= '9')
 		f->init.cx_j = cmplx(atod(v[i + 1]), atod(v[i + 2]));
 	else if (v[i][0] == 'm' || v[i][0] == 'M')
 		f->set = mandelbrot;
@@ -93,7 +94,7 @@ void	create_win(t_frtl *child, void *mlx, t_frtl *parent)
 	else if (child->set == mandelbrot)
 		child->title = "Mandelbrot";
 	else if (child->set == burning_ship)
-		child->title = "Burning_Ship";
+		child->title = "Burning Ship";
 	if (child->parent)
 		child->init.cx_j = child->live.cx_j;
 	default_win(child);

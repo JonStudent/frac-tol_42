@@ -16,8 +16,6 @@
 # include <mlx.h>
 # include <math.h>
 # include <libft.h>
-# include <stdio.h>
-# include <unistd.h>
 
 # define WIDTH 600
 # define HEIGHT 600
