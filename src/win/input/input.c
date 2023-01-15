@@ -28,6 +28,8 @@ int	keyboard_plus(int key, t_frtl *f)
 		f->opt ^= 1 << 4;
 	else if (key == 's' && stats(f, key))
 		f->opt ^= 1 << 5;
+	else if (key == 'b')
+		f->opt ^= 1 << 6;
 	else if (key == 'r')
 		default_win(f);
 	else if (key == 'j')
