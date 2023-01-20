@@ -1,5 +1,5 @@
 
-NAME = fract-ol
+NAME = fractol
 
 SRC = src/main.c src/win/mlx.c src/display/coords.c src/win/settings.c \
 	  src/aux/numbers.c src/display/color.c src/input/hooks.c src/input/input.c \
