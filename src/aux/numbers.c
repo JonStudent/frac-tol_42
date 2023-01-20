@@ -48,7 +48,7 @@ int	verify(t_frtl *f, char **v)
 	if (v[0][1] == 'c' && (atod(v[1]) < 0 || atod(v[1]) > 360 \
 		|| atod(v[2]) < 0 || atod(v[2]) > 360))
 		exit_win(f, "@");
-	if (v[0][1] == 'w' && (atod(v[1]) < 1 || atod(v[2]) < 1))
+	if (v[0][1] == 'w' && (atod(v[1]) < 200 || atod(v[2]) < 200))
 		exit_win(f, "@");
 	return (1);
 }
