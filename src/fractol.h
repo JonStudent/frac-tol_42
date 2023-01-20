@@ -17,8 +17,8 @@
 # include <math.h>
 # include <libft.h>
 
-# define WIDTH 600
-# define HEIGHT 600
+# define WIDTH 900
+# define HEIGHT 900
 # define PP_CM 86
 # define MOVE 0.5
 
