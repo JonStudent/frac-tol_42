@@ -58,9 +58,9 @@ int	keyboard(int key, t_frtl *f)
 		f->live.offset.imag -= MOVE * f->init.zoom \
 		/ f->live.zoom;
 	else if (key == PLUS_K)
-		f->live.itr += 20;
-	else if (key == MINUS_K && f->live.itr > 20)
-		f->live.itr -= 20;
+		f->live.itr += 10;
+	else if (key == MINUS_K && f->live.itr > 10)
+		f->live.itr -= 10;
 	else if (!keyboard_plus(key, f))
 		return (0);
 	if (f->opt >> 5 & 1)

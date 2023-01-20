@@ -44,7 +44,7 @@
 # define WLC "\n\n\n\t\t\t\x1B[36mFract-ol Manual\x1B[0m\n\n\
 \tWelcome to my little fractals exploratian program!\x1B[34m\n\n"
 
-# define BYE "\x1B[36m\n\n\n\t\t\tBye, hope you enjoyed it\x1B[0m :)\n\n"
+# define BYE "\n\n\n\t\t\t\x1B[36mBye, hope you enjoyed it\x1B[0m :)\n\n"
 
 # define TOBIG "N/A - (reached long size number)"
 
@@ -63,28 +63,28 @@ DESCRIPTION\x1B[0m\n\nAll the \x1B[32m<\x1B[0m...\x1B[32m>\
 \t\x1B[33mOPTIONS\x1B[0m\n\
 \t(case \x1B[31msensitive\x1B[0m)\n\n\
 \t-\x1B[33mz\x1B[0m \x1B[32m<\x1B[0minitial zoom\x1B[32m>\x1B[0m\
-\tSelect initial zoom to be rendered.\n\
+\tSelect initial zoom to be rendered (Must be positive).\n\
 \t-\x1B[33mo\x1B[0m \x1B[32m<\x1B[0mreal\x1B[32m>\x1B[0m \x1B[32m<\x1B[0mimag\
 \x1B[32m>\x1B[0m\tSelect origin Point. \
 Set will be centered at that coordinate.\n\
 \t\t\t\t(Complex numbers act as coordinates in the complex plane)\n\
 \t-\x1B[33mi\x1B[0m \x1B[32m<\x1B[0mmax iteration\x1B[32m>\x1B[0m\
-\tSelect starting Max Iteration.\n\
+\tSelect starting Max Iteration (Must be positive).\n\
 \t\t\t\t(Maximum number of times the different equations will run,\n\
 \t\t\t\tif not escaping to infinity).\n\
 \t-\x1B[33mw\x1B[0m \x1B[32m<\x1B[0mWITDH\x1B[32m>\x1B[0m \
-\x1B[32m<\x1B[0mHEIGHT\x1B[32m>\x1B[0m\tSelect Window Size.\n\
+\x1B[32m<\x1B[0mHEIGHT\x1B[32m>\x1B[0m\tSelect Window Size (Must be positive).\n\
 \t-\x1B[33mc\x1B[0m \x1B[32m<\x1B[0mbegin\x1B[32m>\x1B[0m \
 \x1B[32m<\x1B[0mend\x1B[32m>\x1B[0m\tSelect color spectrum.\n\
-\t\t\t\tUse two HSV values (from 0 to 360) to select a color range.\n\n"
+\t\t\t\tUse two HSV values (from 0 to 360 inclusive) to select a color range.\n\n"
 
-# define INST "\x1B[34mINSTRUCTIONS\x1B[0m\n\n\
+# define INST "\x1B[34mINSTRUCTIONS\x1B[0m\n\n\n\
 Use both \x1B[32mKeyboard\x1B[0m and \x1B[31mMouse\x1B[0m\n\
 to control exploration:\n\n\
 \t\x1B[32mKEYBOARD\x1B[0m\n\n\
-\t\t-\x1B[34mArrows\x1B[0m\t\tMove 0.5cm proportional to zoom.\n\
-\t\t-\x1B[34m+\x1B[0m\t\tIncrease MaxIteration by 20%%.\n\
-\t\t-\x1B[34m-\x1B[0m\t\tDecrease MaxIteration by 20%%.\n\
+\t\t-\x1B[34mArrows\x1B[0m\t\tMove around (proportional to zoom).\n\
+\t\t-\x1B[34m+\x1B[0m\t\tIncrease MaxIteration by 10.\n\
+\t\t-\x1B[34m-\x1B[0m\t\tDecrease MaxIteration by 10.\n\
 \t\t-\x1B[34ms\x1B[0m\t\tToggle Safety \
 (allow multiple commands between frames).\n\
 \t\t-\x1B[34ma\x1B[0m\t\tToggle Auto Mode - \
@@ -101,10 +101,10 @@ Tries to adjust Max_Iterations at each zoom\n\
 \n\t\x1B[31mMOUSE\x1B[0m\n\n\
 \t\t\x1B[34mLeft-Click\x1B[0m\tSend selected point to Julia window\n\
 \t\t\t\t(Continuous press Supporded).\n\
-\t\t\x1B[34mRight-Click\x1B[0m\tCenter window on selected point.\n\
+\t\t\x1B[34mRight-Click\x1B[0m\tDrag window around.\n\
 \t\t\x1B[34mWheel\x1B[0m\t\tZoom in/out at mouse position.\n\
-\t\t\x1B[34mMiddle-Click\x1B[0m\tSee statistics for selected point.\n\
-\x1B[36m\n\t\t\tGo get it !!\x1B[0m\n\n"
+\t\t\x1B[34mMiddle-Click\x1B[0m\tSee info for selected point.\
+\n\n\n\t\t\t\x1B[36mGo get it !!\x1B[0m\n\n"
 
 typedef struct s_px {
 	int	x;
