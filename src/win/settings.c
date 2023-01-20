@@ -12,6 +12,20 @@
 
 #include "../fractol.h"
 
+static int	verify(t_frtl *f, char **v)
+{
+	if (!isnum(v[1]) || (v[0][1] != 'i' && v[0][1] != 'z' && !isnum(v[2])))
+		exit_win(f, "@");
+	if ((v[0][1] == 'i' || v[0][1] == 'z') && atod(v[1]) < 1)
+		exit_win(f, "@");
+	if (v[0][1] == 'c' && (atod(v[1]) < 0 || atod(v[1]) > 360 \
+		|| atod(v[2]) < 0 || atod(v[2]) > 360))
+		exit_win(f, "@");
+	if (v[0][1] == 'w' && (atod(v[1]) < 200 || atod(v[2]) < 200))
+		exit_win(f, "@");
+	return (1);
+}
+
 void	*get_param(t_frtl *f, char **v)
 {
 	if (v[0][0] == 'j' || v[0][0] == 'J')
@@ -47,7 +61,7 @@ void	default_win(t_frtl *f)
 	if (!f->init.zoom)
 		f->init.zoom = PP_CM * (f->w_size.y / 350.0);
 	if (!f->img.hsv.begin && !f->img.hsv.end)
-		f->img.hsv.end= 360;
+		f->img.hsv.end = 360;
 	if (!f->img.hsv.diff)
 		f->img.hsv.diff = f->img.hsv.end - f->img.hsv.begin;
 	f->live.cx_j = f->init.cx_j;
@@ -65,23 +79,6 @@ void	child_win(t_frtl *f)
 		create_win(f->child, f->mlx, f);
 	else
 		win_close(f);
-}
-
-void	exit_win(t_frtl *f, char *cause)
-{
-	if (f->win)
-		win_close(f);
-	win_close(f->parent);
-	if (f->mlx)
-		mlx_destroy_display(f->mlx);
-	free(f->mlx);
-	if (cause && *cause == '@')
-		ft_printf(WLC"\n"MAN);
-	else if (cause)
-		perror(cause);
-	else
-		ft_printf(BYE);
-	exit(0);
 }
 
 void	create_win(t_frtl *child, void *mlx, t_frtl *parent)

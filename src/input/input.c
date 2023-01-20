@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../fractol.h"
+#include "../fractol.h"
 
 int	keyboard_plus(int key, t_frtl *f)
 {
@@ -22,11 +22,11 @@ int	keyboard_plus(int key, t_frtl *f)
 		f->opt ^= 1 << 1;
 	else if (key == 'y')
 		f->opt ^= 1 << 2;
-	else if (key == 'a' && stats(f, key))
+	else if (key == 'a' && info(f, key))
 		f->opt ^= 1 << 3;
 	else if (key == 'o')
 		f->opt ^= 1 << 4;
-	else if (key == 's' && stats(f, key))
+	else if (key == 's' && info(f, key))
 		f->opt ^= 1 << 5;
 	else if (key == 'b')
 		f->opt ^= 1 << 6;
@@ -73,7 +73,7 @@ int	mouse_press(int key, int x, int y, t_frtl *f)
 	if (f->opt >> 5 ^ 1 && f->lock)
 		return (0);
 	coords(f, pxl(x, y));
-	if ((key == 2 && stats(f, 0)) || !f->child || key != 1)
+	if ((key == 2 && info(f, 0)) || !f->child || key != 1)
 		return (0);
 	f->live.cx_j = f->cx;
 	f->child->live.cx_j = f->cx;

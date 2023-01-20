@@ -37,6 +37,23 @@ int	win_close(t_frtl *f)
 	return (0);
 }
 
+void	exit_win(t_frtl *f, char *cause)
+{
+	if (f->win)
+		win_close(f);
+	win_close(f->parent);
+	if (f->mlx)
+		mlx_destroy_display(f->mlx);
+	free(f->mlx);
+	if (cause && *cause == '@')
+		ft_printf(WLC"\n"MAN);
+	else if (cause)
+		perror(cause);
+	else
+		ft_printf(BYE);
+	exit(0);
+}
+
 void	init_win(t_frtl *f)
 {
 	f->win = mlx_new_window(f->mlx, f->w_size.x, \

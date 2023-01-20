@@ -184,12 +184,11 @@ t_cx		coords(t_frtl *f, t_px px);
 t_px		pxl(int a, int b);
 t_cx		cmplx(long double a, long double b);
 t_hvs		hvss(long double a, long double b);
-int			verify(t_frtl *f, char **v);
 int			isnum(const char *s);
 long double	atod(const char *s);
 
 //  Window Management Functions
-int			stats(t_frtl *f, char s);
+int			info(t_frtl *f, char s);
 int			win_close(t_frtl *f);
 void		child_win(t_frtl *f);
 void		init_win(t_frtl *f);

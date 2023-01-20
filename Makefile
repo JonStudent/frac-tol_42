@@ -1,8 +1,8 @@
 
 NAME = fract-ol
 
-SRC = src/main.c src/win/mlx.c src/win/display/coords.c src/win/settings.c \
-	  src/aux/numbers.c src/win/display/color.c src/win/input/hooks.c src/win/input/input.c \
+SRC = src/main.c src/win/mlx.c src/display/coords.c src/win/settings.c \
+	  src/aux/numbers.c src/display/color.c src/input/hooks.c src/input/input.c \
 	  src/sets/mandelbrot.c src/sets/julia.c src/sets/burning_ship.c
 
 OBJ = $(SRC:.c=.o)

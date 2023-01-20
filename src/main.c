@@ -19,12 +19,10 @@ int	main(int argc, char **argv)
 
 	if (argc < 2 || !get_param(&parent, argv))
 		exit_win(&parent, "@");
-	ft_printf(WLC"\n"INST);
 	parent.child = &child;
 	child.parent = &parent;
+	ft_printf(WLC"\n"INST);
 	create_win(&parent, mlx_init(), &parent);
-
-
 	mlx_loop_hook(parent.mlx, wait, &parent);
 	mlx_loop(parent.mlx);
 }
