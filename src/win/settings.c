@@ -12,29 +12,29 @@
 
 #include "../fractol.h"
 
-void	*get_param(t_frtl *f, int i, int c, char **v)
+void	*get_param(t_frtl *f, char **v)
 {
-	if (v[i][0] == 'j' || v[i][0] == 'J')
+	if (v[0][0] == 'j' || v[0][0] == 'J')
 		f->set = julia;
-	if ((v[i][0] == 'j' || v[i][0] == 'J') && i + 2 < c \
-		&& v[i + 1][1] >= '0' && v[i + 1][1] <= '9')
-		f->init.cx_j = cmplx(atod(v[i + 1]), atod(v[i + 2]));
-	else if (v[i][0] == 'm' || v[i][0] == 'M')
+	if ((v[0][0] == 'j' || v[0][0] == 'J') \
+		&& isnum(v[1]) && isnum(v[2]))
+		f->init.cx_j = cmplx(atod(v[1]), atod(v[2]));
+	else if (v[0][0] == 'm' || v[0][0] == 'M')
 		f->set = mandelbrot;
-	else if (v[i][0] == 'b' || v[i][0] == 'B')
+	else if (v[0][0] == 'b' || v[0][0] == 'B')
 		f->set = burning_ship;
-	else if (v[i][0] == '-' && (v[i][1] == 'i' && i + 1 < c))
-		f->init.itr = atod(v[i + 1]);
-	else if (v[i][0] == '-' && (v[i][1] == 'z' && i + 1 < c))
-		f->init.zoom = atod(v[i + 1]) * PP_CM;
-	else if (v[i][0] == '-' && (v[i][1] == 'c' && i + 2 < c))
-		f->img.hsv = cmplx(atod(v[i + 1]), atod(v[i + 2]));
-	else if (v[i][0] == '-' && (v[i][1] == 'w' && i + 2 < c))
-		f->w_size = pxl(atod(v[i + 1]), atod(v[i + 2]));
-	else if (v[i][0] == '-' && (v[i][1] == 'o' && i + 2 < c))
-		f->init.offset = cmplx(atod(v[i + 1]), atod(v[i + 2]));
-	if (++i < c)
-		get_param(f, i, c, v);
+	else if (v[0][0] == '-' && v[0][1] == 'i' && verify(f, v))
+		f->init.itr = atod(v[1]);
+	else if (v[0][0] == '-' && v[0][1] == 'z' && verify(f, v))
+		f->init.zoom = atod(v[1]) * PP_CM;
+	else if (v[0][0] == '-' && v[0][1] == 'c' && verify(f, v))
+		f->img.hsv = hvss(atod(v[1]), atod(v[2]));
+	else if (v[0][0] == '-' && v[0][1] == 'w' && verify(f, v))
+		f->w_size = pxl(atod(v[1]), atod(v[2]));
+	else if (v[0][0] == '-' && v[0][1] == 'o' && verify(f, v))
+		f->init.offset = cmplx(atod(v[1]), atod(v[2]));
+	if (*++v)
+		get_param(f, v);
 	return (f->set);
 }
 
@@ -46,10 +46,10 @@ void	default_win(t_frtl *f)
 		f->w_size = pxl(WIDTH, HEIGHT);
 	if (!f->init.zoom)
 		f->init.zoom = PP_CM * (f->w_size.y / 350.0);
-	if (!f->img.hsv.real && !f->img.hsv.imag)
-		f->img.hsv.imag = 360;
-	if (!f->img.hsv_dif)
-		f->img.hsv_dif = f->img.hsv.imag - f->img.hsv.real;
+	if (!f->img.hsv.begin && !f->img.hsv.end)
+		f->img.hsv.end= 360;
+	if (!f->img.hsv.diff)
+		f->img.hsv.diff = f->img.hsv.end - f->img.hsv.begin;
 	f->live.cx_j = f->init.cx_j;
 	f->live.itr = f->init.itr;
 	f->live.zoom = f->init.zoom;
@@ -69,16 +69,16 @@ void	child_win(t_frtl *f)
 
 void	exit_win(t_frtl *f, char *cause)
 {
-	if (cause)
-		perror(cause);
 	if (f->win)
 		win_close(f);
 	win_close(f->parent);
 	if (f->mlx)
 		mlx_destroy_display(f->mlx);
 	free(f->mlx);
-	if (!f->set)
+	if (cause && *cause == '@')
 		ft_printf(WLC"\n"MAN);
+	else if (cause)
+		perror(cause);
 	else
 		ft_printf(BYE);
 	exit(0);

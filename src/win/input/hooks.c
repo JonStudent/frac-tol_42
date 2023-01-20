@@ -21,7 +21,7 @@ int	expose(t_frtl *f)
 	return (0);
 }
 
-int	dance(int x, int y, t_frtl *f)
+int	bridge(int x, int y, t_frtl *f)
 {
 	return (mouse_press(1, x, y, f));
 }

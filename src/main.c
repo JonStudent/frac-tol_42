@@ -17,12 +17,14 @@ int	main(int argc, char **argv)
 	static t_frtl	parent;
 	static t_frtl	child;
 
-	if (argc < 2 || !get_param(&parent, 1, argc, argv))
-		exit_win(&parent, NULL);
+	if (argc < 2 || !get_param(&parent, argv))
+		exit_win(&parent, "@");
 	ft_printf(WLC"\n"INST);
 	parent.child = &child;
 	child.parent = &parent;
 	create_win(&parent, mlx_init(), &parent);
+
+
 	mlx_loop_hook(parent.mlx, wait, &parent);
 	mlx_loop(parent.mlx);
 }

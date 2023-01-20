@@ -53,6 +53,6 @@ void	init_win(t_frtl *f)
 	mlx_hook(f->win, 04, (1L << 2), mouse_press, f);
 	mlx_hook(f->win, 05, (1L << 3), mouse_release, f);
 	mlx_expose_hook(f->win, expose, f);
-	mlx_hook(f->win, 06, (1L << 8), dance, f);
+	mlx_hook(f->win, 06, (1L << 8), bridge, f);
 	mlx_hook(f->win, 33, (1L << 5), win_close, f);
 }

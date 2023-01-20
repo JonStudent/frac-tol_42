@@ -116,6 +116,12 @@ typedef struct s_cx {
 	long double	imag;
 }	t_cx;
 
+typedef struct s_hvs {
+	double	begin;
+	double	end;
+	double	diff;
+}	t_hvs;
+
 typedef struct s_val {
 	long	itr;
 	long	zoom;
@@ -130,8 +136,7 @@ typedef struct s_img {
 	int		bits_per_pixel;
 	int		endian;
 	int		clr;
-	double	hsv_dif;
-	t_cx	hsv;
+	t_hvs	hsv;
 }	t_img;
 
 //Main  struct
@@ -160,7 +165,7 @@ int			keyboard(int key, t_frtl *f);
 int			keyboard_plus(int key, t_frtl *f);
 int			mouse_press(int key, int x, int y, t_frtl *f);
 int			wait(t_frtl *f);
-int			dance(int x, int y, t_frtl *f);
+int			bridge(int x, int y, t_frtl *f);
 int			expose(t_frtl *f);
 
 // Set Functions
@@ -178,6 +183,9 @@ t_cx		coords(t_frtl *f, t_px px);
 // Numeric Functions Functions
 t_px		pxl(int a, int b);
 t_cx		cmplx(long double a, long double b);
+t_hvs		hvss(long double a, long double b);
+int			verify(t_frtl *f, char **v);
+int			isnum(const char *s);
 long double	atod(const char *s);
 
 //  Window Management Functions
@@ -189,5 +197,5 @@ void		default_win(t_frtl *f);
 void		exit_win(t_frtl *f, char *cause);
 void		pixel_to_img(t_frtl *f, t_px px, int color);
 void		create_win(t_frtl *frtl_c, void *mlx, t_frtl *frtl_p);
-void		*get_param(t_frtl *f, int i, int c, char **v);
+void		*get_param(t_frtl *f, char **v);
 #endif

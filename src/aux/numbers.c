@@ -30,6 +30,44 @@ t_px	pxl(int a, int b)
 	return (p);
 }
 
+t_hvs	hvss(long double a, long double b)
+{
+	t_hvs	hvs;
+
+	hvs.begin = a;
+	hvs.end = b;
+	return (hvs);
+}
+
+int	verify(t_frtl *f, char **v)
+{
+	if (!isnum(v[1]) || (v[0][1] != 'i' && v[0][1] != 'z' && !isnum(v[2])))
+		exit_win(f, "@");
+	if ((v[0][1] == 'i' || v[0][1] == 'z') && atod(v[1]) < 1)
+		exit_win(f, "@");
+	if (v[0][1] == 'c' && (atod(v[1]) < 0 || atod(v[1]) > 360 \
+		|| atod(v[2]) < 0 || atod(v[2]) > 360))
+		exit_win(f, "@");
+	if (v[0][1] == 'w' && (atod(v[1]) < 1 || atod(v[2]) < 1))
+		exit_win(f, "@");
+	return (1);
+}
+
+int isnum(const char *s)
+{
+	if (!s)
+		return (0);
+	while ((*s >= 9 && *s <= 13) || *s == 32)
+		s++;
+	if (*s == '-' || *s == '+')
+		s++;
+	if (*s == '.')
+		s++;
+	if (*s >= '0' && *s <= '9')
+		return (1);
+	return (0);
+}
+
 static void	print_coords(t_cx crd)
 {
 	t_cx	dec;
