@@ -18,8 +18,6 @@ static long	hsv2rgb(double h, double s, double v)
 	double	m;
 	double	z;
 
-	if (h < 0 || h > 360)
-		h = 0;
 	c = 255 * v;
 	m = c * (1 - s);
 	z = (c - m) * (1 - fabs(fmod(h / 60, 2) - 1));
@@ -61,24 +59,22 @@ static void	hsv_scale(t_frtl *f, double itr)
 	pixel_to_img(f, f->px, rgb);
 }
 
-void	color(double itr, t_frtl *f)
+void	color(long itr, t_frtl *f)
 {
-	if (f->opt >> 6 ^ 1)
-		itr /= f->live.itr;
-	else
-	{
-		itr += 1 - log(log2(pow(f->cx.real, 2.0) + pow(f->cx.imag, 2.0)));
-		itr /= f->live.itr + (1 - log(log2(pow(f->cx.real, 2.0) + pow(f->cx.imag, 2.0))));
+	double	smooth;
 
-	}
+	smooth = 0;
+	if (f->opt >> 6 & 1 && itr && f->live.itr != itr)
+		smooth = 1 - log(log2(pow(f->cx.real, 2.0) + pow(f->cx.imag, 2.0)));
+	smooth = (itr + smooth) / (f->live.itr + smooth);
 	if (f->opt >> 1 & 1)
-		itr = pow(itr, 2);
+		smooth = pow(smooth, 2);
 	if (f->opt >> 2 & 1)
-		itr = sqrt(itr);
+		smooth = sqrt(smooth);
 	if (f->opt & 1)
-		itr = 1 - itr;
+		smooth = 1 - smooth;
 	if (!f->img.clr || f->img.clr == N1_K)
-		hsv_scale(f, itr);
+		hsv_scale(f, smooth);
 	if (f->img.clr == N0_K)
-		black_white(f, itr);
+		black_white(f, smooth);
 }
