@@ -64,7 +64,7 @@ void	color(long itr, t_frtl *f)
 	double	smooth;
 
 	smooth = 0;
-	if (f->opt >> 6 & 1 && itr && f->live.itr != itr)
+	if (f->opt >> 5 & 1 && itr && f->live.itr != itr)
 		smooth = 1 - log(log2(pow(f->cx.real, 2.0) + pow(f->cx.imag, 2.0)));
 	smooth = (itr + smooth) / (f->live.itr + smooth);
 	if (f->opt >> 1 & 1)

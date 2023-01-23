@@ -14,11 +14,7 @@
 
 int	expose(t_frtl *f)
 {
-	if (f->opt >> 5 & 1)
-		return (!++f->lock);
-	else if (!f->lock)
-		return (fill_win(f));
-	return (0);
+	return (!++f->lock);
 }
 
 int	bridge(int x, int y, t_frtl *f)
@@ -28,9 +24,9 @@ int	bridge(int x, int y, t_frtl *f)
 
 int	wait(t_frtl *f)
 {
-	if (f->opt >> 5 & 1 && f->lock)
+	if (f->lock)
 		fill_win(f);
-	if ((f->opt >> 5 & 1 || f->child->opt >> 5 & 1) && f->child->lock)
+	if (f->child->lock)
 		fill_win(f->child);
 	f->lock = 0;
 	f->child->lock = 0;

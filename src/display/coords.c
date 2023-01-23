@@ -41,8 +41,6 @@ int	fill_win(t_frtl *f)
 {
 	if (!f || !f->win)
 		return (0);
-	if (!(f->opt >> 5 & 1))
-		f->lock++;
 	ft_printf("\nRendring %s...", f->title);
 	f->px.y = -1;
 	while (++f->px.y < f->w_size.y)
@@ -74,11 +72,7 @@ static void	print_coords(t_cx crd)
 int	info(t_frtl *f, char s)
 {
 	ft_printf("\n%s's ", f->title);
-	if (s == 's' && f->opt >> 5 & 1)
-		return (ft_printf("Safety: "GN"ON"RT));
-	else if (s == 's')
-		return (ft_printf("Safety: "RD"OFF"RT));
-	if (s == 'a' && f->opt >> 3 ^ 1)
+	if (s == 'a' && !(f->opt >> 3 & 1))
 		return (ft_printf("Auto Mode: "GN"ON"RT));
 	else if (s == 'a')
 		return (ft_printf("Auto Mode: "RD"OFF"RT));
